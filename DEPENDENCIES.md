@@ -21,6 +21,10 @@
 | `networkmanager` | Network management | Yes |
 | `bluez` | Bluetooth daemon | Yes |
 | `bluez-utils` | Bluetooth utilities (`bluetoothctl`) | Yes |
+| `blueman` | Bluetooth GUI | Yes |
+| `playerctl` | Media player control | Yes |
+| `brightnessctl` | Brightness control | Yes |
+| `upower` | Power/battery management | Yes |
 
 ## Optional Packages
 

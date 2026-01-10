@@ -1,0 +1,91 @@
+# Niri Dots - Git Ignore File
+
+# Backup files
+*.backup.*
+*.bak
+*~
+
+# Sensitive data
+.env
+.env.local
+*.key
+*.pem
+credentials.*
+
+# System files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+*.sublime-*
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Screenshots (but keep the directory)
+*.png
+*.jpg
+*.jpeg
+!screenshots/.gitkeep
+Pictures/Screenshots/
+
+# Cache
+.cache/
+__pycache__/
+*.pyc
+
+# Local config overrides (user-specific)
+.config/niri/config.kdl.local
+.config/waybar/config.local
+.config/alacritty/alacritty.toml.local
+.config/fuzzel/fuzzel.ini.local
+
+# Compiled files
+*.o
+*.a
+*.so
+
+# HTML exports (accidental)
+*.html
+
+# Large binary files
+*.tar
+*.tar.gz
+*.tar.xz
+*.zip
+*.iso
+*.img
+
+# Node modules (if any tools use node)
+node_modules/
+
+# Go modules (if any tools use go)
+vendor/
+
+# Rust target (if any tools use rust)
+target/
+
+# Local builds
+build/
+dist/
+
+# Lock files (package managers except .git)
+yarn.lock
+package-lock.json
+Cargo.lock

@@ -41,6 +41,23 @@ tooltip label {
     background: rgba(18, 62, 124, 0.5);
 }
 
+#custom-media {
+    padding: 0 12px;
+    margin: 0 4px;
+    color: #0abdc6;
+    background: rgba(211, 0, 196, 0.3);
+    border-radius: 10px;
+    font-size: 11px;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#custom-media:hover {
+    background: rgba(211, 0, 196, 0.5);
+}
+
 #workspaces button.focused {
     color: #0abdc6;
     background: rgba(211, 0, 196, 0.4);
@@ -61,8 +78,6 @@ tooltip label {
 
 #cpu,
 #memory,
-#network,
-#bluetooth,
 #tray {
     padding: 0 12px;
     margin: 0 2px;
@@ -73,13 +88,48 @@ tooltip label {
 }
 
 #cpu:hover,
-#memory:hover,
-#network:hover,
-#bluetooth:hover {
+#memory:hover {
     background: rgba(18, 62, 124, 0.5);
     border-radius: 10px;
 }
 
 label {
     color: #0abdc6;
+}
+
+#battery,
+#network,
+#bluetooth,
+#custom-media {
+    padding: 0 12px;
+    margin: 0 2px;
+    color: #0abdc6;
+    background: rgba(0, 11, 30, 0.8);
+    border-radius: 10px;
+    transition: background 0.2s ease;
+}
+
+#battery.charging {
+    color: #7fc8ff;
+}
+
+#battery.warning:not(.charging) {
+    color: #ffc87f;
+}
+
+#battery.critical:not(.charging) {
+    color: #ff6b6b;
+}
+
+#custom-media {
+    background: rgba(211, 0, 196, 0.3);
+    font-size: 11px;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#custom-media:hover {
+    background: rgba(211, 0, 196, 0.5);
 }

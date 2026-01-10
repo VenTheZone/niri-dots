@@ -1,0 +1,24 @@
+#!/bin/bash
+echo "=== Waybar Debug Info ==="
+echo ""
+echo "Running processes:"
+pgrep -a waybar || echo "  No waybar running"
+echo ""
+echo "Config file:"
+test -f ~/.config/waybar/config && echo "  ✓ Found: ~/.config/waybar/config" || echo "  ✗ Missing: ~/.config/waybar/config"
+echo ""
+echo "Style file:"
+test -f ~/.config/waybar/style.css && echo "  ✓ Found: ~/.config/waybar/style.css" || echo "  ✗ Missing: ~/.config/waybar/style.css"
+echo ""
+echo "Symlinks:"
+readlink ~/.config/waybar/config || echo "  Not symlinked"
+readlink ~/.config/waybar/style.css || echo "  Not symlinked"
+echo ""
+echo "Testing config:"
+waybar --config ~/.config/waybar/config --validate 2>&1
+echo ""
+echo "Restarting waybar..."
+pkill waybar
+sleep 1
+waybar &
+echo "Done. Check if waybar appears now."

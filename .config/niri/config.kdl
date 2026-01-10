@@ -300,6 +300,15 @@ binds {
     Mod+3 hotkey-overlay-title="[WS3] workspace 3" { focus-workspace 3; }
     Mod+4 hotkey-overlay-title="[WS4] workspace 4" { focus-workspace 4; }
     Mod+5 hotkey-overlay-title="[WS5] workspace 5" { focus-workspace 5; }
+
+    // Move windows within workspace and between workspaces
+    // Using Ctrl pattern (better tested than Shift for move-column)
+    // Left/Right = move column position within workspace  
+    // Up/Down = move column between workspaces
+    Mod+Ctrl+Left hotkey-overlay-title="[MOVE] col left" { move-column-left; }
+    Mod+Ctrl+Right hotkey-overlay-title="[MOVE] col right" { move-column-right; }
+    Mod+Shift+Up hotkey-overlay-title="[MOVE] prev ws" { move-column-to-workspace-up; }
+    Mod+Shift+Down hotkey-overlay-title="[MOVE] next ws" { move-column-to-workspace-down; }
     
     // Layout
     Mod+F hotkey-overlay-title="[FULL] fullscreen" { fullscreen-window; }
@@ -349,14 +358,8 @@ Mod+Left  { focus-column-left; }
     Mod+K     { focus-window-up; }
     Mod+L     { focus-column-right; }
 
-    Mod+Ctrl+Left  { move-column-left; }
     Mod+Ctrl+Down  { move-window-down; }
     Mod+Ctrl+Up    { move-window-up; }
-    Mod+Ctrl+Right { move-column-right; }
-    Mod+Ctrl+H     { move-column-left; }
-    Mod+Ctrl+J     { move-window-down; }
-    Mod+Ctrl+K     { move-window-up; }
-    Mod+Ctrl+L     { move-column-right; }
 
     // Alternative commands that move across workspaces when reaching
     // the first or last window in a column.
@@ -365,19 +368,13 @@ Mod+Left  { focus-column-left; }
     // Mod+Ctrl+J     { move-window-down-or-to-workspace-down; }
     // Mod+Ctrl+K     { move-window-up-or-to-workspace-up; }
 
+    
     Mod+Home { focus-column-first; }
-    Mod+End  { focus-column-last; }
-    Mod+Ctrl+Home { move-column-to-first; }
-    Mod+Ctrl+End  { move-column-to-last; }
-
-    Mod+Shift+Left  { focus-monitor-left; }
-    Mod+Shift+Down  { focus-monitor-down; }
-    Mod+Shift+Up    { focus-monitor-up; }
-    Mod+Shift+Right { focus-monitor-right; }
-    Mod+Shift+H     { focus-monitor-left; }
-    Mod+Shift+J     { focus-monitor-down; }
-    Mod+Shift+K     { focus-monitor-up; }
-    Mod+Shift+L     { focus-monitor-right; }
+    // Monitor focus - use HJKL instead of arrows
+    Mod+Shift+H { focus-monitor-left; }
+    Mod+Shift+J { focus-monitor-down; }
+    Mod+Shift+K { focus-monitor-up; }
+    Mod+Shift+L { focus-monitor-right; }
 
     Mod+Shift+Ctrl+Left  { move-column-to-monitor-left; }
     Mod+Shift+Ctrl+Down  { move-column-to-monitor-down; }
@@ -433,9 +430,6 @@ Mod+Left  { focus-column-left; }
     // Usually scrolling up and down with Shift in applications results in
     // horizontal scrolling; these binds replicate that.
     Mod+Shift+WheelScrollDown      { focus-column-right; }
-    Mod+Shift+WheelScrollUp        { focus-column-left; }
-    Mod+Ctrl+Shift+WheelScrollDown { move-column-right; }
-    Mod+Ctrl+Shift+WheelScrollUp   { move-column-left; }
 
     // Similarly, you can bind touchpad scroll "ticks".
     // Touchpad scrolling is continuous, so for these binds it is split into
@@ -574,4 +568,4 @@ window-rule {
 prefer-no-csd
 
 // Add lines like this to spawn processes at startup
-spawn-at-startup "swaybg" "-i" "/home/JT/Downloads/Rap Musik.jpg" "-m" "fill"
+spawn-sh-at-startup "swaybg -i '/home/JT/Downloads/Rap Musik.jpg' -m fill"

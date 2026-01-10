@@ -1,0 +1,61 @@
+#!/bin/bash
+
+echo "=== Waybar Test Script ==="
+echo ""
+
+# Check if running in Wayland session
+if [ -z "$WAYLAND_DISPLAY" ]; then
+    echo "⚠️  Not running in a Wayland session!"
+    echo "   Run this script from within Niri (open terminal in Niri)"
+    exit 1
+fi
+
+echo "✓ Wayland display: $WAYLAND_DISPLAY"
+echo ""
+
+# Kill existing waybar
+if pgrep -x "waybar" > /dev/null; then
+    echo "→ Killing existing waybar process..."
+    pkill waybar
+    sleep 1
+fi
+
+# Check config files
+echo "Checking config files..."
+if [ ! -f ~/.config/waybar/config ]; then
+    echo "✗ Config not found: ~/.config/waybar/config"
+    exit 1
+fi
+echo "✓ Config found: ~/.config/waybar/config"
+
+if [ ! -f ~/.config/waybar/style.css ]; then
+    echo "✗ Style not found: ~/.config/waybar/style.css"
+    exit 1
+fi
+echo "✓ Style found: ~/.config/waybar/style.css"
+echo ""
+
+# Start waybar in background with logging
+echo "→ Starting waybar..."
+mkdir -p /tmp/waybar-logs
+waybar 2>&1 | tee /tmp/waybar-logs/waybar.log &
+sleep 2
+
+# Check if waybar started
+if pgrep -x "waybar" > /dev/null; then
+    echo "✓ Waybar is running!"
+    echo ""
+    echo "Waybar should now be visible at the top of your screen."
+    echo ""
+    echo "If you don't see it, check the logs:"
+    echo "  cat /tmp/waybar-logs/waybar.log"
+    echo ""
+    echo "To restart waybar later:"
+    echo "  pkill waybar && waybar &"
+else
+    echo "✗ Waybar failed to start!"
+    echo ""
+    echo "Check error logs:"
+    echo "  cat /tmp/waybar-logs/waybar.log"
+    exit 1
+fi

@@ -10,17 +10,17 @@
 
     "modules-left": ["niri/workspaces"],
     "modules-center": ["clock"],
-    "modules-right": ["tray", "network", "bluetooth", "cpu", "memory"],
+    "modules-right": ["tray", "cpu", "memory"],
 
     "niri/workspaces": {
         "all-outputs": false,
         "format": " {name} ",
         "persistent-workspaces": {
-            "1": "1",
-            "2": "2",
-            "3": "3",
-            "4": "4",
-            "5": "5"
+            "1": [],
+            "2": [],
+            "3": [],
+            "4": [],
+            "5": []
         }
     },
 
@@ -40,25 +40,6 @@
         "format": " {icon} {percentage}% ",
         "interval": 2,
         "tooltip": false
-    },
-
-    "network": {
-        "format-wifi": " WIFI ",
-        "format-ethernet": " ETH ",
-        "format-disconnected": "",
-        "tooltip-format-wifi": "{essid} ({signalStrength}%)",
-        "tooltip-format-ethernet": "{ipaddr}",
-        "on-click": "nm-connection-editor",
-        "interval": 5
-    },
-
-    "bluetooth": {
-        "format": " BT ",
-        "format-connected": " BT ",
-        "format-disabled": "",
-        "tooltip": false,
-        "on-click": "blueman-manager",
-        "interval": 5
     },
 
     "tray": {
