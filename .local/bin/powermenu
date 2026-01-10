@@ -1,0 +1,17 @@
+#!/bin/bash
+
+OPTIONS="Lockscreen\nLogout\nShutdown"
+
+CHOICE=$(echo -e "$OPTIONS" | fuzzel --dmenu -p "Power" --lines 3 --width 20 2>/dev/null)
+
+case "$CHOICE" in
+    Lockscreen)
+        swaylock
+        ;;
+    Logout)
+        niri msg action quit
+        ;;
+    Shutdown)
+        systemctl poweroff
+        ;;
+esac

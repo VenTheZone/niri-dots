@@ -1,0 +1,85 @@
+* {
+    font-family: "JetBrainsMono Nerd Font Mono", monospace;
+    font-size: 12px;
+    font-weight: 500;
+    margin: 0;
+    padding: 0;
+    min-height: 0;
+}
+
+window#waybar {
+    background: transparent;
+    border-radius: 14px;
+    border: none;
+}
+
+tooltip {
+    background: rgba(18, 62, 124, 0.95);
+    border: 1px solid #711c91;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+tooltip label {
+    color: #0abdc6;
+    padding: 8px;
+    font-size: 11px;
+}
+
+#workspaces button {
+    padding: 0 10px;
+    margin: 0 3px;
+    color: #711c91;
+    background: rgba(0, 11, 30, 0.8);
+    border: none;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+#workspaces button:hover {
+    color: #0abdc6;
+    background: rgba(18, 62, 124, 0.5);
+}
+
+#workspaces button.focused {
+    color: #0abdc6;
+    background: rgba(211, 0, 196, 0.4);
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(211, 0, 196, 0.4);
+}
+
+#clock {
+    color: #0abdc6;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 0 20px;
+    background: rgba(0, 11, 30, 0.8);
+    border-radius: 10px;
+    text-shadow: 0 0 4px rgba(10, 189, 198, 0.3);
+}
+
+#cpu,
+#memory,
+#network,
+#bluetooth,
+#tray {
+    padding: 0 12px;
+    margin: 0 2px;
+    color: #0abdc6;
+    background: rgba(0, 11, 30, 0.8);
+    border-radius: 10px;
+    transition: background 0.2s ease;
+}
+
+#cpu:hover,
+#memory:hover,
+#network:hover,
+#bluetooth:hover {
+    background: rgba(18, 62, 124, 0.5);
+    border-radius: 10px;
+}
+
+label {
+    color: #0abdc6;
+}

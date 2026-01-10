@@ -1,0 +1,140 @@
+[colors.bright]
+black = "0x1c61c2"
+blue = "0x00ff00"
+cyan = "0x0abdc6"
+green = "0xd300c4"
+magenta = "0x711c91"
+red = "0xff0000"
+white = "0xffffff"
+yellow = "0xf57800"
+
+[colors.cursor]
+cursor = "0x0abdc6"
+text = "0x000b1e"
+
+[colors.dim]
+black = "0x0a0a0a"
+blue = "0x000088"
+cyan = "0x008888"
+green = "0x008800"
+magenta = "0x880088"
+red = "0x880000"
+white = "0x888888"
+yellow = "0x888800"
+
+[colors.normal]
+black = "0x123e7c"
+blue = "0x123e7c"
+cyan = "0x0abdc6"
+green = "0xd300c4"
+magenta = "0x711c91"
+red = "0xff0000"
+white = "0xd7d7d5"
+yellow = "0xf57800"
+
+[colors.primary]
+background = "0x000b1e"
+foreground = "0x0abdc6"
+
+[cursor]
+blink_interval = 750
+unfocused_hollow = true
+
+[cursor.style]
+blinking = "On"
+shape = "Block"
+
+[env]
+TERM = "alacritty"
+
+[font]
+size = 12.0
+
+[font.bold]
+family = "JetBrainsMono Nerd Font Mono"
+style = "Bold"
+
+[font.bold_italic]
+family = "JetBrainsMono Nerd Font Mono"
+style = "Bold Italic"
+
+[font.glyph_offset]
+x = 0
+y = 0
+
+[font.italic]
+family = "JetBrainsMono Nerd Font Mono"
+style = "Italic"
+
+[font.normal]
+family = "JetBrainsMono Nerd Font Mono"
+style = "Regular"
+
+[font.offset]
+x = 0
+y = 0
+
+[[keyboard.bindings]]
+action = "Paste"
+key = "V"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+action = "Copy"
+key = "C"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+action = "ResetFontSize"
+key = "Key0"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "IncreaseFontSize"
+key = "Equals"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "DecreaseFontSize"
+key = "Minus"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "SpawnNewInstance"
+key = "N"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "Quit"
+key = "Q"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "SpawnNewInstance"
+key = "Return"
+mods = "Control|Shift"
+
+[terminal]
+
+[mouse]
+    hide_when_typing = true
+    
+    [scrolling]
+history = 10000
+multiplier = 3
+
+[terminal.shell]
+args = ["--login", "-i"]
+program = "/bin/zsh"
+
+[window]
+decorations = "buttonless"
+dynamic_padding = true
+opacity = 0.95
+startup_mode = "Windowed"
+
+[window.padding]
+x = 10
+y = 10
+
+[keyboard]

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+SCREENSHOTS_DIR="$HOME/Pictures/Screenshots"
+mkdir -p "$SCREENSHOTS_DIR"
+
+GEOMETRY=$(slurp -d)
+if [ -z "$GEOMETRY" ]; then
+    exit 1
+fi
+
+TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+
+grim -g "$GEOMETRY" "$SCREENSHOTS_DIR/screenshot_$TIMESTAMP.png" && notify-send "Screenshot saved" "screenshot_$TIMESTAMP.png" -i "$SCREENSHOTS_DIR/screenshot_$TIMESTAMP.png"
