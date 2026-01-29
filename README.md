@@ -5,10 +5,10 @@ Cyberpunk-themed Niri configuration with Waybar, Alacritty, and Fuzzel.
 ## Features
 
 - 🚀 **Fast Tiling WM** - Niri's scrollable column-based layout
-- 🎨 **Cyberpunk Theme** - Neon colors with transparent effects
+- 🎨 **Cyberpunk Theme** - Neon "glow" effects with transparent capsules
 - ⌨️ **Comprehensive Keybinds** - Easy-to-use keyboard shortcuts
-- 🔧 **Easy Installation** - One-command setup with dependency management
-- 📊 **Modular Status Bar** - Workspaces, system info, media controls
+- 🔧 **Smart Installer** - One-command setup with automatic service enablement (Bluetooth, etc.)
+- 📊 **Interactive Status Bar** - Clickable modules for Network, Bluetooth, and Media
 - 📸 **Screenshot Tool** - Region selection with auto-naming
 - 🔌 **Power Menu** - Quick access to lock/logout/shutdown
 
@@ -37,16 +37,25 @@ Cyberpunk-themed Niri configuration with Waybar, Alacritty, and Fuzzel.
 
 *Screenshots will be added here - Feel free to contribute yours!*
 
-## Waybar Layout (Floating Pieces)
+## Waybar Layout (Interactive Neon Pill Design)
 
 | Left | Center | Right |
 |------|--------|-------|
-| Workspaces (1-5) | Clock (HH:MM) | Tray |
-| Now Playing | | Network |
-| | | Bluetooth |
-| | | Battery |
-| | | CPU |
-| | | Memory |
+| 󰲠 Workspaces (Icons) | 󱑎 Time / 󰃭 Date | 󰐥 Power (Click) |
+| 󰝚 Media (Click) | | 󰈀 Network (Click) |
+| 󰣇 Launcher (Click) | |  Bluetooth (Click) |
+| | |  Battery |
+| | |  CPU |
+| | |  Memory |
+
+### Interaction Table
+| Icon | Click Action |
+|------|--------------|
+| 󰣇 Launcher | Opens Fuzzel App Launcher |
+| 󰝚 Media | Play/Pause track |
+| 󰈀 Network | Opens Network Connections Editor |
+|  Bluetooth | Opens Blueman Bluetooth Manager |
+| 󰐥 Power | Opens Power Menu |
 
 ## Keybindings
 
@@ -78,7 +87,7 @@ Cyberpunk-themed Niri configuration with Waybar, Alacritty, and Fuzzel.
 ### Quick Install
 
 ```bash
-git clone https://github.com/YOUR_USER/niri-dots.git ~/.config/niri-dots
+git clone https://github.com/VenTheZone/niri-dots.git ~/.config/niri-dots
 cd ~/.config/niri-dots
 ./install.sh
 ```

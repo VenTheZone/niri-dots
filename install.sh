@@ -197,6 +197,12 @@ check_dependencies() {
         echo ""
         if [[ $REPLY =~ ^[Yy]$ ]]; then
             install_packages "${missing[@]}"
+            
+            # Post-installation service setup
+            if [[ " ${missing[*]} " =~ " bluetooth " ]] || [[ " ${missing[*]} " =~ " bluez " ]]; then
+                echo -e "${YELLOW}Enabling bluetooth service...${NC}"
+                sudo systemctl enable --now bluetooth || echo -e "${RED}Failed to enable bluetooth service${NC}"
+            fi
         else
             echo "Skipping package installation."
         fi
