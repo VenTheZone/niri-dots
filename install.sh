@@ -161,31 +161,36 @@ check_dependencies() {
     echo -e "${YELLOW}Checking dependencies...${NC}"
     
     local missing=()
+    # Format: "package_name:binary_name"
     local packages=(
-        "niri"           # Window manager
-        "waybar"         # Status bar
-        "alacritty"      # Terminal
-        "fuzzel"         # App launcher
-        "grim"           # Screenshot utility
-        "slurp"          # Region selection
-        "swaylock"       # Lockscreen
-        "swaybg"         # Wallpaper
-        "wl-clipboard"   # Clipboard utilities
-        "libnotify"      # Notifications
-        "networkmanager" # Network management
-        "bluez"          # Bluetooth daemon
-        "bluez-utils"    # Bluetooth CLI tools
-        "blueman"        # Bluetooth GUI
-        "playerctl"      # Media control
-        "brightnessctl"  # Brightness control
-        "upower"         # Battery management
+        "niri:niri"
+        "waybar:waybar"
+        "alacritty:alacritty"
+        "fuzzel:fuzzel"
+        "grim:grim"
+        "slurp:slurp"
+        "swaylock:swaylock"
+        "swaybg:swaybg"
+        "wl-clipboard:wl-copy"
+        "libnotify:notify-send"
+        "networkmanager:nmcli"
+        "bluez:bluetoothctl"
+        "bluez-utils:bluetoothctl"
+        "blueman:blueman-manager"
+        "playerctl:playerctl"
+        "brightnessctl:brightnessctl"
+        "upower:upower"
     )
 
-    for pkg in "${packages[@]}"; do
-        if ! command -v "$pkg" &> /dev/null; then
-            missing+=("$pkg")
+    for item in "${packages[@]}"; do
+        IFS=':' read -r pkg bin <<< "$item"
+        if ! command -v "$bin" &> /dev/null; then
+            # Avoid duplicate package additions if multiple binaries map to same package
+            if [[ ! " ${missing[*]} " =~ " ${pkg} " ]]; then
+                missing+=("$pkg")
+            fi
         else
-            echo -e "  ${GREEN}✓${NC} $pkg"
+            echo -e "  ${GREEN}✓${NC} $pkg (via $bin)"
         fi
     done
 
