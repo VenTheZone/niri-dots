@@ -1,49 +1,96 @@
 {
     "layer": "top",
     "position": "top",
-    "height": 36,
+    "height": 40,
     "width": "auto",
-    "spacing": 12,
+    "spacing": 8,
     "margin-top": 8,
     "margin-left": 12,
     "margin-right": 12,
 
-    "modules-left": ["niri/workspaces"],
+    "modules-left": ["custom/launcher", "niri/workspaces", "custom/media"],
     "modules-center": ["clock"],
-    "modules-right": ["tray", "cpu", "memory"],
+    "modules-right": ["tray", "network", "bluetooth", "cpu", "memory", "upower", "custom/power"],
+
+    "custom/launcher": {
+        "format": " 󰣇 ",
+        "on-click": "fuzzel",
+        "tooltip": false
+    },
+
+    "custom/power": {
+        "format": " 󰐥 ",
+        "on-click": "sh -c $HOME/.local/bin/powermenu",
+        "tooltip": false
+    },
 
     "niri/workspaces": {
         "all-outputs": false,
-        "format": " {name} ",
-        "persistent-workspaces": {
-            "1": [],
-            "2": [],
-            "3": [],
-            "4": [],
-            "5": []
+        "format": " {icon} ",
+        "format-icons": {
+            "1": "󰲠",
+            "2": "󰲢",
+            "3": "󰲤",
+            "4": "󰲦",
+            "5": "󰲨",
+            "default": "󰲡"
         }
     },
 
+    "custom/media": {
+        "format": " 󰝚 {} ",
+        "max-length": 35,
+        "interval": 2,
+        "exec": "playerctl -a metadata --format '{{title}}' 2>/dev/null || echo 'No Media'",
+        "on-click": "playerctl play-pause"
+    },
+
     "clock": {
-        "format": "{:%H:%M  %a, %b %d}",
-        "tooltip-format": "{:%A, %B %e, %Y}",
-        "interval": 1
+        "format": " 󱑎 {:%H:%M  󰃭 %a, %b %d} ",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "interval": 1,
+        "locale": "C.utf8"
     },
 
     "cpu": {
-        "format": " {icon} {usage}% ",
+        "format": "  {usage}% ",
         "interval": 2,
         "tooltip": false
     },
 
     "memory": {
-        "format": " {icon} {percentage}% ",
+        "format": "  {percentage}% ",
         "interval": 2,
         "tooltip": false
     },
 
+    "network": {
+        "format-wifi": "  {essid} ",
+        "format-ethernet": " 󰈀 ETH ",
+        "format-disconnected": " 󰖪 ",
+        "tooltip-format-wifi": "{essid} ({signalStrength}%)",
+        "tooltip-format-ethernet": "{ipaddr}",
+        "on-click": "nm-connection-editor",
+        "interval": 5
+    },
+
+    "bluetooth": {
+        "format": "  ",
+        "format-connected": "  {device_alias} ",
+        "format-disabled": " 󰂲 ",
+        "on-click": "blueman-manager",
+        "tooltip": false,
+        "interval": 5
+    },
+
+    "upower": {
+        "show-icon": false,
+        "format": "  {percentage}% ",
+        "interval": 30
+    },
+
     "tray": {
-        "icon-size": 16,
-        "spacing": 6
+        "icon-size": 18,
+        "spacing": 10
     }
 }
