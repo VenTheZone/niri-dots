@@ -125,3 +125,6 @@ COMPLETION_WAITING_DOTS="true"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+# opencode
+export PATH=/home/JT/.opencode/bin:$PATH
