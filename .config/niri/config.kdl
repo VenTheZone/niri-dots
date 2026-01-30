@@ -574,4 +574,4 @@ window-rule {
 prefer-no-csd
 
 // Add lines like this to spawn processes at startup
-spawn-sh-at-startup "swaybg -i '/home/JT/Downloads/Rap Musik.jpg' -m fill"
+spawn-sh-at-startup "swaybg -i '/home/jt/Pictures/Wallpapers/nezuko-standing.png' -m fill"

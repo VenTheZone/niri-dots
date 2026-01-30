@@ -217,27 +217,40 @@ check_dependencies() {
 # Install fonts
 install_fonts() {
     echo ""
-    echo -e "${YELLOW}Installing fonts...${NC}"
+    echo -e "${YELLOW}Checking fonts...${NC}"
     
-    if ! command -v paru &> /dev/null && ! command -v yay &> /dev/null; then
-        # Try to install from AUR if available
-        if command -v git &> /dev/null; then
-            echo "Installing JetBrainsMono Nerd Font from AUR..."
-            cd /tmp
-            git clone https://aur.archlinux.org/nerd-fonts-jetbrains-mono.git
-            cd nerd-fonts-jetbrains-mono
-            makepkg -si --noconfirm
-            cd -
-        else
-            echo "Git not found. Please install JetBrainsMono Nerd Font manually."
-        fi
+    # Check if JetBrainsMono Nerd Font is already installed
+    if fc-list | grep -qi "jetbrains.*nerd"; then
+        echo -e "  ${GREEN}✓${NC} JetBrainsMono Nerd Font already installed"
+        return
+    fi
+    
+    echo -e "  ${YELLOW}⚠${NC} JetBrainsMono Nerd Font not found"
+    
+    if [ "$DRY_RUN" = true ]; then
+        echo -e "${BLUE}[DRY RUN]${NC} Would install fonts"
+        return
+    fi
+    
+    # Try to install from AUR
+    if command -v paru &> /dev/null; then
+        echo "Installing via paru..."
+        paru -S --noconfirm ttf-jetbrains-mono-nerd || echo -e "${YELLOW}⚠${NC} Font installation failed"
+    elif command -v yay &> /dev/null; then
+        echo "Installing via yay..."
+        yay -S --noconfirm ttf-jetbrains-mono-nerd || echo -e "${YELLOW}⚠${NC} Font installation failed"
+    elif command -v git &> /dev/null; then
+        echo "Installing JetBrainsMono Nerd Font manually..."
+        mkdir -p "$HOME/.local/share/fonts/JetBrains"
+        cd /tmp
+        curl -L -o jetbrains-mono-nerd.zip "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip"
+        unzip -o jetbrains-mono-nerd.zip -d "$HOME/.local/share/fonts/JetBrains/"
+        fc-cache -fv "$HOME/.local/share/fonts/"
+        cd -
+        echo -e "  ${GREEN}✓${NC} Fonts installed to ~/.local/share/fonts/"
     else
-        # Use AUR helper if available
-        if command -v paru &> /dev/null; then
-            paru -S --noconfirm nerd-fonts-jetbrains-mono
-        elif command -v yay &> /dev/null; then
-            yay -S --noconfirm nerd-fonts-jetbrains-mono
-        fi
+        echo -e "${YELLOW}Please install JetBrainsMono Nerd Font manually:${NC}"
+        echo "  https://github.com/ryanoasis/nerd-fonts/releases"
     fi
 }
 
@@ -355,31 +368,60 @@ setup_wallpaper() {
     echo -e "${YELLOW}Setting up wallpaper...${NC}"
     
     local script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-    local default_wallpaper="$HOME/Downloads/Rap Musik.jpg"
-    local config="$script_dir/.config/niri/config.kdl"
+    local config="$HOME/.config/niri/config.kdl"
     
-    if [ -f "$default_wallpaper" ]; then
-        echo -e "  ${GREEN}✓${NC} Found wallpaper: $default_wallpaper"
-        echo -e "  ${BLUE}→${NC} Configured in niri config"
+    # Check if wallpaper is already configured in the config
+    if grep -q "swaybg -i" "$config" 2>/dev/null; then
+        echo -e "  ${GREEN}✓${NC} Wallpaper already configured in niri config"
+        echo -e "  ${BLUE}→${NC} Edit ~/.config/niri/config.kdl to change it"
     else
-        echo -e "  ${YELLOW}⚠${NC} Default wallpaper not found: $default_wallpaper"
-        
-        if [ "$DRY_RUN" = false ]; then
-            echo ""
-            read -p "Enter path to your wallpaper (or press Enter to skip): " wallpaper_path
-            
-            if [ -n "$wallpaper_path" ] && [ -f "$wallpaper_path" ]; then
-                echo -e "  ${GREEN}✓${NC} Using: $wallpaper_path"
-                # Escape spaces for shell command
-                escaped_path=$(printf '%s\n' "$wallpaper_path" | sed 's/"/\\"/g' | sed "s/'/'\\\\''/g")
-                sed -i "s|spawn-sh-at-startup \"swaybg -i '/home/JT/Downloads/Rap Musik.jpg' -m fill\"|spawn-sh-at-startup \"swaybg -i '$escaped_path' -m fill\"|" "$config"
-                echo -e "  ${GREEN}✓${NC} Updated config with new wallpaper"
-            else
-                echo -e "  ${YELLOW}⚠${NC} Wallpaper not set. Edit ~/.config/niri/config.kdl manually."
-            fi
-        else
-            echo -e "${BLUE}[DRY RUN]${NC} Would prompt for wallpaper path"
-        fi
+        echo -e "  ${YELLOW}⚠${NC} No wallpaper configured"
+        echo -e "  ${BLUE}→${NC} Edit ~/.config/niri/config.kdl to add your wallpaper:"
+        echo "     spawn-sh-at-startup \"swaybg -i '/path/to/wallpaper.jpg' -m fill\""
+    fi
+}
+
+# Create niri session file for SDDM
+setup_session_file() {
+    echo ""
+    echo -e "${YELLOW}Setting up SDDM session...${NC}"
+    
+    local session_file="/usr/share/wayland-sessions/niri.desktop"
+    
+    if [ -f "$session_file" ]; then
+        echo -e "  ${GREEN}✓${NC} Niri session file already exists"
+        return
+    fi
+    
+    if [ "$DRY_RUN" = true ]; then
+        echo -e "${BLUE}[DRY RUN]${NC} Would create: $session_file"
+        return
+    fi
+    
+    echo -e "  ${BLUE}→${NC} Creating niri.desktop session file..."
+    
+    # Create session file with sudo
+    sudo tee "$session_file" > /dev/null << 'EOF'
+[Desktop Entry]
+Name=Niri
+Comment=A scrollable-tiling Wayland compositor
+Exec=niri
+Type=Application
+EOF
+    
+    if [ $? -eq 0 ]; then
+        echo -e "  ${GREEN}✓${NC} Session file created at $session_file"
+        echo -e "  ${BLUE}→${NC} Niri will appear in SDDM on next login"
+    else
+        echo -e "  ${RED}✗${NC} Failed to create session file"
+        echo -e "  ${YELLOW}⚠${NC} Run manually with sudo:"
+        echo "     sudo tee $session_file << 'EOF'"
+        echo '     [Desktop Entry]'
+        echo '     Name=Niri'
+        echo '     Comment=A scrollable-tiling Wayland compositor'
+        echo '     Exec=niri'
+        echo '     Type=Application'
+        echo '     EOF'
     fi
 }
 
@@ -400,9 +442,9 @@ print_summary() {
     echo "  Mod+Shift+T - Reload config"
     echo ""
     echo "Waybar:"
-    echo "  Left: Workspaces, Active window"
+    echo "  Left: Workspaces, Media"
     echo "  Center: 12h time, date"
-    echo "  Right: Bluetooth, WiFi, Battery, Tray"
+    echo "  Right: Tray (Bluetooth, WiFi), CPU %, RAM %, Battery"
     echo ""
     echo "Next steps:"
     echo "  1. Reload config: Mod+Shift+T (from within niri)"
@@ -434,6 +476,7 @@ main() {
     create_directories
     link_dotfiles
     setup_wallpaper
+    setup_session_file
     print_summary
 }
 
