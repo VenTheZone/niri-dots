@@ -296,8 +296,9 @@ link_dotfiles() {
         ["$script_dir/.config/niri/config.kdl"]="$HOME/.config/niri/config.kdl"
         ["$script_dir/.config/alacritty/alacritty.toml"]="$HOME/.config/alacritty/alacritty.toml"
         ["$script_dir/.config/fuzzel/fuzzel.ini"]="$HOME/.config/fuzzel/fuzzel.ini"
-        ["$script_dir/.config/waybar/config"]="$HOME/.config/waybar/config"
+        ["$script_dir/.config/waybar/config.template"]="$HOME/.config/waybar/config.template"
         ["$script_dir/.config/waybar/style.css"]="$HOME/.config/waybar/style.css"
+        ["$script_dir/.config/waybar/launch.sh"]="$HOME/.config/waybar/launch.sh"
         ["$script_dir/.local/bin/screenshot-crop"]="$HOME/.local/bin/screenshot-crop"
         ["$script_dir/.local/bin/powermenu"]="$HOME/.local/bin/powermenu"
         ["$script_dir/.local/bin/waybar-toggle"]="$HOME/.local/bin/waybar-toggle"
@@ -350,6 +351,9 @@ link_dotfiles() {
         fi
         if [ -f "$HOME/.local/bin/waybar-test" ]; then
             chmod +x "$HOME/.local/bin/waybar-test"
+        fi
+        if [ -f "$HOME/.config/waybar/launch.sh" ]; then
+            chmod +x "$HOME/.config/waybar/launch.sh"
         fi
     fi
     
@@ -447,9 +451,10 @@ print_summary() {
     echo "  Right: Tray (Bluetooth, WiFi), CPU %, RAM %, Battery"
     echo ""
     echo "Next steps:"
-    echo "  1. Reload config: Mod+Shift+T (from within niri)"
-    echo "  2. Or restart niri session"
-    echo "  3. Enjoy your new setup!"
+    echo "  1. Launch waybar: ~/.config/waybar/launch.sh (auto-detects Niri/Hyprland)"
+    echo "  2. Reload config: Mod+Shift+T (from within niri)"
+    echo "  3. Or restart session"
+    echo "  4. Enjoy your new setup!"
     echo ""
     echo "To start Niri, log out and select Niri from your display manager."
     echo "Or run: niri"

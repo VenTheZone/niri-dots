@@ -5,7 +5,7 @@
 @define-color neon_blue #0055ff;
 
 * {
-    font-family: "JetBrainsMono Nerd Font Mono", monospace;
+    font-family: "JetBrainsMono Nerd Font", monospace;
     font-size: 13px;
     font-weight: 600;
     margin: 0;
@@ -17,7 +17,8 @@ window#waybar {
     background: transparent;
 }
 
-#workspaces {
+#workspaces,
+#hyprland-workspaces {
     background: @bg_main;
     margin: 4px;
     padding: 2px;
@@ -26,19 +27,33 @@ window#waybar {
     box-shadow: 0 0 10px rgba(0, 242, 255, 0.1);
 }
 
-#workspaces button {
+#workspaces button,
+#hyprland-workspaces button {
     padding: 0 12px;
-    color: #555;
+    color: #888;
     transition: all 0.3s ease;
+    min-width: 30px;
 }
 
-#workspaces button.focused {
+#workspaces button.active,
+#hyprland-workspaces button.active {
+    color: @neon_cyan;
+    text-shadow: 0 0 8px @neon_cyan;
+    background: rgba(0, 242, 255, 0.15);
+    border-radius: 8px;
+}
+
+#workspaces button.focused,
+#hyprland-workspaces button.focused {
     color: @neon_cyan;
     text-shadow: 0 0 8px @neon_cyan;
 }
 
-#workspaces button:hover {
+#workspaces button:hover,
+#hyprland-workspaces button:hover {
     color: @neon_pink;
+    background: rgba(255, 0, 255, 0.1);
+    border-radius: 8px;
 }
 
 #clock,
