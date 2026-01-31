@@ -65,7 +65,8 @@ window#waybar {
 #upower,
 #tray,
 #custom-launcher,
-#custom-power {
+#custom-power,
+#pulseaudio {
     background: @bg_main;
     color: @neon_cyan;
     padding: 0 15px;
@@ -118,6 +119,10 @@ window#waybar {
 
 #memory {
     color: @neon_pink;
+}
+
+#pulseaudio {
+    color: @neon_cyan;
 }
 
 tooltip {

@@ -93,6 +93,7 @@ verify_structure() {
         ".local/bin/waybar-toggle"
         ".local/bin/waybar-debug"
         ".local/bin/waybar-test"
+        ".local/bin/volume-control"
         ".zshrc"
     )
     
@@ -173,6 +174,7 @@ check_dependencies() {
         "swaybg:swaybg"
         "wl-clipboard:wl-copy"
         "libnotify:notify-send"
+        "mako:mako"
         "networkmanager:nmcli"
         "bluez:bluetoothctl"
         "bluez-utils:bluetoothctl"
@@ -292,11 +294,12 @@ link_dotfiles() {
     local errors=0
     
     # Define files to link
+    # Define files and directories to link
     declare -A files=(
         ["$script_dir/.config/niri/config.kdl"]="$HOME/.config/niri/config.kdl"
         ["$script_dir/.config/alacritty/alacritty.toml"]="$HOME/.config/alacritty/alacritty.toml"
         ["$script_dir/.config/fuzzel/fuzzel.ini"]="$HOME/.config/fuzzel/fuzzel.ini"
-        ["$script_dir/.config/waybar/config.template"]="$HOME/.config/waybar/config.template"
+        ["$script_dir/.config/waybar/config"]="$HOME/.config/waybar/config"
         ["$script_dir/.config/waybar/style.css"]="$HOME/.config/waybar/style.css"
         ["$script_dir/.config/waybar/launch.sh"]="$HOME/.config/waybar/launch.sh"
         ["$script_dir/.local/bin/screenshot-crop"]="$HOME/.local/bin/screenshot-crop"
@@ -304,7 +307,13 @@ link_dotfiles() {
         ["$script_dir/.local/bin/waybar-toggle"]="$HOME/.local/bin/waybar-toggle"
         ["$script_dir/.local/bin/waybar-debug"]="$HOME/.local/bin/waybar-debug"
         ["$script_dir/.local/bin/waybar-test"]="$HOME/.local/bin/waybar-test"
+        ["$script_dir/.local/bin/volume-control"]="$HOME/.local/bin/volume-control"
         ["$script_dir/.zshrc"]="$HOME/.zshrc"
+    )
+    
+    # Define directories to link
+    declare -A dirs=(
+        ["$script_dir/.config/niri/wallpaper"]="$HOME/.config/niri/wallpaper"
     )
     
     # Link each file
@@ -352,10 +361,40 @@ link_dotfiles() {
         if [ -f "$HOME/.local/bin/waybar-test" ]; then
             chmod +x "$HOME/.local/bin/waybar-test"
         fi
+        if [ -f "$HOME/.local/bin/volume-control" ]; then
+            chmod +x "$HOME/.local/bin/volume-control"
+        fi
         if [ -f "$HOME/.config/waybar/launch.sh" ]; then
             chmod +x "$HOME/.config/waybar/launch.sh"
         fi
     fi
+    
+    # Link directories
+    for src_dir in "${!dirs[@]}"; do
+        dst_dir="${dirs[$src_dir]}"
+        
+        if [ ! -d "$src_dir" ]; then
+            echo -e "  ${RED}✗${NC} Source directory not found: $src_dir"
+            ((errors++))
+            continue
+        fi
+        
+        if [ "$DRY_RUN" = true ]; then
+            echo -e "${BLUE}[DRY RUN]${NC} Would link directory: $src_dir → $dst_dir"
+            continue
+        fi
+        
+        # Backup existing directory if it's not a symlink
+        if [ -e "$dst_dir" ] && [ ! -L "$dst_dir" ]; then
+            backup="$dst_dir.backup.$(date +%Y%m%d_%H%M%S)"
+            echo -e "  ${BLUE}→${NC} Backing up: $dst_dir → $backup"
+            mv "$dst_dir" "$backup"
+        fi
+        
+        # Create symlink
+        ln -sf "$src_dir" "$dst_dir"
+        echo -e "  ${GREEN}✓${NC} Linked directory: $(basename $dst_dir)"
+    done
     
     if [ $errors -eq 0 ]; then
         echo ""
@@ -444,6 +483,8 @@ print_summary() {
     echo "  Mod+M       - Powermenu (Lockscreen, Logout, Shutdown)"
     echo "  Mod+Shift+Slash - Show hotkey overlay"
     echo "  Mod+Shift+T - Reload config"
+    echo "  F11         - Volume down (with notification)"
+    echo "  F12         - Volume up (with notification)"
     echo ""
     echo "Waybar:"
     echo "  Left: Workspaces, Media"

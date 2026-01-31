@@ -8,9 +8,9 @@
     "margin-left": 12,
     "margin-right": 12,
 
-    "modules-left": ["custom/launcher", "hyprland/workspaces", "custom/media"],
+    "modules-left": ["custom/launcher", "niri/workspaces", "custom/media"],
     "modules-center": ["clock"],
-    "modules-right": ["tray", "cpu", "memory", "upower", "custom/power"],
+    "modules-right": ["tray", "cpu", "memory", "upower", "pulseaudio", "custom/power"],
 
     "custom/launcher": {
         "format": " 󰣇 ",
@@ -20,11 +20,11 @@
 
     "custom/power": {
         "format": " 󰐥 ",
-        "on-click": "sh -c $HOME/.local/bin/powermenu",
+        "on-click": "sh -c /home/JT/.local/bin/powermenu",
         "tooltip": false
     },
 
-    "hyprland/workspaces": {
+    "niri/workspaces": {
         "all-outputs": true,
         "format": "{name}",
         "on-click": "activate"
@@ -59,25 +59,6 @@
         "tooltip-format": "RAM: {used:0.1f}GB / {total:0.1f}GB\nSwap: {swapUsed:0.1f}GB / {swapTotal:0.1f}GB"
     },
 
-    "network": {
-        "format-wifi": "  {essid} ",
-        "format-ethernet": " 󰈀 ETH ",
-        "format-disconnected": " 󰖪 ",
-        "tooltip-format-wifi": "{essid} ({signalStrength}%)",
-        "tooltip-format-ethernet": "{ipaddr}",
-        "on-click": "nm-connection-editor",
-        "interval": 5
-    },
-
-    "bluetooth": {
-        "format": "  ",
-        "format-connected": "  {device_alias} ",
-        "format-disabled": " 󰂲 ",
-        "on-click": "blueman-manager",
-        "tooltip": false,
-        "interval": 5
-    },
-
     "upower": {
         "show-icon": false,
         "format": "  {percentage}% ",
@@ -87,5 +68,18 @@
     "tray": {
         "icon-size": 18,
         "spacing": 10
+    },
+
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": "󰖁 Muted",
+        "format-icons": {
+            "default": ["󰕿", "󰖀", "󰕾"]
+        },
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+        "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02+ -l 1.0",
+        "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02-",
+        "tooltip": true,
+        "tooltip-format": "Volume: {volume}%"
     }
 }

@@ -30,6 +30,7 @@ Cyberpunk-themed Niri configuration with Waybar, Alacritty, and Fuzzel.
 - **Fuzzel**: App launcher
 - **Screenshot**: Crop tool (`Mod+P`) with auto-naming
 - **Powermenu**: Lockscreen, Logout, Shutdown (`Mod+Shift+M`)
+- **Volume Control**: F11/F12 with visual notifications
 
 ## Screenshots
 
@@ -81,6 +82,8 @@ Cyberpunk-themed Niri configuration with Waybar, Alacritty, and Fuzzel.
 | `XF86AudioMute` | Mute audio |
 | `XF86MonBrightnessUp` | Brightness up |
 | `XF86MonBrightnessDown` | Brightness down |
+| `F11` | Volume down (with visual notification) |
+| `F12` | Volume up (with visual notification) |
 
 ## Installation
 

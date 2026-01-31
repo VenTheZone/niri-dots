@@ -276,6 +276,9 @@ layout {
 // This line starts waybar, a commonly used bar for Wayland compositors.
 spawn-at-startup "waybar"
 
+// Start notification daemon for volume/brightness notifications
+spawn-at-startup "mako"
+
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
 
@@ -326,6 +329,11 @@ binds {
     // For example, this is a standard bind to toggle the screen reader (orca).
     Super+Alt+S allow-when-locked=true hotkey-overlay-title=null { spawn-sh "pkill orca || exec orca"; }
 
+    // Volume control with visual feedback
+    // F11/F12 for volume up/down with notification
+    F11 allow-when-locked=true hotkey-overlay-title="[VOL-] volume down" { spawn-sh "$HOME/.local/bin/volume-control down"; }
+    F12 allow-when-locked=true hotkey-overlay-title="[VOL+] volume up" { spawn-sh "$HOME/.local/bin/volume-control up"; }
+    
     // Example volume keys mappings for PipeWire & WirePlumber.
     // The allow-when-locked=true property makes them work even when the session is locked.
     // Using spawn-sh allows to pass multiple arguments together with the command.
@@ -574,4 +582,4 @@ window-rule {
 prefer-no-csd
 
 // Add lines like this to spawn processes at startup
-spawn-sh-at-startup "swaybg -i '/home/jt/Pictures/Wallpapers/nezuko-standing.png' -m fill"
+spawn-sh-at-startup "swaybg -i '$HOME/.config/niri/wallpaper/Rap Musik.jpg' -m fill"

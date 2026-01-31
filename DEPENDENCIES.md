@@ -13,6 +13,7 @@
 | `swaylock` | Screen locker for Wayland | Yes |
 | `wl-clipboard` | Clipboard utilities for Wayland | Yes |
 | `libnotify` | Desktop notification library | Yes |
+| `mako` | Notification daemon for Wayland | Yes |
 
 ## Waybar Modules
 

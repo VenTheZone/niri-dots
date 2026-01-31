@@ -1,0 +1,63 @@
+#!/bin/bash
+# Volume control with notification replacement
+# Usage: volume-control [up|down|mute]
+
+ACTION="$1"
+APP_NAME="niri-volume"
+ICON_LOW="audio-volume-low"
+ICON_MEDIUM="audio-volume-medium"
+ICON_HIGH="audio-volume-high"
+ICON_MUTE="audio-volume-muted"
+
+# Function to get current volume percentage
+get_volume() {
+    wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -oP '\[?\K[0-9]+(?=%\]?|\])' | head -1 || wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2*100)}'
+}
+
+# Function to check if muted
+is_muted() {
+    wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q "MUTED"
+}
+
+# Function to get appropriate icon based on volume
+get_icon() {
+    local vol=$1
+    if is_muted; then
+        echo "$ICON_MUTE"
+    elif [ "$vol" -le 30 ]; then
+        echo "$ICON_LOW"
+    elif [ "$vol" -le 70 ]; then
+        echo "$ICON_MEDIUM"
+    else
+        echo "$ICON_HIGH"
+    fi
+}
+
+# Function to show notification with replacement
+case "$ACTION" in
+    up)
+        wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+ -l 1.0
+        ;;
+    down)
+        wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05-
+        ;;
+    mute)
+        wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+        ;;
+    *)
+        echo "Usage: $0 [up|down|mute]"
+        exit 1
+        ;;
+esac
+
+# Get updated volume
+CURRENT_VOL=$(get_volume)
+ICON=$(get_icon "$CURRENT_VOL")
+
+# Show notification with hint for replacement (suppress errors if no daemon)
+# Using hint to identify this notification for replacement
+if command -v dunstify &> /dev/null; then
+    dunstify -a "$APP_NAME" -u low -i "$ICON" -r 12345 "Volume: ${CURRENT_VOL}%" 2>/dev/null
+else
+    notify-send -a "$APP_NAME" -u low -i "$ICON" -h int:id:12345 "Volume: ${CURRENT_VOL}%" 2>/dev/null
+fi
