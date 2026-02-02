@@ -534,6 +534,7 @@ Mod+Left  { focus-column-left; }
     // Move the focused window between the floating and the tiling layout.
     Mod+V       { toggle-window-floating; }
     Mod+Shift+V hotkey-overlay-title="[CLIP] clipboard history" { spawn-sh "cliphist list | fuzzel --dmenu --prompt=\"󰅌 \" | cliphist decode | wl-copy"; }
+    Mod+Shift+Delete hotkey-overlay-title="[CLIP] wipe history" { spawn-sh "cliphist wipe && notify-send 'Clipboard' 'History cleared'"; }
 
     // Toggle tabbed column display mode.
     // Windows in this column will appear as vertical tabs,
