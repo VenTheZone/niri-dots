@@ -7,7 +7,8 @@ selected=$(printf "$CLEAR_STR\n$(cliphist list)" | fuzzel --dmenu --prompt="󰅌
 
 if [ "$selected" == "$CLEAR_STR" ]; then
     cliphist wipe
-    notify-send "Clipboard" "History cleared"
+    rm "$HOME/.cache/cliphist/db"
+    notify-send "Clipboard" "History cleared and counter reset"
 elif [ -n "$selected" ]; then
     echo "$selected" | cliphist decode | wl-copy
 fi
