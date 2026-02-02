@@ -302,6 +302,7 @@ link_dotfiles() {
         ["$script_dir/.config/waybar/config"]="$HOME/.config/waybar/config"
         ["$script_dir/.config/waybar/style.css"]="$HOME/.config/waybar/style.css"
         ["$script_dir/.config/waybar/launch.sh"]="$HOME/.config/waybar/launch.sh"
+        ["$script_dir/.config/mako/config"]="$HOME/.config/mako/config"
         ["$script_dir/.local/bin/screenshot-crop"]="$HOME/.local/bin/screenshot-crop"
         ["$script_dir/.local/bin/powermenu"]="$HOME/.local/bin/powermenu"
         ["$script_dir/.local/bin/waybar-toggle"]="$HOME/.local/bin/waybar-toggle"
