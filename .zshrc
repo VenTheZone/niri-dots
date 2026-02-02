@@ -128,3 +128,4 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # opencode
 export PATH=/home/jt/.opencode/bin:$PATH
+export OPENROUTER_API_KEY=$(grep OPENROUTER_API_KEY /home/jt/.config/opencode/env | cut -d "=" -f 2-)
