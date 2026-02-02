@@ -120,11 +120,11 @@ COMPLETION_WAITING_DOTS="true"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # bun completions
-[ -s "/home/JT/.bun/_bun" ] && source "/home/JT/.bun/_bun"
+[ -s "/home/jt/.bun/_bun" ] && source "/home/jt/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 # opencode
-export PATH=/home/JT/.opencode/bin:$PATH
+export PATH=/home/jt/.opencode/bin:$PATH
