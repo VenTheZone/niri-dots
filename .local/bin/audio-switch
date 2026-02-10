@@ -1,0 +1,22 @@
+#!/bin/bash
+# Audio output switcher for Niri
+# Switches between Built-in Audio and Bluetooth speakers
+
+BLUETOOTH_SINK="68"  # MH-8219 Bluetooth speaker
+BUILTIN_SINK="57"    # Built-in Audio Analog Stereo
+
+# Get current default sink
+CURRENT_SINK=$(wpctl get-default @DEFAULT_AUDIO_SINK@)
+
+# Determine next sink
+if [ "$CURRENT_SINK" = "$BLUETOOTH_SINK" ]; then
+    NEXT_SINK="$BUILTIN_SINK"
+    NEXT_NAME="Built-in Audio"
+else
+    NEXT_SINK="$BLUETOOTH_SINK"
+    NEXT_NAME="Bluetooth Speaker"
+fi
+
+# Set default and show notification
+wpctl set-default @DEFAULT_AUDIO_SINK@"$NEXT_SINK"
+notify-send "Audio Output" "Switched to $NEXT_NAME"
