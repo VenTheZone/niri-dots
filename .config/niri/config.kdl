@@ -561,6 +561,9 @@ Mod+Q repeat=false { close-window; }
     // moving the mouse or pressing any other key.
     Mod+Shift+F10 allow-when-locked=true hotkey-overlay-title="[AUDIO] toggle output" { spawn "/home/jt/.local/bin/audio-switch"; }
     Mod+Shift+P { power-off-monitors; }
+
+    // Lock screen with Solana wallpaper
+    Mod+Shift+X hotkey-overlay-title="[LOCK] screen lock" { spawn "swaylock"; }
 }
 
 // Window rules - Disable client-side decorations (remove X buttons)

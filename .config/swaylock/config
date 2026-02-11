@@ -1,0 +1,57 @@
+# Swaylock configuration with Solana wallpaper
+# Cyberpunk theme colors
+
+# Background image
+image=~/.config/niri/wallpaper/Solana-wallpaper.png
+scaling=fill
+
+# Ring colors (matches Cyberpunk cyan theme)
+ring-color=#89b4fa
+ring-ver-color=#89b4fa
+ring-wrong-color=#f38ba8
+ring-clear-color=#a6e3a1
+
+# Inside colors
+inside-color=#1e1e2e
+inside-ver-color=#1e1e2e
+inside-wrong-color=#1e1e2e
+inside-clear-color=#1e1e2e
+
+# Line color
+line-color=#1e1e2e
+line-ver-color=#1e1e2e
+line-wrong-color=#1e1e2e
+line-clear-color=#1e1e2e
+
+# Separator color
+separator-color=#313244
+
+# Text colors
+key-hl-color=#89b4fa
+bs-hl-color=#f38ba8
+text-color=#cdd6f4
+text-ver-color=#cdd6f4
+text-wrong-color=#cdd6f4
+text-clear-color=#cdd6f4
+
+# Font
+font=JetBrainsMono Nerd Font
+font-size=24
+
+# Effects
+fade-in=0.2
+ignore-empty-password
+show-failed-attempts
+indicator-radius=120
+indicator-thickness=15
+indicator-x-position=960
+indicator-y-position=540
+
+# Hide keyboard layout
+hide-keyboard-layout
+
+# No caps lock indicator
+# show-caps-lock-indicator
+
+# Daemonize
+# daemonize
