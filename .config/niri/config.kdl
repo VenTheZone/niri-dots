@@ -396,7 +396,6 @@ Mod+Q repeat=false { close-window; }
     Mod+Shift+H { focus-monitor-left; }
     Mod+Shift+J { focus-monitor-down; }
     Mod+Shift+K { focus-monitor-up; }
-    Mod+Shift+L { focus-monitor-right; }
 
     Mod+Shift+Ctrl+Left  { move-column-to-monitor-left; }
     Mod+Shift+Ctrl+Down  { move-column-to-monitor-down; }
@@ -563,7 +562,7 @@ Mod+Q repeat=false { close-window; }
     Mod+Shift+P { power-off-monitors; }
 
     // Lock screen with Solana wallpaper
-    Mod+Shift+X hotkey-overlay-title="[LOCK] screen lock" { spawn "swaylock"; }
+    Mod+Shift+L hotkey-overlay-title="[LOCK] screen lock" { spawn "swaylock"; }
 }
 
 // Window rules - Disable client-side decorations (remove X buttons)
