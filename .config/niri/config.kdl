@@ -306,6 +306,7 @@ binds {
     // Window management
     Mod+Shift+Q hotkey-overlay-title="[CLOSE] close window" { close-window; }
     Mod+Shift+E hotkey-overlay-title="[EXIT] quit niri" { quit; }
+    Mod+E hotkey-overlay-title="[FILE] yazi file manager" { spawn "kitty" "yazi"; }
     Mod+Shift+M hotkey-overlay-title="[PWR] powermenu" { spawn-sh "$HOME/.local/bin/powermenu"; }
     Mod+Shift+T hotkey-overlay-title="[RELOAD] reload config" { spawn "sh" "-c" "niri msg action load-config-file"; }
     Mod+Shift+B hotkey-overlay-title="[BAR] toggle waybar" { spawn-sh "$HOME/.local/bin/waybar-toggle"; }
