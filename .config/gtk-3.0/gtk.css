@@ -1,0 +1,385 @@
+/* Cyberpunk GTK Theme - Applies to blueman, nm-connection-editor, etc. */
+
+@define-color cyberpunk-bg #1a0a2e;
+@define-color cyberpunk-bg-darker #0f0518;
+@define-color cyberpunk-bg-lighter #2a1640;
+@define-color cyberpunk-cyan #00ffff;
+@define-color cyberpunk-magenta #ff00ff;
+@define-color cyberpunk-pink #ff0080;
+@define-color cyberpunk-text #e0e0e0;
+@define-color cyberpunk-text-muted #808080;
+
+/* Base window styling */
+window {
+    background-color: @cyberpunk-bg;
+    color: @cyberpunk-text;
+    font-family: "JetBrainsMono Nerd Font", monospace;
+}
+
+/* Header bar */
+headerbar,
+.titlebar {
+    background: linear-gradient(180deg, @cyberpunk-bg-lighter, @cyberpunk-bg);
+    color: @cyberpunk-cyan;
+    border-bottom: 1px solid @cyberpunk-cyan;
+    box-shadow: 0 0 10px alpha(@cyberpunk-cyan, 0.3);
+}
+
+headerbar:backdrop,
+.titlebar:backdrop {
+    background: @cyberpunk-bg-darker;
+    color: @cyberpunk-text-muted;
+    box-shadow: none;
+}
+
+/* Buttons */
+button {
+    background: @cyberpunk-bg-lighter;
+    color: @cyberpunk-text;
+    border: 1px solid @cyberpunk-magenta;
+    border-radius: 4px;
+    padding: 6px 12px;
+    text-shadow: 0 0 5px alpha(@cyberpunk-magenta, 0.5);
+}
+
+button:hover {
+    background: @cyberpunk-bg;
+    border-color: @cyberpunk-cyan;
+    color: @cyberpunk-cyan;
+    box-shadow: 0 0 10px alpha(@cyberpunk-cyan, 0.4);
+}
+
+button:active {
+    background: @cyberpunk-cyan;
+    color: @cyberpunk-bg-darker;
+    border-color: @cyberpunk-cyan;
+}
+
+button:disabled {
+    background: @cyberpunk-bg-darker;
+    color: @cyberpunk-text-muted;
+    border-color: @cyberpunk-text-muted;
+}
+
+/* Primary/Accent buttons (Apply, Connect, etc.) */
+button.suggested-action,
+button.text-button.suggested-action {
+    background: linear-gradient(135deg, alpha(@cyberpunk-cyan, 0.2), alpha(@cyberpunk-magenta, 0.2));
+    border-color: @cyberpunk-cyan;
+    color: @cyberpunk-cyan;
+    font-weight: bold;
+}
+
+button.suggested-action:hover {
+    background: linear-gradient(135deg, alpha(@cyberpunk-cyan, 0.4), alpha(@cyberpunk-magenta, 0.4));
+    box-shadow: 0 0 15px alpha(@cyberpunk-cyan, 0.5);
+}
+
+/* Destructive buttons (Remove, Disconnect, Delete) */
+button.destructive-action {
+    background: alpha(@cyberpunk-pink, 0.2);
+    border-color: @cyberpunk-pink;
+    color: @cyberpunk-pink;
+}
+
+button.destructive-action:hover {
+    background: alpha(@cyberpunk-pink, 0.4);
+    box-shadow: 0 0 15px alpha(@cyberpunk-pink, 0.5);
+}
+
+/* Lists and Treeviews */
+list,
+listbox,
+treeview {
+    background-color: @cyberpunk-bg-darker;
+    color: @cyberpunk-text;
+    border: 1px solid alpha(@cyberpunk-magenta, 0.3);
+}
+
+list row:selected,
+listbox row:selected,
+treeview:selected {
+    background: linear-gradient(90deg, alpha(@cyberpunk-cyan, 0.3), alpha(@cyberpunk-magenta, 0.3));
+    color: @cyberpunk-cyan;
+    border-left: 3px solid @cyberpunk-cyan;
+}
+
+list row:hover,
+listbox row:hover {
+    background-color: alpha(@cyberpunk-cyan, 0.1);
+}
+
+/* Entry/Text input */
+entry {
+    background-color: @cyberpunk-bg-darker;
+    color: @cyberpunk-cyan;
+    border: 1px solid alpha(@cyberpunk-magenta, 0.5);
+    border-radius: 4px;
+    padding: 6px;
+    caret-color: @cyberpunk-cyan;
+}
+
+entry:focus {
+    border-color: @cyberpunk-cyan;
+    box-shadow: 0 0 8px alpha(@cyberpunk-cyan, 0.4);
+}
+
+entry selection {
+    background-color: alpha(@cyberpunk-magenta, 0.5);
+    color: @cyberpunk-text;
+}
+
+/* Combo boxes and dropdowns */
+combobox,
+dropdown {
+    background-color: @cyberpunk-bg-lighter;
+    color: @cyberpunk-text;
+    border: 1px solid @cyberpunk-magenta;
+}
+
+/* Checkboxes and Radio buttons */
+check,
+radio {
+    color: @cyberpunk-cyan;
+    border-color: @cyberpunk-magenta;
+}
+
+check:checked,
+radio:checked {
+    background-color: alpha(@cyberpunk-cyan, 0.3);
+    color: @cyberpunk-cyan;
+}
+
+/* Progress bars */
+progressbar trough {
+    background-color: @cyberpunk-bg-darker;
+    border: 1px solid alpha(@cyberpunk-magenta, 0.3);
+    border-radius: 4px;
+}
+
+progressbar progress {
+    background: linear-gradient(90deg, @cyberpunk-cyan, @cyberpunk-magenta);
+    border-radius: 3px;
+}
+
+/* Scrolled windows */
+scrolledwindow {
+    border: 1px solid alpha(@cyberpunk-magenta, 0.2);
+}
+
+/* Scrollbars */
+scrollbar {
+    background-color: @cyberpunk-bg-darker;
+}
+
+scrollbar slider {
+    background-color: alpha(@cyberpunk-magenta, 0.5);
+    border-radius: 4px;
+}
+
+scrollbar slider:hover {
+    background-color: @cyberpunk-cyan;
+}
+
+/* Notebook/Tabs */
+notebook {
+    background-color: @cyberpunk-bg;
+    border: 1px solid alpha(@cyberpunk-magenta, 0.3);
+}
+
+notebook tab {
+    background-color: @cyberpunk-bg-darker;
+    color: @cyberpunk-text-muted;
+    padding: 8px 16px;
+    border-bottom: 2px solid transparent;
+}
+
+notebook tab:checked {
+    background-color: @cyberpunk-bg;
+    color: @cyberpunk-cyan;
+    border-bottom-color: @cyberpunk-cyan;
+}
+
+notebook tab:hover {
+    color: @cyberpunk-magenta;
+}
+
+/* Toolbars */
+toolbar {
+    background-color: @cyberpunk-bg-lighter;
+    border-bottom: 1px solid alpha(@cyberpunk-magenta, 0.3);
+}
+
+/* Statusbar */
+statusbar {
+    background-color: @cyberpunk-bg-darker;
+    color: @cyberpunk-text-muted;
+    border-top: 1px solid alpha(@cyberpunk-cyan, 0.2);
+}
+
+/* Menus */
+menubar,
+.menu {
+    background-color: @cyberpunk-bg;
+    color: @cyberpunk-text;
+    border: 1px solid @cyberpunk-magenta;
+}
+
+menuitem:hover,
+menu menuitem:hover {
+    background-color: alpha(@cyberpunk-cyan, 0.2);
+    color: @cyberpunk-cyan;
+}
+
+/* Tooltips */
+tooltip {
+    background-color: @cyberpunk-bg-darker;
+    color: @cyberpunk-cyan;
+    border: 1px solid @cyberpunk-cyan;
+    box-shadow: 0 0 10px alpha(@cyberpunk-cyan, 0.3);
+}
+
+/* Dialogs */
+dialog,
+messagedialog {
+    background-color: @cyberpunk-bg;
+    border: 1px solid @cyberpunk-magenta;
+}
+
+dialog .titlebar,
+messagedialog .titlebar {
+    background: linear-gradient(180deg, @cyberpunk-bg-lighter, @cyberpunk-bg);
+}
+
+/* Separators */
+separator {
+    background-color: alpha(@cyberpunk-magenta, 0.3);
+}
+
+/* Frames */
+frame {
+    border: 1px solid alpha(@cyberpunk-magenta, 0.2);
+}
+
+frame > label {
+    color: @cyberpunk-cyan;
+    font-weight: bold;
+}
+
+/* Scale/Sliders */
+scale trough {
+    background-color: @cyberpunk-bg-darker;
+    border: 1px solid alpha(@cyberpunk-magenta, 0.3);
+    border-radius: 4px;
+}
+
+scale highlight {
+    background: linear-gradient(90deg, @cyberpunk-cyan, @cyberpunk-magenta);
+    border-radius: 3px;
+}
+
+scale slider {
+    background-color: @cyberpunk-cyan;
+    border: 2px solid @cyberpunk-magenta;
+    border-radius: 50%;
+}
+
+/* Infobar (notifications in apps) */
+infobar {
+    background-color: alpha(@cyberpunk-cyan, 0.1);
+    border: 1px solid alpha(@cyberpunk-cyan, 0.3);
+    color: @cyberpunk-cyan;
+}
+
+/* Links */
+link {
+    color: @cyberpunk-cyan;
+}
+
+link:visited {
+    color: @cyberpunk-magenta;
+}
+
+link:hover {
+    color: @cyberpunk-pink;
+    text-decoration: underline;
+}
+
+/* Expander */
+expander {
+    color: @cyberpunk-cyan;
+}
+
+expander:hover {
+    color: @cyberpunk-magenta;
+}
+
+/* Calendar (for date/time pickers) */
+calendar {
+    background-color: @cyberpunk-bg-darker;
+    color: @cyberpunk-text;
+    border: 1px solid alpha(@cyberpunk-magenta, 0.3);
+}
+
+calendar:selected {
+    background-color: alpha(@cyberpunk-cyan, 0.3);
+    color: @cyberpunk-cyan;
+}
+
+calendar:indeterminate {
+    color: @cyberpunk-text-muted;
+}
+
+/* Spin buttons */
+spinbutton {
+    background-color: @cyberpunk-bg-darker;
+    color: @cyberpunk-cyan;
+    border: 1px solid alpha(@cyberpunk-magenta, 0.5);
+}
+
+spinbutton button {
+    background-color: @cyberpunk-bg-lighter;
+    border: none;
+    padding: 2px 6px;
+}
+
+spinbutton button:hover {
+    background-color: alpha(@cyberpunk-cyan, 0.2);
+}
+
+/* Sidebar (for file choosers, etc.) */
+.sidebar {
+    background-color: @cyberpunk-bg-darker;
+    border-right: 1px solid alpha(@cyberpunk-magenta, 0.3);
+}
+
+.sidebar row:selected {
+    background-color: alpha(@cyberpunk-cyan, 0.2);
+    border-left: 3px solid @cyberpunk-cyan;
+}
+
+/* Action bar (bottom button areas) */
+actionbar {
+    background-color: @cyberpunk-bg-darker;
+    border-top: 1px solid alpha(@cyberpunk-magenta, 0.3);
+    padding: 8px;
+}
+
+/* App specific tweaks for Blueman and NetworkManager */
+/* These target specific widget names/paths */
+window.blueman-manager,
+window.nm-connection-editor,
+window.nm-applet {
+    background-color: @cyberpunk-bg;
+}
+
+/* WiFi signal strength icons - color them cyan */
+.cellular-signal,
+.wifi-signal {
+    color: @cyberpunk-cyan;
+}
+
+/* Bluetooth device icons */
+.bluetooth-device {
+    color: @cyberpunk-magenta;
+}

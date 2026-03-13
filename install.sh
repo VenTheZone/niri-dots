@@ -88,12 +88,15 @@ verify_structure() {
         ".config/fuzzel/fuzzel.ini"
         ".config/waybar/config"
         ".config/waybar/style.css"
+        ".config/gtk-3.0/gtk.css"
         ".local/bin/screenshot-crop"
+        ".local/bin/screenshot-window"
         ".local/bin/powermenu"
         ".local/bin/waybar-toggle"
         ".local/bin/waybar-debug"
         ".local/bin/waybar-test"
         ".local/bin/volume-control"
+        ".local/bin/clipmenu.sh"
         ".zshrc"
     )
     
@@ -266,6 +269,7 @@ create_directories() {
         "$HOME/.config/alacritty"
         "$HOME/.config/fuzzel"
         "$HOME/.config/waybar"
+        "$HOME/.config/gtk-3.0"
         "$HOME/.local/bin"
         "$HOME/Pictures/Screenshots"
     )
@@ -303,12 +307,15 @@ link_dotfiles() {
         ["$script_dir/.config/waybar/style.css"]="$HOME/.config/waybar/style.css"
         ["$script_dir/.config/waybar/launch.sh"]="$HOME/.config/waybar/launch.sh"
         ["$script_dir/.config/mako/config"]="$HOME/.config/mako/config"
+        ["$script_dir/.config/gtk-3.0/gtk.css"]="$HOME/.config/gtk-3.0/gtk.css"
         ["$script_dir/.local/bin/screenshot-crop"]="$HOME/.local/bin/screenshot-crop"
+        ["$script_dir/.local/bin/screenshot-window"]="$HOME/.local/bin/screenshot-window"
         ["$script_dir/.local/bin/powermenu"]="$HOME/.local/bin/powermenu"
         ["$script_dir/.local/bin/waybar-toggle"]="$HOME/.local/bin/waybar-toggle"
         ["$script_dir/.local/bin/waybar-debug"]="$HOME/.local/bin/waybar-debug"
         ["$script_dir/.local/bin/waybar-test"]="$HOME/.local/bin/waybar-test"
         ["$script_dir/.local/bin/volume-control"]="$HOME/.local/bin/volume-control"
+        ["$script_dir/.local/bin/clipmenu.sh"]="$HOME/.local/bin/clipmenu.sh"
         ["$script_dir/.zshrc"]="$HOME/.zshrc"
     )
     
@@ -364,6 +371,12 @@ link_dotfiles() {
         fi
         if [ -f "$HOME/.local/bin/volume-control" ]; then
             chmod +x "$HOME/.local/bin/volume-control"
+        fi
+        if [ -f "$HOME/.local/bin/screenshot-window" ]; then
+            chmod +x "$HOME/.local/bin/screenshot-window"
+        fi
+        if [ -f "$HOME/.local/bin/clipmenu.sh" ]; then
+            chmod +x "$HOME/.local/bin/clipmenu.sh"
         fi
         if [ -f "$HOME/.config/waybar/launch.sh" ]; then
             chmod +x "$HOME/.config/waybar/launch.sh"

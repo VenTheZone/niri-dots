@@ -8,6 +8,24 @@ environment {
     LC_TIME "C.utf8"
 }
 
+// Cyberpunk Overview (Mod+O) - Dark backdrop
+overview {
+    backdrop-color "#1a0a2e"
+}
+
+// Animations with cyberpunk feel
+animations {
+    slowdown 0.5
+    window-open {
+        duration-ms 250
+        curve "ease-out-expo"
+    }
+    window-close {
+        duration-ms 150
+        curve "ease-out-quad"
+    }
+}
+
 // Input device configuration.
 
 // Find the full list of options on the wiki:
@@ -176,16 +194,13 @@ input {
         // - CSS-like notation: "rgb(255, 127, 0)", rgba(), hsl() and a few others.
 
         // Color of the ring on the active monitor.
-        active-color "#7fc8ff"
+        active-gradient from="#00ffff" to="#ff00ff" angle=45
 
         // Color of the ring on inactive monitors.
-        //
-        // The focus ring only draws around the active window, so the only place
-        // where you can see its inactive-color is on other monitors.
         inactive-color "#505050"
 
         // You can also use gradients. They take precedence over solid colors.
-        // Gradients are rendered the same as CSS linear-gradient(angle, from, to).
+        // active-gradient from="#00ffff" to="#ff00ff" angle=45
         // The angle is the same as in linear-gradient, and is optional,
         // defaulting to 180 (top-to-bottom gradient).
         // You can use any CSS linear-gradient tool on the web to set these up.
@@ -300,7 +315,8 @@ binds {
 
     // Essential apps with cyberpunk titles
     Mod+Return hotkey-overlay-title="[TERM] kitty" { spawn "kitty"; }
-    Mod+B hotkey-overlay-title="[WEB] firefox" { spawn "firefox"; }
+    Mod+Backspace hotkey-overlay-title="[SSH] tux-machine" { spawn "alacritty" "-e" "ssh" "tux-machine"; }
+    Mod+B hotkey-overlay-title="[WEB] zen-browser" { spawn "zen-browser"; }
     Mod+D hotkey-overlay-title="[LAUNCH] fuzzel" { spawn "fuzzel"; }
     
     // Window management
@@ -326,6 +342,16 @@ binds {
     Mod+Ctrl+Right hotkey-overlay-title="[MOVE] col right" { move-column-right; }
     Mod+Shift+Up hotkey-overlay-title="[MOVE] prev ws" { move-column-to-workspace-up; }
     Mod+Shift+Down hotkey-overlay-title="[MOVE] next ws" { move-column-to-workspace-down; }
+    
+    // Vim-style HJKL navigation
+    Mod+Ctrl+H hotkey-overlay-title="[MOVE] col left" { move-column-left; }
+    Mod+Ctrl+L hotkey-overlay-title="[MOVE] col right" { move-column-right; }
+    Mod+Ctrl+J hotkey-overlay-title="[MOVE] prev ws" { move-column-to-workspace-up; }
+    Mod+Ctrl+K hotkey-overlay-title="[MOVE] next ws" { move-column-to-workspace-down; }
+    Mod+H hotkey-overlay-title="[FOCUS] col left" { focus-column-left; }
+    Mod+L hotkey-overlay-title="[FOCUS] col right" { focus-column-right; }
+    Mod+J hotkey-overlay-title="[WS] prev" { focus-workspace-down; }
+    Mod+K hotkey-overlay-title="[WS] next" { focus-workspace-up; }
     
     // Layout
     Mod+F hotkey-overlay-title="[FULL] fullscreen" { fullscreen-window; }
@@ -376,10 +402,6 @@ Mod+Q repeat=false { close-window; }
     Mod+Down  { focus-workspace-down; }
     Mod+Up    { focus-workspace-up; }
     Mod+Right { focus-column-right; }
-    Mod+H     { focus-column-left; }
-    Mod+J     { focus-window-down; }
-    Mod+K     { focus-window-up; }
-    Mod+L     { focus-column-right; }
 
     Mod+Ctrl+Down  { move-window-down; }
     Mod+Ctrl+Up    { move-window-up; }
@@ -524,7 +546,7 @@ Mod+Q repeat=false { close-window; }
 
     // Move the focused window between the floating and the tiling layout.
     Mod+V       { toggle-window-floating; }
-    Mod+Shift+V hotkey-overlay-title="[CLIP] clipboard history" { spawn-sh "cliphist list | fuzzel --dmenu --prompt=\"󰅌 \" | cliphist decode | wl-copy"; }
+    Mod+Shift+V hotkey-overlay-title="[CLIP] clipboard history" { spawn-sh "$HOME/.local/bin/clipmenu.sh"; }
 
     // Toggle tabbed column display mode.
     // Windows in this column will appear as vertical tabs,
@@ -543,6 +565,7 @@ Mod+Q repeat=false { close-window; }
     Ctrl+Print { screenshot-screen; }
     Alt+Print { screenshot-window; }
     Mod+P hotkey-overlay-title="[CAP] crop screenshot" { spawn-sh "$HOME/.local/bin/screenshot-crop"; }
+    Mod+Alt+P hotkey-overlay-title="[WIN] capture window" { spawn-sh "$HOME/.local/bin/screenshot-window"; }
 
     // Applications such as remote-desktop clients and software KVM switches may
     // request that niri stops processing the keyboard shortcuts defined here

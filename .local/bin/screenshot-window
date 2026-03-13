@@ -1,0 +1,82 @@
+#!/bin/bash
+# Screenshot the currently focused window using niri's built-in action
+# Names the file based on app_id and window title
+
+SCREENSHOTS_DIR="$HOME/Pictures/Screenshots"
+mkdir -p "$SCREENSHOTS_DIR"
+
+# Get window info for naming
+WINDOW_INFO=$(niri msg --json focused-window 2>/dev/null)
+
+if [ -z "$WINDOW_INFO" ] || [ "$WINDOW_INFO" = "null" ]; then
+    notify-send "Screenshot Error" "No focused window found"
+    exit 1
+fi
+
+APP_ID=$(echo "$WINDOW_INFO" | jq -r '.app_id // "unknown"')
+TITLE=$(echo "$WINDOW_INFO" | jq -r '.title // ""')
+
+# Build meaningful name from title and app_id
+build_name() {
+    local app_id="$1"
+    local title="$2"
+    local name=""
+
+    case "$app_id" in
+        firefox|zen-browser)
+            # Extract domain from title (usually "Page Title - www.example.com")
+            local domain=$(echo "$title" | grep -oP '[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}' | tail -1)
+            if [ -n "$domain" ]; then
+                name="${app_id}_${domain}"
+            else
+                # Fallback: use first few words of title
+                local short_title=$(echo "$title" | cut -c1-30 | tr ' /:\\' '_')
+                name="${app_id}_${short_title}"
+            fi
+            ;;
+        kitty|alacritty|foot|wezterm)
+            # Terminal - extract the running program from title
+            # Titles like "Yazi: ~/path", "nvim file.txt", "opencode"
+            local program=$(echo "$title" | sed 's/:.*$//' | tr ' /:\\' '_')
+            if [ -n "$program" ] && [ "$program" != "$title" ]; then
+                name="${program}_${app_id}"
+            elif [ -n "$title" ]; then
+                name=$(echo "$title" | cut -c1-30 | tr ' /:\\' '_')
+            else
+                name="$app_id"
+            fi
+            ;;
+        *)
+            # Generic: app_id + sanitized title
+            if [ -n "$title" ]; then
+                local short_title=$(echo "$title" | cut -c1-40 | tr ' /:\\' '_')
+                name="${app_id}_${short_title}"
+            else
+                name="$app_id"
+            fi
+            ;;
+    esac
+
+    # Clean up: remove multiple underscores, trailing underscores
+    echo "$name" | sed 's/__*/_/g; s/^_//; s/_$//'
+}
+
+NAME=$(build_name "$APP_ID" "$TITLE")
+TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+FILENAME="${NAME}_${TIMESTAMP}.png"
+FILEPATH="$SCREENSHOTS_DIR/$FILENAME"
+
+# Take screenshot using niri's built-in action (no title bars - prefer-no-csd is set)
+niri msg action screenshot-window --path "$FILEPATH" 2>/dev/null
+
+# Wait for file to be written (niri action is async)
+for i in 1 2 3 4 5; do
+    [ -f "$FILEPATH" ] && break
+    sleep 0.2
+done
+
+if [ -f "$FILEPATH" ]; then
+    notify-send "Window Screenshot Saved" "$FILENAME" -i "$FILEPATH"
+else
+    notify-send "Screenshot Error" "Failed to capture window"
+fi
