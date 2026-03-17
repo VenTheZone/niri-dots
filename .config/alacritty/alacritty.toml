@@ -46,6 +46,7 @@ shape = "Block"
 
 [env]
 TERM = "alacritty"
+SHELL = "/usr/bin/bash"
 
 [font]
 size = 12.0

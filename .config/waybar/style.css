@@ -67,6 +67,7 @@ window#waybar {
 #upower,
 #tray,
 #pulseaudio,
+#custom-audio,
 #custom-niri-workspaces {
     background: @bg_main;
     color: @neon_cyan;
@@ -124,6 +125,11 @@ window#waybar {
 
 #pulseaudio {
     color: @neon_cyan;
+}
+
+#custom-audio {
+    color: @neon_cyan;
+    border-color: rgba(0, 242, 255, 0.3);
 }
 
 tooltip {

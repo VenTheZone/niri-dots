@@ -66,8 +66,21 @@ TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 FILENAME="${NAME}_${TIMESTAMP}.png"
 FILEPATH="$SCREENSHOTS_DIR/$FILENAME"
 
-# Take screenshot using niri's built-in action (no title bars - prefer-no-csd is set)
-niri msg action screenshot-window --path "$FILEPATH" 2>/dev/null
+# Take screenshot
+if [ "$APP_ID" = "firefox" ] || [ "$APP_ID" = "zen-browser" ]; then
+    # For browsers: use slurp to select viewport area (excludes tabs)
+    notify-send "Screenshot" "Select the page area to exclude tabs" -t 2000
+    sleep 0.3
+    GEOMETRY=$(slurp -c "#00ffff" -b "#1a0a2e80" -s "#ff00ff" 2>/dev/null)
+    if [ -n "$GEOMETRY" ]; then
+        grim -g "$GEOMETRY" "$FILEPATH" 2>/dev/null
+    else
+        exit 0
+    fi
+else
+    # Use niri's built-in action (no title bars - prefer-no-csd is set)
+    niri msg action screenshot-window --path "$FILEPATH" 2>/dev/null
+fi
 
 # Wait for file to be written (niri action is async)
 for i in 1 2 3 4 5; do

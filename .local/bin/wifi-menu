@@ -1,0 +1,144 @@
+#!/bin/bash
+# WiFi network selector using nmcli and fuzzel
+# Uses saved connections when available
+# Falls back to previous network if connection fails
+
+# Get current connection (store this before anything else)
+CURRENT=$(nmcli -t -f NAME connection show --active | grep -v "^lo$" | head -1)
+PREVIOUS_NETWORK="$CURRENT"
+
+# Build menu options
+OPTIONS=""
+
+# Add disconnect option if connected
+if [ -n "$CURRENT" ]; then
+    OPTIONS="Disconnect from: $CURRENT"
+fi
+
+# Get available WiFi networks with band info
+NETWORKS=$(nmcli -t -f SSID,SIGNAL,SECURITY,FREQ device wifi list --rescan yes 2>/dev/null | head -15)
+
+# Parse networks and add to options
+while IFS=: read -r SSID SIGNAL SECURITY FREQ; do
+    [ -z "$SSID" ] && continue
+    
+    # Determine band from frequency
+    if [ "$FREQ" -lt 3000 ]; then
+        BAND="2.4G"
+    else
+        BAND="5G"
+    fi
+    
+    # Check if we have a saved connection for this SSID
+    if nmcli -t -f NAME connection show | grep -qx "$SSID" 2>/dev/null; then
+        SAVED_ICON="📶"
+    else
+        SAVED_ICON=""
+    fi
+    
+    # Format display
+    SSID_DISPLAY="$SSID [$BAND] (${SIGNAL}%) $SAVED_ICON"
+    
+    if [ "$SSID" = "$CURRENT" ]; then
+        OPTIONS="$OPTIONS
+ → $SSID_DISPLAY"
+    else
+        OPTIONS="$OPTIONS
+   $SSID_DISPLAY"
+    fi
+done <<< "$NETWORKS"
+
+# Show menu in fuzzel
+CHOICE=$(echo -e "$OPTIONS" | sed '/^$/d' | fuzzel --dmenu --prompt="WiFi: " --lines=15)
+
+# Handle selection
+if [ -z "$CHOICE" ]; then
+    exit 0
+fi
+
+# Check if disconnect was selected
+if echo "$CHOICE" | grep -q "Disconnect"; then
+    nmcli connection down "$CURRENT"
+    notify-send "WiFi" "Disconnected from $CURRENT"
+    exit 0
+fi
+
+# Extract SSID from choice (remove arrow, band info, signal strength, icon)
+SSID=$(echo "$CHOICE" | sed 's/^[→ ]*//; s/ \[.*\] .*$//')
+
+# Check if already connected
+if [ "$SSID" = "$CURRENT" ]; then
+    notify-send "WiFi" "Already connected to $SSID"
+    exit 0
+fi
+
+# Function to attempt fallback to previous network
+attempt_fallback() {
+    if [ -n "$PREVIOUS_NETWORK" ] && [ "$PREVIOUS_NETWORK" != "$SSID" ]; then
+        notify-send "WiFi" "Connection failed. Falling back to $PREVIOUS_NETWORK..."
+        sleep 2
+        if nmcli connection up "$PREVIOUS_NETWORK" 2>/dev/null; then
+            notify-send "WiFi" "Reconnected to $PREVIOUS_NETWORK"
+            return 0
+        else
+            notify-send "WiFi" "Failed to reconnect to $PREVIOUS_NETWORK" --urgency=critical
+            return 1
+        fi
+    fi
+    return 1
+}
+
+# Disconnect from current network first (to force band switch)
+if [ -n "$CURRENT" ]; then
+    nmcli connection down "$CURRENT" 2>/dev/null
+fi
+
+# Check if we have a saved connection for this network
+SAVED_CON=$(nmcli -t -f NAME connection show | grep -x "$SSID" | head -1)
+
+if [ -n "$SAVED_CON" ]; then
+    # Use existing saved connection
+    notify-send "WiFi" "Connecting to $SSID..."
+    if nmcli connection up "$SAVED_CON"; then
+        notify-send "WiFi" "Connected to $SSID"
+    else
+        notify-send "WiFi" "Failed to connect to $SSID" --urgency=critical
+        attempt_fallback
+    fi
+else
+    # New network - check if it requires a password
+    SECURITY=$(nmcli -t -f SSID,SECURITY device wifi list | grep "^${SSID}:" | cut -d: -f2 | head -1)
+    
+    if [ -n "$SECURITY" ] && [ "$SECURITY" != "--" ]; then
+        # Password required - show better prompt
+        PASS=$(echo "" | fuzzel --dmenu \
+            --prompt="🔐 Password for '$SSID': " \
+            --password \
+            --lines=1 \
+            --width=40 \
+            --placeholder="Enter WiFi password...")
+        
+        if [ -z "$PASS" ]; then
+            # User cancelled password prompt - try to reconnect to previous
+            attempt_fallback
+            exit 0
+        fi
+        
+        notify-send "WiFi" "Connecting to $SSID..."
+        if nmcli device wifi connect "$SSID" password "$PASS"; then
+            notify-send "WiFi" "Connected to $SSID (saved)"
+        else
+            notify-send "WiFi" "Failed to connect to $SSID" --urgency=critical
+            attempt_fallback
+        fi
+    else
+        # Open network - no password needed
+        notify-send "WiFi" "Connecting to $SSID..."
+        if nmcli device wifi connect "$SSID"; then
+            notify-send "WiFi" "Connected to $SSID"
+        else
+            notify-send "WiFi" "Failed to connect to $SSID" --urgency=critical
+            attempt_fallback
+        fi
+    fi
+fi

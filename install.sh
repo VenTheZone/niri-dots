@@ -97,6 +97,9 @@ verify_structure() {
         ".local/bin/waybar-test"
         ".local/bin/volume-control"
         ".local/bin/clipmenu.sh"
+        ".local/bin/wifi-menu"
+        ".config/waybar/scripts/keyboard-backlight.sh"
+        ".config/waybar/scripts/network-bandwidth.sh"
         ".zshrc"
     )
     
@@ -269,6 +272,7 @@ create_directories() {
         "$HOME/.config/alacritty"
         "$HOME/.config/fuzzel"
         "$HOME/.config/waybar"
+        "$HOME/.config/waybar/scripts"
         "$HOME/.config/gtk-3.0"
         "$HOME/.local/bin"
         "$HOME/Pictures/Screenshots"
@@ -316,6 +320,9 @@ link_dotfiles() {
         ["$script_dir/.local/bin/waybar-test"]="$HOME/.local/bin/waybar-test"
         ["$script_dir/.local/bin/volume-control"]="$HOME/.local/bin/volume-control"
         ["$script_dir/.local/bin/clipmenu.sh"]="$HOME/.local/bin/clipmenu.sh"
+        ["$script_dir/.local/bin/wifi-menu"]="$HOME/.local/bin/wifi-menu"
+        ["$script_dir/.config/waybar/scripts/keyboard-backlight.sh"]="$HOME/.config/waybar/scripts/keyboard-backlight.sh"
+        ["$script_dir/.config/waybar/scripts/network-bandwidth.sh"]="$HOME/.config/waybar/scripts/network-bandwidth.sh"
         ["$script_dir/.zshrc"]="$HOME/.zshrc"
     )
     
@@ -378,11 +385,20 @@ link_dotfiles() {
         if [ -f "$HOME/.local/bin/clipmenu.sh" ]; then
             chmod +x "$HOME/.local/bin/clipmenu.sh"
         fi
+        if [ -f "$HOME/.local/bin/wifi-menu" ]; then
+            chmod +x "$HOME/.local/bin/wifi-menu"
+        fi
         if [ -f "$HOME/.config/waybar/launch.sh" ]; then
             chmod +x "$HOME/.config/waybar/launch.sh"
         fi
+        if [ -f "$HOME/.config/waybar/scripts/keyboard-backlight.sh" ]; then
+            chmod +x "$HOME/.config/waybar/scripts/keyboard-backlight.sh"
+        fi
+        if [ -f "$HOME/.config/waybar/scripts/network-bandwidth.sh" ]; then
+            chmod +x "$HOME/.config/waybar/scripts/network-bandwidth.sh"
+        fi
     fi
-    
+
     # Link directories
     for src_dir in "${!dirs[@]}"; do
         dst_dir="${dirs[$src_dir]}"

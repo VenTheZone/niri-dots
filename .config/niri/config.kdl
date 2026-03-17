@@ -89,7 +89,7 @@ input {
 
     // Focus windows and outputs automatically when moving the mouse into them.
     // Setting max-scroll-amount="0%" makes it work only on windows already fully on screen.
-    // focus-follows-mouse max-scroll-amount="0%"
+    focus-follows-mouse max-scroll-amount="0%"
 }
 
 // You can configure outputs by their name, which you can find
@@ -391,6 +391,11 @@ binds {
     XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
     XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
 
+    // Keyboard backlight control (ASUS laptops via asusctl)
+    XF86KbdBrightnessUp allow-when-locked=true hotkey-overlay-title="[KB+] kbd brightness up" { spawn "asusctl" "-k" "up"; }
+    XF86KbdBrightnessDown allow-when-locked=true hotkey-overlay-title="[KB-] kbd brightness down" { spawn "asusctl" "-k" "down"; }
+    Mod+Alt+K hotkey-overlay-title="[KB] toggle kbd backlight" { spawn "asusctl" "-k" "off"; }
+
     // Open/close the Overview: a zoomed-out view of workspaces and windows.
     // You can also move the mouse into the top-left hot corner,
     // or do a four-finger swipe up on a touchpad.
@@ -599,6 +604,14 @@ window-rule {
 window-rule {
     match app-id="firefox"
     opacity 0.90
+}
+
+window-rule {
+    match app-id="^blueman-manager$"
+    open-floating true
+    default-column-width { fixed 552; }
+    default-window-height { fixed 398; }
+    default-floating-position x=1364 y=52 relative-to="top-left"
 }
 
 // Disable client-side decorations globally to remove title bar buttons
