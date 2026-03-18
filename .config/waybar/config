@@ -10,7 +10,7 @@
 
     "modules-left": ["custom/launcher", "custom/niri-workspaces", "custom/media"],
     "modules-center": ["clock"],
-    "modules-right": ["tray", "network", "bluetooth", "cpu", "memory", "upower", "custom/audio", "custom/power"],
+    "modules-right": ["tray", "cpu", "memory", "upower", "custom/audio", "custom/power"],
 
     "custom/launcher": {
         "format": " 󰣇 ",
@@ -79,23 +79,5 @@
         "on-click-right": "/home/jt/.config/waybar/scripts/audio-control.sh toggle",
         "on-scroll-up": "/home/jt/.config/waybar/scripts/audio-control.sh up",
         "on-scroll-down": "/home/jt/.config/waybar/scripts/audio-control.sh down"
-    },
-
-    "network": {
-        "format-wifi": "󰈀 {essid}",
-        "format-ethernet": "󰈀 {ifname}",
-        "format-disconnected": "󰈀 Disconnected",
-        "tooltip-format": "{ifname}: {ipaddr}/{cidr}\nSignal: {signalStrength}%",
-        "on-click": "~/.local/bin/wifi-menu",
-        "interval": 5
-    },
-
-    "bluetooth": {
-        "format": "󰂯",
-        "format-connected": "󰂱 {device_alias}",
-        "format-off": "󰂲",
-        "tooltip-format": "{device_alias}\n{device_address}\nBattery: {device_battery_percentage}%",
-        "on-click": "blueman-manager",
-        "interval": 5
     }
 }
