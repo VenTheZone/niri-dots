@@ -109,6 +109,8 @@ window#waybar {
 #upower {
     color: #f3e600;
     border-color: rgba(243, 230, 0, 0.3);
+    text-shadow: 0 0 5px #f3e600;
+    min-width: 60px;
 }
 
 #upower.charging {
