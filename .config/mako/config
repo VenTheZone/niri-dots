@@ -4,8 +4,10 @@ sort=-time
 layer=overlay
 width=300
 height=110
+background-color=#121218
+text-color=#d6d6cd
 border-size=2
-border-color=#89b4fa
+border-color=#2a2a33
 border-radius=10
 icons=1
 max-icon-size=64
@@ -14,13 +16,13 @@ ignore-timeout=1
 font=JetBrainsMono Nerd Font 10
 
 [urgency=low]
-border-color=#89b4fa
+border-color=#2a2a33
 default-timeout=2000
 
 [urgency=normal]
-border-color=#89b4fa
+border-color=#2a2a33
 default-timeout=5000
 
 [urgency=high]
-border-color=#f38ba8
+border-color=#ff003c
 default-timeout=5000

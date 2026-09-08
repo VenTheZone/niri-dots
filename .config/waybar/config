@@ -10,7 +10,7 @@
 
     "modules-left": ["custom/launcher", "custom/niri-workspaces", "custom/media"],
     "modules-center": ["clock"],
-    "modules-right": ["tray", "cpu", "memory", "upower", "custom/audio", "custom/power"],
+    "modules-right": ["tray", "cpu", "memory", "custom/battery", "custom/audio", "custom/power"],
 
     "custom/launcher": {
         "format": " 󰣇 ",
@@ -60,10 +60,10 @@
         "tooltip-format": "RAM: {used:0.1f}GB / {total:0.1f}GB\nSwap: {swapUsed:0.1f}GB / {swapTotal:0.1f}GB"
     },
 
-    "upower": {
-        "show-icon": false,
-        "format": "  {percentage}% ",
-        "interval": 30
+    "custom/battery": {
+        "exec": "/home/jt/.config/waybar/scripts/battery-status.sh",
+        "return-type": "json",
+        "interval": 10
     },
 
     "tray": {

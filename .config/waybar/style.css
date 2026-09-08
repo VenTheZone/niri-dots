@@ -1,8 +1,13 @@
-@define-color bg_main rgba(10, 11, 30, 0.85);
-@define-color neon_pink #ff00ff;
-@define-color neon_cyan #00f2ff;
-@define-color neon_purple #9d00ff;
-@define-color neon_blue #0055ff;
+/* Cyberpunk 2077 dark theme
+   Solid bar, colored readouts: blue system, cyan data, yellow accent, red alert */
+
+@define-color bar_bg #0d0d11;
+@define-color pill_bg #16161c;
+@define-color pill_border #2a2a33;
+@define-color accent_yellow #d9bd08;
+@define-color accent_blue #4da6ff;
+@define-color accent_cyan #00b3c8;
+@define-color alert_red #ff003c;
 
 * {
     font-family: "JetBrainsMono Nerd Font", monospace;
@@ -14,45 +19,43 @@
 }
 
 window#waybar {
-    background: transparent;
+    background: rgba(13, 13, 17, 0.97);
+    border-bottom: 1px solid rgba(217, 189, 8, 0.35);
 }
 
 #workspaces,
 #hyprland-workspaces {
-    background: @bg_main;
+    background: @pill_bg;
     margin: 4px;
     padding: 2px;
     border-radius: 12px;
-    border: 1px solid rgba(0, 242, 255, 0.3);
-    box-shadow: 0 0 10px rgba(0, 242, 255, 0.1);
+    border: 1px solid rgba(77, 166, 255, 0.3);
 }
 
 #workspaces button,
 #hyprland-workspaces button {
     padding: 0 12px;
-    color: #888;
+    color: rgba(77, 166, 255, 0.55);
     transition: all 0.3s ease;
     min-width: 30px;
 }
 
 #workspaces button.active,
 #hyprland-workspaces button.active {
-    color: @neon_cyan;
-    text-shadow: 0 0 8px @neon_cyan;
-    background: rgba(0, 242, 255, 0.15);
+    color: @accent_yellow;
+    background: rgba(217, 189, 8, 0.12);
     border-radius: 8px;
 }
 
 #workspaces button.focused,
 #hyprland-workspaces button.focused {
-    color: @neon_cyan;
-    text-shadow: 0 0 8px @neon_cyan;
+    color: @accent_yellow;
 }
 
 #workspaces button:hover,
 #hyprland-workspaces button:hover {
-    color: @neon_pink;
-    background: rgba(255, 0, 255, 0.1);
+    color: @alert_red;
+    background: rgba(255, 0, 60, 0.12);
     border-radius: 8px;
 }
 
@@ -69,78 +72,80 @@ window#waybar {
 #pulseaudio,
 #custom-audio,
 #custom-niri-workspaces {
-    background: @bg_main;
-    color: @neon_cyan;
-    padding: 0 15px;
-    margin: 4px 2px;
+    background: transparent;
+    color: @accent_blue;
+    padding: 0 13px;
+    margin: 4px 1px;
     border-radius: 10px;
-    border: 1px solid rgba(0, 242, 255, 0.2);
-    box-shadow: 0 0 10px rgba(0, 242, 255, 0.1);
+    border: 1px solid transparent;
 }
 
 #custom-launcher {
-    color: @neon_cyan;
-    border-color: rgba(0, 242, 255, 0.3);
+    color: @accent_blue;
     font-size: 18px;
-    padding-left: 10px;
+    padding-left: 12px;
     padding-right: 15px;
+}
+
+#custom-niri-workspaces {
+    color: rgba(77, 166, 255, 0.75);
 }
 
 #custom-power {
-    color: @neon_pink;
-    border-color: rgba(255, 0, 255, 0.3);
+    color: @alert_red;
     font-size: 18px;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 14px;
+    padding-right: 14px;
 }
 
 #clock {
-    color: @neon_pink;
-    border-color: rgba(255, 0, 255, 0.3);
-    text-shadow: 0 0 5px @neon_pink;
+    color: @accent_yellow;
     font-size: 14px;
 }
 
 #custom-media {
-    color: @neon_purple;
-    border-color: rgba(157, 0, 255, 0.3);
+    color: @accent_cyan;
 }
 
-#upower {
-    color: #f3e600;
-    border-color: rgba(243, 230, 0, 0.3);
-    text-shadow: 0 0 5px #f3e600;
-    min-width: 60px;
-}
-
-#upower.charging {
-    color: #00ff00;
-}
-
-#cpu {
-    color: @neon_cyan;
-}
-
-#memory {
-    color: @neon_pink;
-}
-
-#pulseaudio {
-    color: @neon_cyan;
-}
-
+#cpu,
+#upower,
+#pulseaudio,
 #custom-audio {
-    color: @neon_cyan;
-    border-color: rgba(0, 242, 255, 0.3);
+    color: @accent_blue;
+    font-size: 14px;
+}
+
+#memory,
+#network,
+#bluetooth,
+#tray {
+    color: @accent_cyan;
+    font-size: 14px;
+}
+
+#custom-battery {
+    font-size: 14px;
+}
+
+#custom-battery.ok {
+    color: #4eb84e;
+}
+
+#custom-battery.warn {
+    color: @accent_yellow;
+}
+
+#custom-battery.crit {
+    color: @alert_red;
 }
 
 tooltip {
-    background: @bg_main;
-    border: 1px solid @neon_cyan;
+    background: @bar_bg;
+    border: 1px solid @pill_border;
     border-radius: 10px;
 }
 
 tooltip label {
-    color: @neon_cyan;
+    color: @accent_blue;
     padding: 8px;
 }

@@ -10,7 +10,7 @@ environment {
 
 // Cyberpunk Overview (Mod+O) - Dark backdrop
 overview {
-    backdrop-color "#1a0a2e"
+    backdrop-color "#0a0a0e"
 }
 
 // Animations with cyberpunk feel
@@ -186,18 +186,18 @@ input {
         // off
 
         // How many logical pixels the ring extends out from the windows.
-        width 4
+        width 3
 
         // Colors can be set in a variety of ways:
         // - CSS named colors: "red"
         // - RGB hex: "#rgb", "#rgba", "#rrggbb", "#rrggbbaa"
         // - CSS-like notation: "rgb(255, 127, 0)", rgba(), hsl() and a few others.
 
-        // Color of the ring on the active monitor.
-        active-gradient from="#00ffff" to="#ff00ff" angle=45
+        // Cyberpunk 2077: muted amber energy gradient
+        active-gradient from="#d9bd08" to="#a64a00" angle=45
 
         // Color of the ring on inactive monitors.
-        inactive-color "#505050"
+        inactive-color "#2a2a33"
 
         // You can also use gradients. They take precedence over solid colors.
         // active-gradient from="#00ffff" to="#ff00ff" angle=45
@@ -226,7 +226,7 @@ input {
         inactive-color "#505050"
 
         // Color of the border around windows that request your attention.
-        urgent-color "#9b0000"
+        urgent-color "#ff003c"
 
         // Gradients can use a few different interpolation color spaces.
         // For example, this is a pastel rainbow gradient via in="oklch longer hue".
@@ -315,7 +315,7 @@ binds {
 
     // Essential apps with cyberpunk titles
     Mod+Return hotkey-overlay-title="[TERM] kitty" { spawn "kitty"; }
-    Mod+Backspace hotkey-overlay-title="[SSH] tux-machine" { spawn "alacritty" "-e" "ssh" "tux-machine"; }
+    Mod+Backspace hotkey-overlay-title="[TERM] alacritty" { spawn "alacritty"; }
     Mod+B hotkey-overlay-title="[WEB] zen-browser" { spawn "zen-browser"; }
     Mod+D hotkey-overlay-title="[LAUNCH] fuzzel" { spawn "fuzzel"; }
     
@@ -618,4 +618,4 @@ window-rule {
 prefer-no-csd
 
 // Add lines like this to spawn processes at startup
-spawn-sh-at-startup "swaybg -i \"/home/jt/.config/niri/wallpaper/Rap Musik.jpg\" -m fill"
+spawn-sh-at-startup "swaybg -i \"/home/jt/.config/niri/wallpaper/moon.png\" -m fill"

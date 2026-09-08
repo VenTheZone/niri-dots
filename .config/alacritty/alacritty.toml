@@ -1,40 +1,40 @@
 [colors.bright]
-black = "0x1c61c2"
-blue = "0x00ff00"
-cyan = "0x0abdc6"
-green = "0xd300c4"
-magenta = "0x711c91"
-red = "0xff0000"
-white = "0xffffff"
-yellow = "0xf57800"
+black = "0x2a2a33"
+blue = "0x8cc7de"
+cyan = "0x35d4d4"
+green = "0xa3e28f"
+magenta = "0xe89ec0"
+red = "0xff6b81"
+white = "0xf5f5ee"
+yellow = "0xe6d13d"
 
 [colors.cursor]
-cursor = "0x0abdc6"
-text = "0x000b1e"
+cursor = "0xd9bd08"
+text = "0x0a0a0e"
 
 [colors.dim]
-black = "0x0a0a0a"
-blue = "0x000088"
-cyan = "0x008888"
-green = "0x008800"
-magenta = "0x880088"
-red = "0x880000"
-white = "0x888888"
-yellow = "0x888800"
+black = "0x0d0d11"
+blue = "0x3c6b80"
+cyan = "0x009a9f"
+green = "0x52814a"
+magenta = "0x844765"
+red = "0x99243a"
+white = "0x8a8a82"
+yellow = "0x998c07"
 
 [colors.normal]
-black = "0x123e7c"
-blue = "0x123e7c"
-cyan = "0x0abdc6"
-green = "0xd300c4"
-magenta = "0x711c91"
-red = "0xff0000"
-white = "0xd7d7d5"
-yellow = "0xf57800"
+black = "0x121218"
+blue = "0x5aa7c4"
+cyan = "0x00b3c8"
+green = "0x7fc96b"
+magenta = "0xd6669c"
+red = "0xff3352"
+white = "0xd6d6cd"
+yellow = "0xd9bd08"
 
 [colors.primary]
-background = "0x000b1e"
-foreground = "0x0abdc6"
+background = "0x0a0a0e"
+foreground = "0xd6d6cd"
 
 [cursor]
 blink_interval = 750
@@ -46,7 +46,10 @@ shape = "Block"
 
 [env]
 TERM = "alacritty"
-SHELL = "/usr/bin/bash"
+
+[terminal]
+shell = { program = "/bin/zsh", args = ["--login", "-i"] }
+osc52 = "CopyPaste"
 
 [font]
 size = 12.0
@@ -74,6 +77,7 @@ style = "Regular"
 [font.offset]
 x = 0
 y = 0
+
 
 [[keyboard.bindings]]
 action = "Paste"
@@ -115,7 +119,6 @@ action = "SpawnNewInstance"
 key = "Return"
 mods = "Control|Shift"
 
-[terminal]
 
 [mouse]
     hide_when_typing = true
@@ -123,10 +126,6 @@ mods = "Control|Shift"
     [scrolling]
 history = 10000
 multiplier = 3
-
-[terminal.shell]
-args = ["--login", "-i"]
-program = "/bin/zsh"
 
 [window]
 decorations = "buttonless"
@@ -137,5 +136,3 @@ startup_mode = "Windowed"
 [window.padding]
 x = 10
 y = 10
-
-[keyboard]

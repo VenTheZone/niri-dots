@@ -1,38 +1,38 @@
-# Swaylock configuration with Solana wallpaper
-# Cyberpunk theme colors
+# Swaylock configuration
+# Cyberpunk 2077 dark theme colors
 
 # Background image
-image=~/.config/niri/wallpaper/Solana-wallpaper.png
+image=~/.config/niri/wallpaper/moon.png
 scaling=fill
 
-# Ring colors (matches Cyberpunk cyan theme)
-ring-color=#89b4fa
-ring-ver-color=#89b4fa
-ring-wrong-color=#f38ba8
-ring-clear-color=#a6e3a1
+# Ring colors (Cyberpunk yellow / red)
+ring-color=#d9bd08
+ring-ver-color=#d9bd08
+ring-wrong-color=#ff003c
+ring-clear-color=#8a8a82
 
 # Inside colors
-inside-color=#1e1e2e
-inside-ver-color=#1e1e2e
-inside-wrong-color=#1e1e2e
-inside-clear-color=#1e1e2e
+inside-color=#0a0a0e
+inside-ver-color=#0a0a0e
+inside-wrong-color=#0a0a0e
+inside-clear-color=#0a0a0e
 
 # Line color
-line-color=#1e1e2e
-line-ver-color=#1e1e2e
-line-wrong-color=#1e1e2e
-line-clear-color=#1e1e2e
+line-color=#0a0a0e
+line-ver-color=#0a0a0e
+line-wrong-color=#0a0a0e
+line-clear-color=#0a0a0e
 
 # Separator color
-separator-color=#313244
+separator-color=#2a2a33
 
 # Text colors
-key-hl-color=#89b4fa
-bs-hl-color=#f38ba8
-text-color=#cdd6f4
-text-ver-color=#cdd6f4
-text-wrong-color=#cdd6f4
-text-clear-color=#cdd6f4
+key-hl-color=#d9bd08
+bs-hl-color=#ff003c
+text-color=#d6d6cd
+text-ver-color=#d6d6cd
+text-wrong-color=#d6d6cd
+text-clear-color=#d6d6cd
 
 # Font
 font=JetBrainsMono Nerd Font

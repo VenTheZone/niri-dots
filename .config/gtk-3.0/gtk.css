@@ -1,13 +1,13 @@
-/* Cyberpunk GTK Theme - Applies to blueman, nm-connection-editor, etc. */
+/* Cyberpunk 2077 GTK Theme (dark) - Applies to blueman, nm-connection-editor, etc. */
 
-@define-color cyberpunk-bg #1a0a2e;
-@define-color cyberpunk-bg-darker #0f0518;
-@define-color cyberpunk-bg-lighter #2a1640;
-@define-color cyberpunk-cyan #00ffff;
-@define-color cyberpunk-magenta #ff00ff;
-@define-color cyberpunk-pink #ff0080;
-@define-color cyberpunk-text #e0e0e0;
-@define-color cyberpunk-text-muted #808080;
+@define-color cyberpunk-bg #121218;
+@define-color cyberpunk-bg-darker #0a0a0e;
+@define-color cyberpunk-bg-lighter #1c1c24;
+@define-color cyberpunk-cyan #d9bd08;
+@define-color cyberpunk-magenta #2a2a33;
+@define-color cyberpunk-pink #ff003c;
+@define-color cyberpunk-text #d6d6cd;
+@define-color cyberpunk-text-muted #8a8a82;
 
 /* Base window styling */
 window {
@@ -22,7 +22,7 @@ headerbar,
     background: linear-gradient(180deg, @cyberpunk-bg-lighter, @cyberpunk-bg);
     color: @cyberpunk-cyan;
     border-bottom: 1px solid @cyberpunk-cyan;
-    box-shadow: 0 0 10px alpha(@cyberpunk-cyan, 0.3);
+    box-shadow: 0 0 6px alpha(@cyberpunk-cyan, 0.15);
 }
 
 headerbar:backdrop,
@@ -39,14 +39,13 @@ button {
     border: 1px solid @cyberpunk-magenta;
     border-radius: 4px;
     padding: 6px 12px;
-    text-shadow: 0 0 5px alpha(@cyberpunk-magenta, 0.5);
 }
 
 button:hover {
     background: @cyberpunk-bg;
     border-color: @cyberpunk-cyan;
     color: @cyberpunk-cyan;
-    box-shadow: 0 0 10px alpha(@cyberpunk-cyan, 0.4);
+    box-shadow: 0 0 8px alpha(@cyberpunk-cyan, 0.2);
 }
 
 button:active {
@@ -71,8 +70,8 @@ button.text-button.suggested-action {
 }
 
 button.suggested-action:hover {
-    background: linear-gradient(135deg, alpha(@cyberpunk-cyan, 0.4), alpha(@cyberpunk-magenta, 0.4));
-    box-shadow: 0 0 15px alpha(@cyberpunk-cyan, 0.5);
+    background: linear-gradient(135deg, alpha(@cyberpunk-cyan, 0.3), alpha(@cyberpunk-pink, 0.3));
+    box-shadow: 0 0 10px alpha(@cyberpunk-cyan, 0.25);
 }
 
 /* Destructive buttons (Remove, Disconnect, Delete) */
@@ -83,8 +82,8 @@ button.destructive-action {
 }
 
 button.destructive-action:hover {
-    background: alpha(@cyberpunk-pink, 0.4);
-    box-shadow: 0 0 15px alpha(@cyberpunk-pink, 0.5);
+    background: alpha(@cyberpunk-pink, 0.3);
+    box-shadow: 0 0 10px alpha(@cyberpunk-pink, 0.25);
 }
 
 /* Lists and Treeviews */
@@ -99,7 +98,7 @@ treeview {
 list row:selected,
 listbox row:selected,
 treeview:selected {
-    background: linear-gradient(90deg, alpha(@cyberpunk-cyan, 0.3), alpha(@cyberpunk-magenta, 0.3));
+    background: alpha(@cyberpunk-cyan, 0.15);
     color: @cyberpunk-cyan;
     border-left: 3px solid @cyberpunk-cyan;
 }
@@ -121,7 +120,7 @@ entry {
 
 entry:focus {
     border-color: @cyberpunk-cyan;
-    box-shadow: 0 0 8px alpha(@cyberpunk-cyan, 0.4);
+    box-shadow: 0 0 8px alpha(@cyberpunk-cyan, 0.2);
 }
 
 entry selection {
@@ -181,8 +180,7 @@ scrollbar slider:hover {
     background-color: @cyberpunk-cyan;
 }
 
-/* Notebook/Tabs */
-notebook {
+/* Notebook/Tabs */notebook {
     background-color: @cyberpunk-bg;
     border: 1px solid alpha(@cyberpunk-magenta, 0.3);
 }
@@ -234,9 +232,9 @@ menu menuitem:hover {
 /* Tooltips */
 tooltip {
     background-color: @cyberpunk-bg-darker;
-    color: @cyberpunk-cyan;
+    color: @cyberpunk-text;
     border: 1px solid @cyberpunk-cyan;
-    box-shadow: 0 0 10px alpha(@cyberpunk-cyan, 0.3);
+    box-shadow: 0 0 6px alpha(@cyberpunk-cyan, 0.15);
 }
 
 /* Dialogs */
