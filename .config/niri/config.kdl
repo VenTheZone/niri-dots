@@ -632,3 +632,4 @@ prefer-no-csd
 // Add lines like this to spawn processes at startup
 spawn-sh-at-startup "swaybg -i \"/home/jt/.config/niri/wallpaper/moon.png\" -m fill"
 spawn-at-startup "awww-daemon"
+spawn-sh-at-startup "sleep 1 && awww img -t simple \"/home/jt/.config/niri/wallpaper/animated-wave.gif\""
