@@ -89,3 +89,7 @@ dist/
 yarn.lock
 package-lock.json
 Cargo.lock
+
+# Wallpapers are intentional dotfile content
+!.config/niri/wallpaper/*.png
+!.config/niri/wallpaper/*.jpg
