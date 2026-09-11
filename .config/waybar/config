@@ -10,7 +10,7 @@
 
     "modules-left": ["custom/launcher", "custom/niri-workspaces", "custom/media"],
     "modules-center": ["clock"],
-    "modules-right": ["tray", "cpu", "memory", "custom/battery", "custom/audio", "custom/power"],
+    "modules-right": ["tray", "cpu", "memory", "custom/battery", "custom/kbd", "custom/audio", "custom/power"],
 
     "custom/launcher": {
         "format": " 󰣇 ",
@@ -69,6 +69,15 @@
     "tray": {
         "icon-size": 18,
         "spacing": 10
+    },
+
+    "custom/kbd": {
+        "exec": "/home/jt/.config/waybar/scripts/keyboard-backlight.sh",
+        "return-type": "json",
+        "interval": 1,
+        "on-click": "/home/jt/.config/waybar/scripts/keyboard-backlight.sh toggle",
+        "on-scroll-up": "/home/jt/.config/waybar/scripts/keyboard-backlight.sh up",
+        "on-scroll-down": "/home/jt/.config/waybar/scripts/keyboard-backlight.sh down"
     },
 
     "custom/audio": {
