@@ -1,0 +1,14 @@
+#!/bin/bash
+# Toggle wf-recorder: no args = toggle; "status" = waybar JSON.
+# SIGINT finalizes the mp4 (same as Ctrl+C); SIGTERM would corrupt it.
+if pgrep -x wf-recorder >/dev/null; then
+    if [ "$1" = status ]; then
+        echo '{"text": " ⏺ ", "class": "rec"}'
+    else
+        pkill -INT -x wf-recorder
+    fi
+elif [ "$1" = status ]; then
+    echo '{"text": " ⏺ "}'
+else
+    nohup wf-recorder -o eDP-1 -f "$HOME/Videos/screenrecord_$(date +%Y%m%d_%H%M%S).mp4" >/dev/null 2>&1 &
+fi

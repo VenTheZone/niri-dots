@@ -575,6 +575,7 @@ Mod+Q repeat=false { close-window; }
     Print { screenshot; }
     Ctrl+Print { screenshot-screen; }
     Alt+Print { screenshot-window; }
+    Mod+Print hotkey-overlay-title="[REC] screen record" { spawn "/home/jt/.local/bin/record-toggle"; }
     Mod+P hotkey-overlay-title="[CAP] crop screenshot" { spawn-sh "$HOME/.local/bin/screenshot-crop"; }
     Mod+Alt+P hotkey-overlay-title="[WIN] capture window" { spawn-sh "$HOME/.local/bin/screenshot-window"; }
 

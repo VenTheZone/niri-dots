@@ -149,3 +149,7 @@ tooltip label {
     color: @accent_blue;
     padding: 8px;
 }
+
+#custom-rec.rec {
+    color: @alert_red;
+}

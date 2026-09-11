@@ -10,11 +10,20 @@
 
     "modules-left": ["custom/launcher", "custom/niri-workspaces", "custom/media"],
     "modules-center": ["clock"],
-    "modules-right": ["tray", "cpu", "memory", "custom/battery", "custom/kbd", "custom/audio", "custom/power"],
+    "modules-right": ["tray", "cpu", "memory", "custom/battery", "custom/kbd", "custom/audio", "custom/rec", "custom/power"],
 
     "custom/launcher": {
         "format": " 󰣇 ",
         "on-click": "fuzzel",
+        "tooltip": false
+    },
+
+    "custom/rec": {
+        "format": "{}",
+        "exec": "/home/jt/.local/bin/record-toggle status",
+        "return-type": "json",
+        "interval": 1,
+        "on-click": "/home/jt/.local/bin/record-toggle",
         "tooltip": false
     },
 
