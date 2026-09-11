@@ -328,7 +328,7 @@ binds {
     // Window management
     Mod+Shift+Q hotkey-overlay-title="[CLOSE] close window" { close-window; }
     Mod+Shift+E hotkey-overlay-title="[EXIT] quit niri" { quit; }
-    Mod+E hotkey-overlay-title="[FILE] thunar file manager" { spawn "thunar"; }
+    Mod+E hotkey-overlay-title="[FILE] dolphin file manager" { spawn "dolphin"; }
     Mod+Shift+M hotkey-overlay-title="[PWR] powermenu" { spawn-sh "$HOME/.local/bin/powermenu"; }
     Mod+Shift+T hotkey-overlay-title="[RELOAD] reload config" { spawn "sh" "-c" "niri msg action load-config-file"; }
     Mod+Shift+B hotkey-overlay-title="[BAR] toggle waybar" { spawn-sh "$HOME/.local/bin/waybar-toggle"; }
@@ -618,6 +618,11 @@ window-rule {
     default-column-width { fixed 552; }
     default-window-height { fixed 398; }
     default-floating-position x=1364 y=52 relative-to="top-left"
+}
+
+window-rule {
+    match app-id="^mpv$"
+    open-floating true
 }
 
 // Disable client-side decorations globally to remove title bar buttons
