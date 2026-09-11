@@ -8,10 +8,12 @@
 BAT_CACHE=/tmp/kbd-battery-tier
 
 sync_battery_color() {
-    local cap tier
+    local cap tier ac
     cap=$(cat /sys/class/power_supply/BAT0/capacity 2>/dev/null)
     [[ "$cap" =~ ^[0-9]+$ ]] || return
-    if [ "$cap" -gt 50 ]; then tier="00ff00"
+    ac=$(cat /sys/class/power_supply/AC0/online 2>/dev/null)
+    if [ "$ac" = "1" ]; then tier="5ef6ff"   # plugged in: cyan
+    elif [ "$cap" -gt 50 ]; then tier="00ff00"
     elif [ "$cap" -ge 20 ]; then tier="ff9900"
     else tier="ff0000"; fi
     if [ "$(cat "$BAT_CACHE" 2>/dev/null)" != "$tier" ]; then
