@@ -137,10 +137,15 @@ uninstall() {
 
     # Bin symlinks
     remove_symlink ~/.local/bin/screenshot-crop && ((removed++)) || true
+    remove_symlink ~/.local/bin/screenshot-window && ((removed++)) || true
     remove_symlink ~/.local/bin/powermenu && ((removed++)) || true
     remove_symlink ~/.local/bin/waybar-toggle && ((removed++)) || true
     remove_symlink ~/.local/bin/waybar-debug && ((removed++)) || true
     remove_symlink ~/.local/bin/waybar-test && ((removed++)) || true
+    remove_symlink ~/.local/bin/volume-control && ((removed++)) || true
+    remove_symlink ~/.local/bin/clipmenu.sh && ((removed++)) || true
+    remove_symlink ~/.local/bin/wifi-menu && ((removed++)) || true
+    remove_symlink ~/.local/bin/record-toggle && ((removed++)) || true
 
     # Zshrc symlink
     remove_symlink ~/.zshrc && ((removed++)) || true

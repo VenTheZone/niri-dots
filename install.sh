@@ -98,6 +98,7 @@ verify_structure() {
         ".local/bin/volume-control"
         ".local/bin/clipmenu.sh"
         ".local/bin/wifi-menu"
+        ".local/bin/record-toggle"
         ".config/waybar/scripts/keyboard-backlight.sh"
         ".config/waybar/scripts/network-bandwidth.sh"
         ".zshrc"
@@ -178,6 +179,8 @@ check_dependencies() {
         "slurp:slurp"
         "swaylock:swaylock"
         "swaybg:swaybg"
+        "awww:awww"
+        "wf-recorder:wf-recorder"
         "wl-clipboard:wl-copy"
         "libnotify:notify-send"
         "mako:mako"
@@ -321,6 +324,7 @@ link_dotfiles() {
         ["$script_dir/.local/bin/volume-control"]="$HOME/.local/bin/volume-control"
         ["$script_dir/.local/bin/clipmenu.sh"]="$HOME/.local/bin/clipmenu.sh"
         ["$script_dir/.local/bin/wifi-menu"]="$HOME/.local/bin/wifi-menu"
+        ["$script_dir/.local/bin/record-toggle"]="$HOME/.local/bin/record-toggle"
         ["$script_dir/.config/waybar/scripts/keyboard-backlight.sh"]="$HOME/.config/waybar/scripts/keyboard-backlight.sh"
         ["$script_dir/.config/waybar/scripts/network-bandwidth.sh"]="$HOME/.config/waybar/scripts/network-bandwidth.sh"
         ["$script_dir/.zshrc"]="$HOME/.zshrc"
@@ -361,6 +365,9 @@ link_dotfiles() {
     
     # Make scripts executable
     if [ "$DRY_RUN" = false ]; then
+        if [ -f "$HOME/.local/bin/record-toggle" ]; then
+            chmod +x "$HOME/.local/bin/record-toggle"
+        fi
         if [ -f "$HOME/.local/bin/screenshot-crop" ]; then
             chmod +x "$HOME/.local/bin/screenshot-crop"
         fi

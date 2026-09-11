@@ -93,3 +93,4 @@ Cargo.lock
 # Wallpapers are intentional dotfile content
 !.config/niri/wallpaper/*.png
 !.config/niri/wallpaper/*.jpg
+!.config/niri/wallpaper/*.gif

@@ -16,12 +16,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - CONTRIBUTING.md guidelines
 - Screenshots directory structure
 - CHANGELOG.md for tracking updates
+- Screen recording toggle (`Mod+Print` via `record-toggle` script, SIGINT-finalized MP4)
+- Waybar `custom/rec` indicator (pulses red while recording)
+- Animated wallpaper (awww) visible in overview backdrop via `place-within-backdrop` layer-rule
 
 ### Changed
 - Installer now includes waybar-debug and waybar-test in required files
 - Improved README with badges and better structure
 - Added battery, network, bluetooth modules to waybar (temporarily simplified)
 - Enhanced installer with better error handling and file verification
+- Wallpaper stack: `swaybg` draws static moon.png; `awww-daemon` + `awww img` shows animated-wave.gif on backdrop layer
 
 ### Fixed
 - Removed config.jsonc conflict in waybar config

@@ -10,6 +10,7 @@ Cyberpunk-themed Niri configuration with Waybar, Alacritty, and Fuzzel.
 - 🔧 **Smart Installer** - One-command setup with automatic service enablement (Bluetooth, etc.)
 - 📊 **Interactive Status Bar** - Clickable modules for Network, Bluetooth, and Media
 - 📸 **Screenshot Tool** - Region selection with auto-naming
+- 🎥 **Screen Recording** - Toggle with `Mod+Print` (saves MP4 to `~/Videos`)
 - 🔌 **Power Menu** - Quick access to lock/logout/shutdown
 
 ## Table of Contents
@@ -49,6 +50,8 @@ Cyberpunk-themed Niri configuration with Waybar, Alacritty, and Fuzzel.
 | | |  CPU |
 | | |  Memory |
 
+| | | ⏺ REC (pulses red while recording) |
+
 ### Interaction Table
 | Icon | Click Action |
 |------|--------------|
@@ -66,6 +69,7 @@ Cyberpunk-themed Niri configuration with Waybar, Alacritty, and Fuzzel.
 | `Mod+B` | Open Firefox |
 | `Mod+D` | Open Fuzzel |
 | `Mod+P` | Screenshot crop |
+| `Mod+Print` | Toggle screen recording |
 | `Mod+W` | Fit window to screen |
 | `Mod+F` | Fullscreen |
 | `Mod+M` | Fit to edges |
@@ -142,6 +146,8 @@ See [DEPENDENCIES.md](./DEPENDENCIES.md) for full list.
 
 - Niri, Waybar, Alacritty, Fuzzel
 - Grim + Slurp (for screenshots)
+- wf-recorder (for screen recording)
+- awww + swaybg (for wallpaper)
 - Swaylock (for lockscreen)
 - JetBrainsMono Nerd Font
 

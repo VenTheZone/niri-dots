@@ -14,6 +14,9 @@
 | `wl-clipboard` | Clipboard utilities for Wayland | Yes |
 | `libnotify` | Desktop notification library | Yes |
 | `mako` | Notification daemon for Wayland | Yes |
+| `wf-recorder` | Screen recording utility (MP4) | Yes |
+| `awww` | Animated wallpaper daemon | Yes |
+| `swaybg` | Static wallpaper renderer | Yes |
 
 ## Waybar Modules
 
