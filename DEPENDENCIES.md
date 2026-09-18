@@ -6,7 +6,8 @@
 |---------|-------------|----------|
 | `niri` | Dynamic tiling Wayland compositor | Yes |
 | `waybar` | Status bar for Wayland | Yes |
-| `alacritty` | GPU-accelerated terminal emulator | Yes |
+| `alacritty` | GPU-accelerated terminal emulator (David / yellow-red) | Yes |
+| `kitty` | GPU terminal with cursor trail (Lucy / cyan-magenta) | No |
 | `fuzzel` | Wayland application launcher | Yes |
 | `grim` | Screenshot utility for Wayland | Yes |
 | `slurp` | Select a region in a Wayland compositor | Yes |

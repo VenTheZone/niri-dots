@@ -1,6 +1,6 @@
 # Niri Dots <img src="https://img.shields.io/badge/Niri-Wayland-cyan?style=flat-square" alt="Niri" /> <img src="https://img.shields.io/badge/Theme-Cyberpunk-magenta?style=flat-square" alt="Theme" /> <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="License" /> <img src="https://img.shields.io/badge/Shell-Bash-4EAA25?style=flat-square&logo=gnu-bash&logoColor=white" alt="Shell" />
 
-Cyberpunk-themed Niri configuration with Waybar, Alacritty, and Fuzzel.
+Cyberpunk-themed Niri configuration with Waybar, Alacritty, Kitty, and Fuzzel.
 
 ## Features
 
@@ -27,7 +27,9 @@ Cyberpunk-themed Niri configuration with Waybar, Alacritty, and Fuzzel.
 
 - **Niri**: Window manager with hotkey overlay (`Mod+Shift+Slash`)
 - **Waybar**: Floating modular status bar (toggle with `Mod+Shift+B`)
-- **Alacritty**: Terminal with cyberpunk color scheme
+- **Alacritty**: David terminal (acid yellow / Arasaka red)
+- **Kitty**: Lucy terminal (ice cyan / magenta trail)
+- **Cursor**: Edgerunners XCursor (yellow fill, cyan glow); `default` inherits it
 - **Fuzzel**: App launcher
 - **Screenshot**: Crop tool (`Mod+P`) with auto-naming
 - **Powermenu**: Lockscreen, Logout, Shutdown (`Mod+Shift+M`)

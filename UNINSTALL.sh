@@ -131,6 +131,14 @@ uninstall() {
     # Config symlinks
     remove_symlink ~/.config/niri/config.kdl && ((removed++)) || true
     remove_symlink ~/.config/alacritty/alacritty.toml && ((removed++)) || true
+    remove_symlink ~/.config/kitty/kitty.conf && ((removed++)) || true
+    remove_symlink ~/.config/kitty/dark-theme.auto.conf && ((removed++)) || true
+    remove_symlink ~/.config/gtk-3.0/settings.ini && ((removed++)) || true
+    remove_symlink ~/.config/gtk-4.0/settings.ini && ((removed++)) || true
+    remove_symlink ~/.config/environment.d/80-cursor.conf && ((removed++)) || true
+    remove_symlink ~/.local/share/icons/Edgerunners && ((removed++)) || true
+    remove_symlink ~/.local/share/icons/default && ((removed++)) || true
+    remove_symlink ~/.local/share/icons/default/index.theme && ((removed++)) || true
     remove_symlink ~/.config/fuzzel/fuzzel.ini && ((removed++)) || true
     remove_symlink ~/.config/waybar/config && ((removed++)) || true
     remove_symlink ~/.config/waybar/style.css && ((removed++)) || true

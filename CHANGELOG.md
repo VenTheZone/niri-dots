@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Kitty Lucy theme (`kitty.conf` + `dark-theme.auto.conf`) with visible magenta cursor trail
+- Edgerunners XCursor theme (CP yellow fill, cyan glow) plus `default` inherit so `XCURSOR_THEME=default` still resolves
+- GTK 3/4 `settings.ini` and `environment.d/80-cursor.conf` so the pointer survives session restart
 - Waybar-debug script for diagnostics
 - Waybar-test script for waybar troubleshooting
 - UNINSTALL.sh script for clean removal
@@ -21,6 +24,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Animated wallpaper (awww) visible in overview backdrop via `place-within-backdrop` layer-rule
 
 ### Changed
+- Alacritty David palette (blood-black bg, yellow/red chrome); Niri `xcursor-theme "Edgerunners"`
+- Installer/uninstaller now link Kitty, cursor theme, GTK settings, and cursor env
 - Installer now includes waybar-debug and waybar-test in required files
 - Improved README with badges and better structure
 - Added battery, network, bluetooth modules to waybar (temporarily simplified)

@@ -85,6 +85,13 @@ verify_structure() {
     local required_files=(
         ".config/niri/config.kdl"
         ".config/alacritty/alacritty.toml"
+        ".config/kitty/kitty.conf"
+        ".config/kitty/dark-theme.auto.conf"
+        ".config/gtk-3.0/settings.ini"
+        ".config/gtk-4.0/settings.ini"
+        ".config/environment.d/80-cursor.conf"
+        ".local/share/icons/Edgerunners/index.theme"
+        ".local/share/icons/default/index.theme"
         ".config/fuzzel/fuzzel.ini"
         ".config/waybar/config"
         ".config/waybar/style.css"
@@ -273,6 +280,12 @@ create_directories() {
     local dirs=(
         "$HOME/.config/niri"
         "$HOME/.config/alacritty"
+        "$HOME/.config/kitty"
+        "$HOME/.config/gtk-3.0"
+        "$HOME/.config/gtk-4.0"
+        "$HOME/.config/environment.d"
+        "$HOME/.local/share/icons"
+        "$HOME/.local/share/icons/default"
         "$HOME/.config/fuzzel"
         "$HOME/.config/waybar"
         "$HOME/.config/waybar/scripts"
@@ -309,6 +322,12 @@ link_dotfiles() {
     declare -A files=(
         ["$script_dir/.config/niri/config.kdl"]="$HOME/.config/niri/config.kdl"
         ["$script_dir/.config/alacritty/alacritty.toml"]="$HOME/.config/alacritty/alacritty.toml"
+        ["$script_dir/.config/kitty/kitty.conf"]="$HOME/.config/kitty/kitty.conf"
+        ["$script_dir/.config/kitty/dark-theme.auto.conf"]="$HOME/.config/kitty/dark-theme.auto.conf"
+        ["$script_dir/.config/gtk-3.0/settings.ini"]="$HOME/.config/gtk-3.0/settings.ini"
+        ["$script_dir/.config/gtk-4.0/settings.ini"]="$HOME/.config/gtk-4.0/settings.ini"
+        ["$script_dir/.config/environment.d/80-cursor.conf"]="$HOME/.config/environment.d/80-cursor.conf"
+        ["$script_dir/.local/share/icons/default/index.theme"]="$HOME/.local/share/icons/default/index.theme"
         ["$script_dir/.config/fuzzel/fuzzel.ini"]="$HOME/.config/fuzzel/fuzzel.ini"
         ["$script_dir/.config/waybar/config"]="$HOME/.config/waybar/config"
         ["$script_dir/.config/waybar/style.css"]="$HOME/.config/waybar/style.css"
@@ -333,6 +352,7 @@ link_dotfiles() {
     # Define directories to link
     declare -A dirs=(
         ["$script_dir/.config/niri/wallpaper"]="$HOME/.config/niri/wallpaper"
+        ["$script_dir/.local/share/icons/Edgerunners"]="$HOME/.local/share/icons/Edgerunners"
     )
     
     # Link each file

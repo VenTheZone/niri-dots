@@ -1,43 +1,88 @@
-[colors.bright]
-black = "0x2a2a33"
-blue = "0x8cc7de"
-cyan = "0x35d4d4"
-green = "0xa3e28f"
-magenta = "0xe89ec0"
-red = "0xff6b81"
-white = "0xf5f5ee"
-yellow = "0xe6d13d"
+# Edgerunners David — acid yellow / Arasaka red. Lucy cyan lives in kitty.
+
+[colors.primary]
+background = "0x14080c"
+foreground = "0xe8e6d9"
+dim_foreground = "0x8a8a82"
+bright_foreground = "0xf5f5ee"
+
+[colors]
+draw_bold_text_with_bright_colors = true
 
 [colors.cursor]
-cursor = "0xd9bd08"
+cursor = "0xfcee0a"
 text = "0x0a0a0e"
+
+[colors.vi_mode_cursor]
+cursor = "0xff003c"
+text = "0x0a0a0e"
+
+[colors.selection]
+background = "0x4a1224"
+text = "CellForeground"
+
+[colors.search.matches]
+background = "0xfcee0a"
+foreground = "0x0a0a0e"
+
+[colors.search.focused_match]
+background = "0xff003c"
+foreground = "0x0a0a0e"
+
+[colors.footer_bar]
+foreground = "0x0a0a0e"
+background = "0xfcee0a"
+
+[colors.line_indicator]
+foreground = "0x0a0a0e"
+background = "0xff003c"
+
+[colors.hints.start]
+foreground = "0x0a0a0e"
+background = "0xfcee0a"
+
+[colors.hints.end]
+foreground = "0x0a0a0e"
+background = "0xff003c"
+
+[bell]
+animation = "EaseOutExpo"
+duration = 80
+color = "0xff003c"
+
+[colors.normal]
+black = "0x14141b"
+red = "0xff003c"
+green = "0x05ffa1"
+yellow = "0xfcee0a"
+blue = "0x2b8cff"
+magenta = "0xff2a9d"
+cyan = "0x00f0ff"
+white = "0xd6d6cd"
+
+[colors.bright]
+black = "0x3a3a48"
+red = "0xff4d6d"
+green = "0x7dffc4"
+yellow = "0xfff566"
+blue = "0x6db3ff"
+magenta = "0xff6ec7"
+cyan = "0x5cf7ff"
+white = "0xf5f5ee"
 
 [colors.dim]
 black = "0x0d0d11"
-blue = "0x3c6b80"
-cyan = "0x009a9f"
-green = "0x52814a"
-magenta = "0x844765"
 red = "0x99243a"
-white = "0x8a8a82"
+green = "0x03995f"
 yellow = "0x998c07"
-
-[colors.normal]
-black = "0x121218"
-blue = "0x5aa7c4"
-cyan = "0x00b3c8"
-green = "0x7fc96b"
-magenta = "0xd6669c"
-red = "0xff3352"
-white = "0xd6d6cd"
-yellow = "0xd9bd08"
-
-[colors.primary]
-background = "0x0a0a0e"
-foreground = "0xd6d6cd"
+blue = "0x1a5499"
+magenta = "0x99195e"
+cyan = "0x009099"
+white = "0x8a8a82"
 
 [cursor]
 blink_interval = 750
+blink_timeout = 0
 unfocused_hollow = true
 
 [cursor.style]
