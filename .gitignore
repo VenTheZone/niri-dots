@@ -94,3 +94,7 @@ Cargo.lock
 !.config/niri/wallpaper/*.png
 !.config/niri/wallpaper/*.jpg
 !.config/niri/wallpaper/*.gif
+!.config/niri/wallpaper/posters/*.jpg
+!.config/niri/wallpaper/tv/*
+# Bundled GTK theme assets
+!.local/share/themes/**/*.png

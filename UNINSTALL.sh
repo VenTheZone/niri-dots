@@ -142,6 +142,20 @@ uninstall() {
     remove_symlink ~/.config/fuzzel/fuzzel.ini && ((removed++)) || true
     remove_symlink ~/.config/waybar/config && ((removed++)) || true
     remove_symlink ~/.config/waybar/style.css && ((removed++)) || true
+    remove_symlink ~/.config/quickshell && ((removed++)) || true
+    remove_symlink ~/.config/swaylock/config && ((removed++)) || true
+    remove_symlink ~/.config/yazi/theme.toml && ((removed++)) || true
+    remove_symlink ~/.config/fastfetch/config.jsonc && ((removed++)) || true
+    remove_symlink ~/.config/btop/themes/edgerunners.theme && ((removed++)) || true
+    remove_symlink ~/.config/vesktop/themes/edgerunners.theme.css && ((removed++)) || true
+    remove_symlink ~/.local/share/color-schemes/Edgerunners.colors && ((removed++)) || true
+    remove_symlink ~/.local/share/themes/Edge-Runner && ((removed++)) || true
+    remove_symlink ~/.config/environment.d/90-qt-theme.conf && ((removed++)) || true
+    remove_symlink ~/.p10k.zsh && ((removed++)) || true
+    remove_symlink ~/.local/bin/audio-switch && ((removed++)) || true
+    for s in audio-control audio-selector battery-status keyboard-backlight mic-selector network-bandwidth niri-workspaces volumecontrol; do
+        remove_symlink ~/.config/waybar/scripts/$s.sh && ((removed++)) || true
+    done
 
     # Bin symlinks
     remove_symlink ~/.local/bin/screenshot-crop && ((removed++)) || true
