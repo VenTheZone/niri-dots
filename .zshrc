@@ -44,8 +44,8 @@ ZSH_THEME="powerlevel10k"
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
 
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+# Kitty already shows a title bar. OMZ would stamp $PWD there too.
+DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
 # ENABLE_CORRECTION="true"
@@ -119,15 +119,23 @@ COMPLETION_WAITING_DOTS="true"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+# Kitty tab = running command (or zsh). Path lives only in the prompt.
+_edgerunners_title() { print -Pn -- "\e]0;${1}\a"; }
+_edgerunners_precmd_title()  { _edgerunners_title 'zsh'; }
+_edgerunners_preexec_title() { _edgerunners_title "${1%% *}"; }
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd  _edgerunners_precmd_title
+add-zsh-hook preexec _edgerunners_preexec_title
+
 # bun completions
-[ -s "/home/jt/.bun/_bun" ] && source "/home/jt/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 # opencode
-export PATH=/home/jt/.opencode/bin:$PATH
-export OPENROUTER_API_KEY=$(grep OPENROUTER_API_KEY /home/jt/.config/opencode/env | cut -d "=" -f 2-)
+export PATH=$HOME/.opencode/bin:$PATH
+[ -f "$HOME/.config/opencode/env" ] && export OPENROUTER_API_KEY=$(grep OPENROUTER_API_KEY "$HOME/.config/opencode/env" | cut -d "=" -f 2-)
 
 export PATH="$HOME/.local/share/notarb/bin:$PATH"
