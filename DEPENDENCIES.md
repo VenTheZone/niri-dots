@@ -1,91 +1,81 @@
 # Niri Dots Dependencies
 
-## Core Packages
+`./install.sh` checks all of these, installs missing required packages with pacman,
+offers the optional ones, and installs AUR packages through paru/yay when available.
+`./install.sh --check` prints what is missing without changing anything.
 
-| Package | Description | Required |
-|---------|-------------|----------|
-| `niri` | Dynamic tiling Wayland compositor | Yes |
-| `waybar` | Status bar for Wayland | Yes |
-| `alacritty` | GPU-accelerated terminal emulator (David / yellow-red) | Yes |
-| `kitty` | GPU terminal with cursor trail (Lucy / cyan-magenta) | No |
-| `fuzzel` | Wayland application launcher | Yes |
-| `grim` | Screenshot utility for Wayland | Yes |
-| `slurp` | Select a region in a Wayland compositor | Yes |
-| `swaylock` | Screen locker for Wayland | Yes |
-| `wl-clipboard` | Clipboard utilities for Wayland | Yes |
-| `libnotify` | Desktop notification library | Yes |
-| `mako` | Notification daemon for Wayland | Yes |
-| `wf-recorder` | Screen recording utility (MP4) | Yes |
-| `awww` | Animated wallpaper daemon | Yes |
-| `swaybg` | Static wallpaper renderer | Yes |
+## Required
 
-## Waybar Modules
+| Package | Used by |
+|---------|---------|
+| `niri` | Compositor |
+| `quickshell` | Poster wallpaper, wallpaper dial, CRT lock screen, music player, volume pill |
+| `qt6-multimedia`, `qt6-multimedia-ffmpeg` | Video channels on the lock screen TV |
+| `waybar` | Status bar |
+| `alacritty` | David terminal |
+| `fuzzel` | Launcher, clipboard/wifi/audio menus |
+| `mako`, `libnotify` | Notifications |
+| `swaylock` | Fallback lock screen |
+| `swaybg` | Fallback wallpaper when Quickshell is missing |
+| `awww` | Animated wave behind the overview |
+| `grim`, `slurp` | Screenshots |
+| `wf-recorder` | Screen recording |
+| `wl-clipboard`, `cliphist` | Clipboard history |
+| `pipewire` (`wpctl`), `libpulse` (`pactl`) | Volume and device switching |
+| `playerctl` | Media keys, waybar media module |
+| `brightnessctl` | Brightness keys |
+| `upower` | Battery module |
+| `networkmanager`, `bluez`, `blueman` | Network and Bluetooth |
+| `jq`, `bc`, `curl`, `unzip`, `git` | Scripts and installer |
+| `zsh`, `fzf` | Shell (`.zshrc`, forgit) |
 
-| Package | Description | Required |
-|---------|-------------|----------|
-| `networkmanager` | Network management | Yes |
-| `bluez` | Bluetooth daemon | Yes |
-| `bluez-utils` | Bluetooth utilities (`bluetoothctl`) | Yes |
-| `blueman` | Bluetooth GUI | Yes |
-| `playerctl` | Media player control | Yes |
-| `brightnessctl` | Brightness control | Yes |
-| `upower` | Power/battery management | Yes |
+## Optional
 
-## Optional Packages
+| Package | Used by |
+|---------|---------|
+| `kitty` | Lucy terminal |
+| `dolphin` | File manager (`Mod+E`) |
+| `plasma-integration`, `plasma-workspace` | Edgerunners KDE colour scheme for Qt apps |
+| `yazi`, `btop`, `fastfetch` | Themed terminal tools |
+| `mpv` | Floating video player rule |
+| `papirus-icon-theme` | Fuzzel icons |
+| `asusctl` | Keyboard backlight (ASUS laptops) |
+| `sddm` | CRT TV login theme (`./install.sh --sddm`) |
 
-| Package | Description | Required |
-|---------|-------------|----------|
-| `nerd-fonts-jetbrains-mono` | JetBrainsMono Nerd Font | Yes |
-| `firefox` | Web browser | No |
+## AUR (optional)
 
-## Installation
+| Package | Used by |
+|---------|---------|
+| `zen-browser-bin` | Browser (`Mod+B`), themed with `userChrome.css` |
+| `vesktop` | Discord client, themed with `edgerunners.theme.css` |
+| `beautyline` | GTK icon theme |
 
-### Arch Linux
+## Fonts (installed by `install.sh`)
+
+| Font | Source | Used by |
+|------|--------|---------|
+| JetBrainsMono Nerd Font | `ttf-jetbrains-mono-nerd` | Alacritty, waybar, fuzzel, mako |
+| Symbols Nerd Font | `ttf-nerd-fonts-symbols` | Kitty powerline glyphs |
+| Maple Mono | GitHub release download | Kitty |
+| Abril Fatface, Silkscreen | Bundled in `.config/quickshell/fonts` | Poster names, pixel UI |
+
+## Shell (cloned by `install.sh`)
+
+oh-my-zsh, powerlevel10k (config in `.p10k.zsh`), zsh-autosuggestions, zsh-syntax-highlighting,
+zsh-completions, zsh-history-substring-search, forgit.
+
+## Bundled themes
+
+- `Edgerunners` cursor (`.local/share/icons/Edgerunners`)
+- `Edge-Runner` GTK theme (Flat Remix GTK Yellow Darkest, GPL-3.0, `.local/share/themes/Edge-Runner`)
+- `Edgerunners` KDE colour scheme (`.local/share/color-schemes`)
+
+## Manual install (Arch)
 
 ```bash
-# Core packages
-sudo pacman -S niri waybar alacritty fuzzel grim slurp swaylock wl-clipboard libnotify networkmanager bluez
-
-# AUR packages
-paru -S nerd-fonts-jetbrains-mono
-# or
-yay -S nerd-fonts-jetbrains-mono
+sudo pacman -S --needed niri quickshell qt6-multimedia qt6-multimedia-ffmpeg waybar alacritty fuzzel \
+  mako libnotify swaylock swaybg awww grim slurp wf-recorder wl-clipboard cliphist pipewire libpulse \
+  playerctl brightnessctl upower networkmanager bluez blueman jq bc curl unzip git zsh fzf \
+  ttf-jetbrains-mono-nerd ttf-nerd-fonts-symbols
+paru -S zen-browser-bin vesktop beautyline   # optional
 ```
-
-### Debian/Ubuntu
-
-```bash
-sudo apt update
-sudo apt install niri waybar alacritty grim slurp swaylock wl-clipboard libnotify network-manager bluez
-
-# Fuzzel may need to be built from source or from third-party repos
-# JetBrainsMono Nerd Font
-mkdir -p ~/.fonts
-curl -L https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.tar.xz -o /tmp/JetBrainsMono.tar.xz
-tar -xf /tmp/JetBrainsMono.tar.xz -C ~/.fonts/
-fc-cache -fv
-```
-
-### Fedora
-
-```bash
-sudo dnf install niri waybar alacritty grim slurp wl-clipboard libnotify NetworkManager bluez
-
-# Fuzzel and swaylock may need RPM Fusion
-sudo dnf install swaylock
-
-# Build fuzzel from source if needed
-```
-
-## Font
-
-- **JetBrainsMono Nerd Font** - Required for proper rendering of icons and text
-- Installation: `nerd-fonts-jetbrains-mono` package on Arch, or download from [Nerd Fonts](https://www.nerdfonts.com/)
-
-## Hyprland Compatibility
-
-These dots are designed for Niri. If you're using Hyprland, many bindings can be adapted:
-- `swaylock` works on both
-- `grim` and `slurp` work on both
-- `fuzzel` works on both
-- `waybar` works on both (configuration differs slightly)

@@ -1,99 +1,21 @@
-# Niri Dots <img src="https://img.shields.io/badge/Niri-Wayland-cyan?style=flat-square" alt="Niri" /> <img src="https://img.shields.io/badge/Theme-Cyberpunk-magenta?style=flat-square" alt="Theme" /> <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="License" /> <img src="https://img.shields.io/badge/Shell-Bash-4EAA25?style=flat-square&logo=gnu-bash&logoColor=white" alt="Shell" />
+# Niri Dots <img src="https://img.shields.io/badge/Niri-Wayland-cyan?style=flat-square" alt="Niri" /> <img src="https://img.shields.io/badge/Quickshell-QML-f3e600?style=flat-square" alt="Quickshell" /> <img src="https://img.shields.io/badge/Theme-Edgerunners-ff2a9d?style=flat-square" alt="Theme" /> <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="License" />
 
-Cyberpunk-themed Niri configuration with Waybar, Alacritty, Kitty, and Fuzzel.
+A Cyberpunk: Edgerunners rice for the [niri](https://github.com/YaLTeR/niri) compositor. The desktop is a
+character poster in an inverted duotone; your mouse is a flashlight that shows the real colours,
+a radial dial swaps posters, and the lock screen is an old CRT TV flipping through anime loops.
 
-## Features
+## Highlights
 
-- 🚀 **Fast Tiling WM** - Niri's scrollable column-based layout
-- 🎨 **Cyberpunk Theme** - Neon "glow" effects with transparent capsules
-- ⌨️ **Comprehensive Keybinds** - Easy-to-use keyboard shortcuts
-- 🔧 **Smart Installer** - One-command setup with automatic service enablement (Bluetooth, etc.)
-- 📊 **Interactive Status Bar** - Clickable modules for Network, Bluetooth, and Media
-- 📸 **Screenshot Tool** - Region selection with auto-naming
-- 🎥 **Screen Recording** - Toggle with `Mod+Print` (saves MP4 to `~/Videos`)
-- 🔌 **Power Menu** - Quick access to lock/logout/shutdown
+- **Poster wallpaper**: 14 Edgerunners / Cyberpunk 2077 posters, each with its own accent colour and huge serif name.
+  Hover to reveal colours under the cursor, click to flip the whole poster with a glitch.
+- **Wallpaper dial**: radial picker with fade, wipe, grow, outer, clock or random transitions.
+- **CRT lock screen**: a TV in a dark room playing video/GIF channels, live clock, zoom-into-the-tube unlock.
+- **Music player**: halftone overlay with spinning album art and a zigzag seek bar.
+- **Matching apps**: waybar pills, fuzzel, mako, Dolphin/Qt, GTK, yazi, btop, fastfetch, kitty, alacritty, Zen, Vesktop.
+- **Login screen** (optional): the same CRT TV as an SDDM theme.
+- **Installer** with a jack-in animation that detects your distro, checks packages, and links everything.
 
-## Table of Contents
-
-- [Components](#components)
-- [Screenshots](#screenshots)
-- [Keybindings](#keybindings)
-- [Installation](#installation)
-- [Requirements](#requirements)
-- [Troubleshooting](#troubleshooting)
-- [Uninstallation](#uninstallation)
-
-## Components
-
-- **Niri**: Window manager with hotkey overlay (`Mod+Shift+Slash`)
-- **Waybar**: Floating modular status bar (toggle with `Mod+Shift+B`)
-- **Alacritty**: David terminal (acid yellow / Arasaka red)
-- **Kitty**: Lucy terminal (ice cyan / magenta trail)
-- **Cursor**: Edgerunners XCursor (yellow fill, cyan glow); `default` inherits it
-- **Fuzzel**: App launcher
-- **Screenshot**: Crop tool (`Mod+P`) with auto-naming
-- **Powermenu**: Lockscreen, Logout, Shutdown (`Mod+Shift+M`)
-- **Volume Control**: F11/F12 with visual notifications
-
-## Screenshots
-
-![Desktop Screenshot](screenshots/desktop.png?raw=true)
-
-*Screenshots will be added here - Feel free to contribute yours!*
-
-## Waybar Layout (Interactive Neon Pill Design)
-
-| Left | Center | Right |
-|------|--------|-------|
-| 󰲠 Workspaces (Icons) | 󱑎 Time / 󰃭 Date | 󰐥 Power (Click) |
-| 󰝚 Media (Click) | | 󰈀 Network (Click) |
-| 󰣇 Launcher (Click) | |  Bluetooth (Click) |
-| | |  Battery |
-| | |  CPU |
-| | |  Memory |
-
-| | | ⏺ REC (pulses red while recording) |
-
-### Interaction Table
-| Icon | Click Action |
-|------|--------------|
-| 󰣇 Launcher | Opens Fuzzel App Launcher |
-| 󰝚 Media | Play/Pause track |
-| 󰈀 Network | Opens Network Connections Editor |
-|  Bluetooth | Opens Blueman Bluetooth Manager |
-| 󰐥 Power | Opens Power Menu |
-
-## Keybindings
-
-| Key | Action |
-|-----|--------|
-| `Mod+Return` | Open Alacritty |
-| `Mod+B` | Open Firefox |
-| `Mod+D` | Open Fuzzel |
-| `Mod+P` | Screenshot crop |
-| `Mod+Print` | Toggle screen recording |
-| `Mod+W` | Fit window to screen |
-| `Mod+F` | Fullscreen |
-| `Mod+M` | Fit to edges |
-| `Mod+Shift+B` | Toggle waybar |
-| `Mod+Shift+M` | Powermenu |
-| `Mod+Shift+Slash` | Show hotkey overlay |
-| `Mod+Shift+T` | Reload config |
-| `Mod+Shift+Q` | Close window |
-| `XF86AudioPlay` | Play/Pause media |
-| `XF86AudioNext` | Next track |
-| `XF86AudioPrev` | Previous track |
-| `XF86AudioRaiseVolume` | Volume up |
-| `XF86AudioLowerVolume` | Volume down |
-| `XF86AudioMute` | Mute audio |
-| `XF86MonBrightnessUp` | Brightness up |
-| `XF86MonBrightnessDown` | Brightness down |
-| `F11` | Volume down (with visual notification) |
-| `F12` | Volume up (with visual notification) |
-
-## Installation
-
-### Quick Install
+## Install
 
 ```bash
 git clone https://github.com/VenTheZone/niri-dots.git ~/.config/niri-dots
@@ -101,134 +23,149 @@ cd ~/.config/niri-dots
 ./install.sh
 ```
 
-### Install Options
+Then log out and pick **Niri** at your login screen.
 
-The installer supports several options:
+| Option | What it does |
+|--------|--------------|
+| `--check` | Preflight only: distro, packages, conflicts. Changes nothing |
+| `--dry-run` | Show every step without making changes |
+| `--sddm` | Also install the CRT TV login theme (needs sudo) |
+| `--skip-deps` / `--skip-fonts` | Skip package or font installation |
+| `--yes` | Answer yes to prompts (non-interactive) |
+| `--no-anim` | Skip the jack-in animation |
 
-```bash
-# Skip dependency installation (if you already have everything)
-./install.sh --skip-deps
+### Distro support
 
-# Skip font installation
-./install.sh --skip-fonts
+The installer reads `/etc/os-release` and maps package names for your distro family. Anything your
+repos don't ship is listed with an install hint instead of failing.
 
-# Preview what would be done without making changes
-./install.sh --dry-run
+| Family | Status |
+|--------|--------|
+| Arch, EndeavourOS, CachyOS, Manjaro, Garuda | Full: everything installs from pacman, AUR extras via paru/yay |
+| Fedora | Best effort: Quickshell from COPR, awww built by hand |
+| Debian, Ubuntu, Mint, Pop | Best effort: niri, Quickshell and awww built by hand |
+| openSUSE | Best effort |
 
-# Combine options
-./install.sh --skip-deps --skip-fonts
+Full package list: [DEPENDENCIES.md](./DEPENDENCIES.md).
 
-# Show help
-./install.sh -h
+### What the installer does
+
+1. Checks distro family, kernel, systemd and Wayland
+2. Verifies every file it is about to link exists in the repo
+3. Detects conflicts (foreign symlinks, a stray waybar `config.jsonc`, replacing `.zshrc`)
+4. Installs required packages, offers optional and AUR ones
+5. Installs fonts: JetBrainsMono Nerd, Symbols Nerd, Maple Mono
+6. Links configs, scripts, wallpapers (posters + TV clips), GTK theme, pointer theme and KDE colour scheme, backing up anything it replaces
+7. Clones oh-my-zsh, powerlevel10k and the plugins `.zshrc` uses
+8. Applies the Qt colour scheme, btop theme and Zen `userChrome.css`
+9. With `--sddm`, installs and selects the CRT login theme
+
+## Using it
+
+### Poster wallpaper
+
+| Input | Action |
+|-------|--------|
+| Hover the desktop | Flashlight reveal around the pointer |
+| Left-click desktop / `Mod+Alt+R` | Flip the whole poster to real colours |
+| Right-click desktop / `Mod+Alt+W` | Open the wallpaper dial |
+| `Mod+Alt+N` | Next poster |
+
+In the dial: arrows, `H`/`J`/`K`/`L` or scroll rotate it, `Tab` changes the transition, `Enter` applies,
+`Esc` or a click outside closes it.
+
+### Lock screen
+
+`Mod+Shift+L` (or the power menu). Type your password and press `Enter`; `Up`/`Down` flip TV channels.
+If Quickshell isn't running, swaylock takes over.
+
+### Music player
+
+`Mod+Alt+M`, or right-click the media module in waybar. `Space` play/pause, `←`/`→` skip, click the
+zigzag bar to seek, `Esc` closes. Works with any MPRIS player.
+
+### Keybindings
+
+Press `Mod+Shift+/` for the full list in niri.
+
+| Key | Action |
+|-----|--------|
+| `Mod+Return` | Kitty (Lucy theme) |
+| `Mod+Backspace` | Alacritty (David theme) |
+| `Mod+D` | Launcher (fuzzel in the poster's accent) |
+| `Mod+B` | Zen browser |
+| `Mod+E` | Dolphin |
+| `Mod+Alt+W` / `Mod+Alt+R` / `Mod+Alt+N` | Wallpaper dial / reveal / next poster |
+| `Mod+Alt+M` | Music player |
+| `Mod+Shift+L` | Lock screen |
+| `Mod+Shift+M` | Power menu |
+| `Mod+Shift+V` | Clipboard history |
+| `Mod+P` / `Mod+Alt+P` / `Print` | Region / window / screen screenshot |
+| `Mod+Print` | Toggle screen recording (MP4 in `~/Videos`) |
+| `Mod+O` | Overview |
+| `Mod+H` / `Mod+L` | Focus column left / right |
+| `Mod+J` / `Mod+K` | Workspace down / up |
+| `Mod+Ctrl+H` / `Mod+Ctrl+L` | Move column left / right |
+| `Mod+1`…`Mod+5` | Go to workspace |
+| `Mod+F` / `Mod+W` / `Mod+M` | Fullscreen / maximize column / maximize to edges |
+| `Mod+V` | Toggle floating |
+| `Mod+Shift+Q` | Close window |
+| `Mod+Shift+B` | Toggle waybar |
+| `Mod+Shift+T` | Reload niri config |
+| `F10` / `F11` / `F12` | Mute / volume down / volume up |
+| `Mod+Shift+F10` | Switch audio output |
+
+## Customising
+
+- **Posters**: drop an image in `.config/niri/wallpaper/posters/` and add it to `posters.json`
+  (`file`, `name`, `tag`, `accent`). The dial picks it up live.
+- **TV channels**: anything in `.config/niri/wallpaper/tv/` (mp4, webm, mkv, mov, gif, webp, png, jpg).
+- **Shaders**: `.config/quickshell/shaders/*.frag`; rebuild with the `qsb` command at the top of each file.
+- **Shell code**: `.config/quickshell/` (`Rice.qml` holds state and IPC; one file per surface).
+
+Quickshell can be driven from scripts: `qs ipc show` lists everything, e.g. `qs ipc call wall next`.
+
+## Repo layout
+
 ```
-
-### What the Installer Does
-
-1. **Verifies** all required files exist
-2. **Installs** dependencies (niri, waybar, alacritty, fuzzel, etc.)
-3. **Installs** JetBrainsMono Nerd Font
-4. **Creates** necessary directories
-5. **Links** all configuration files to your home directory
-6. **Backs up** existing configs before overwriting
-7. **Sets up** wallpaper configuration
-
-### Manual Installation
-
-```bash
-git clone https://github.com/YOUR_USER/niri-dots.git ~/.config/niri-dots
-cd ~/.config/niri-dots
-stow .
+.config/quickshell/     wallpaper, dial, lock screen, music player, volume pill (QML + shaders + fonts)
+.config/niri/           niri config; wallpaper/{posters,tv} hold the art and clips
+.config/waybar/         bar config, pill styling, scripts
+.config/{kitty,alacritty,fuzzel,mako,yazi,btop,fastfetch,swaylock,zen,vesktop}/
+.local/share/           pointer theme, GTK theme, KDE colour scheme
+.local/bin/             screenshot, recording, power, clipboard, audio helpers
+sddm/edgerunners-crt/   login theme (installed with --sddm)
 ```
-
-Then log out and select Niri from your display manager.
-
-## Requirements
-
-See [DEPENDENCIES.md](./DEPENDENCIES.md) for full list.
-
-- Niri, Waybar, Alacritty, Fuzzel
-- Grim + Slurp (for screenshots)
-- wf-recorder (for screen recording)
-- awww + swaybg (for wallpaper)
-- Swaylock (for lockscreen)
-- JetBrainsMono Nerd Font
 
 ## Troubleshooting
 
-### Wallpaper Not Showing
+**No poster wallpaper.** Check Quickshell is running: `qs list`. Start it with `qs -d`; errors show in `qs log`.
 
-1. Ensure the wallpaper file exists at the configured path
-2. Check if `swaybg` is installed and running: `ps aux | grep swaybg`
-3. If using a custom wallpaper path, update `~/.config/niri/config.kdl`:
-   ```kdl
-   spawn-sh-at-startup "swaybg -i '/path/to/your/wallpaper.jpg' -m fill"
-   ```
-4. Reload config: `Mod+Shift+T`
+**Locked out with a blank or red screen.** That's niri holding a lock whose lock screen died. Switch to a
+TTY (`Ctrl+Alt+F3`), log in, and run `WAYLAND_DISPLAY=wayland-1 swaylock`, then go back
+(`Ctrl+Alt+F1` or `F2`) and unlock. Don't run `qs kill` while locked; `qs ipc call lock isLocked` tells you.
 
-### Keybinds Not Working
+**Waybar missing.** Run `waybar` from a terminal to see errors; `Mod+Shift+B` toggles it.
 
-1. Make sure the niri config is symlinked correctly:
-   ```bash
-   ls -la ~/.config/niri/config.kdl
-   ```
-2. Should show a symlink to your niri-dots repo
-3. If not, run the installer again or manually symlink:
-   ```bash
-   ln -s /path/to/niri-dots/.config/niri/config.kdl ~/.config/niri/config.kdl
-   ```
-4. Reload config: `Mod+Shift+T`
+**Keybinds do nothing.** `ls -la ~/.config/niri/config.kdl` should point into this repo; re-run `./install.sh`.
 
-### Title Bars Still Visible
+**Dolphin isn't themed.** It needs `plasma-integration` and a new login (for `QT_QPA_PLATFORMTHEME=kde`).
 
-The `prefer-no-csd` setting in `config.kdl` removes title bars. If you still see them:
-1. Some apps ignore this setting (try them in other apps)
-2. Check the app's own settings for window decorations
-3. For Firefox: Go to Settings → General → Customization → "Title bar" (uncheck)
-
-### Waybar Not Showing
-
-1. Check if waybar is running: `ps aux | grep waybar`
-2. If not, restart it manually: `waybar`
-3. Check for errors: `waybar -c ~/.config/waybar/config -s ~/.config/waybar/style.css`
-4. Toggle with: `Mod+Shift+B`
-
-### Reinstalling
-
-To start fresh:
-```bash
-# Remove existing symlinks
-rm ~/.config/niri/config.kdl
-rm ~/.config/alacritty/alacritty.toml
-rm ~/.config/fuzzel/fuzzel.ini
-rm ~/.config/waybar/config
-rm ~/.config/waybar/style.css
-rm ~/.local/bin/screenshot-crop
-rm ~/.local/bin/powermenu
-rm ~/.zshrc
-
-# Run installer again
-cd ~/path/to/niri-dots
-./install.sh
-```
-
-## Uninstallation
-
-To completely remove niri-dots:
+## Uninstall
 
 ```bash
-cd ~/path/to/niri-dots
-./UNINSTALL.sh
+./UNINSTALL.sh          # removes the symlinks, keeps the repo
+./UNINSTALL.sh --dry-run
 ```
 
-The uninstall script will:
-- ✅ Remove all symlinks linked to niri-dots
-- ✅ Remove all backup files
-- ✅ Keep the niri-dots repository (for later use)
-- ✅ Warn before making any changes
+## Credits
 
-Options:
-```bash
-./UNINSTALL.sh --dry-run    # Preview changes without making them
-./UNINSTALL.sh -y            # Skip confirmation prompt
-./UNINSTALL.sh -h            # Show help
-```
+- Posters from [wallhaven](https://wallhaven.cc), TV loops from [MoeWalls](https://moewalls.com); characters belong to CD PROJEKT RED / Studio Trigger
+- Fonts: [Abril Fatface](https://fonts.google.com/specimen/Abril+Fatface) and [Silkscreen](https://fonts.google.com/specimen/Silkscreen) (OFL)
+- GTK theme: [Flat Remix GTK](https://github.com/daniruiz/flat-remix-gtk) (GPL-3.0), bundled as Edge-Runner
+- Vesktop theme built on [midnight-discord](https://github.com/refact0r/midnight-discord)
+- Inspired by Zenless Zone Zero style poster desktops
+
+## License
+
+MIT for the configs and scripts; bundled art, fonts and themes keep their own licenses.

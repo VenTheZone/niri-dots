@@ -8,6 +8,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Quickshell poster wallpaper: inverted duotone in the poster's accent, cursor flashlight reveals the real colours, click or `Mod+Alt+R` flips the whole thing with a glitch; Abril Fatface faction/name typography
+- Fourteen Edgerunners / Cyberpunk 2077 posters (`wallpaper/posters/` + `posters.json` for name, tag, accent)
+- Radial wallpaper dial (`Mod+Alt+W` or right-click the desktop) with fade/wipe/grow/outer/clock/random transitions
+- CRT TV lock screen (`Mod+Shift+L`): channels from `wallpaper/tv/` (video, gif or image; nine Edgerunners loops shipped), `Up`/`Down` to flip, live 12h clock with seconds and date on the glass, scanlines, zoom-into-the-tube unlock; falls back to swaylock
+- Quickshell file watching is paused while locked, a hot-reload mid-lock otherwise crashes the lock
+- Left-edge volume pill OSD (Pipewire)
+- Music player overlay (`Mod+Alt+M`): halftone backdrop in the poster accent, spinning album art, zigzag seek bar, kaomoji
+- Edgerunners KDE colour scheme (Dolphin/Qt), yazi, btop, fastfetch (live poster logo), Zen `userChrome.css`, Vesktop theme (midnight-discord base)
+- SDDM `edgerunners-crt` login theme mirroring the lock screen (`./install.sh --sddm`)
+- `qs ipc call lock isLocked` so scripts can avoid restarting the shell mid-lock
+- Installer: jack-in animation (CRT power-on, glitch-decoded logo, staged progress, `--no-anim`), distro-family detection with per-family package names, repo availability checks and install hints, optional + AUR package installs, Maple Mono / Nerd font installs, oh-my-zsh + powerlevel10k setup
+- Bundled Edge-Runner GTK theme, `.p10k.zsh`, Qt platform theme env, every waybar script and `audio-switch` now linked
+- Fuzzel restyled like the wallpaper dial and launched through Quickshell (`Mod+D`, waybar launcher) so border, selection and matches take the current poster's accent; config sections fixed (layout/border keys were sitting under `[colors]` and being rejected)
 - Kitty Lucy theme (`kitty.conf` + `dark-theme.auto.conf`) with visible magenta cursor trail
 - Edgerunners XCursor theme (CP yellow fill, cyan glow) plus `default` inherit so `XCURSOR_THEME=default` still resolves
 - GTK 3/4 `settings.ini` and `environment.d/80-cursor.conf` so the pointer survives session restart
@@ -24,15 +37,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Animated wallpaper (awww) visible in overview backdrop via `place-within-backdrop` layer-rule
 
 ### Changed
+- Installer preflight: OS/kernel/niri version, required+optional deps, symlink conflicts, `--check`/`--yes`
 - Alacritty David palette (blood-black bg, yellow/red chrome); Niri `xcursor-theme "Edgerunners"`
 - Installer/uninstaller now link Kitty, cursor theme, GTK settings, and cursor env
 - Installer now includes waybar-debug and waybar-test in required files
 - Improved README with badges and better structure
 - Added battery, network, bluetooth modules to waybar (temporarily simplified)
 - Enhanced installer with better error handling and file verification
-- Wallpaper stack: `swaybg` draws static moon.png; `awww-daemon` + `awww img` shows animated-wave.gif on backdrop layer
+- Wallpaper stack: Quickshell draws the poster wallpaper (swaybg moon.png only if Quickshell is missing); `awww-daemon` + `awww img` shows animated-wave.gif on backdrop layer
+- Waybar: transparent bar, every module its own floating pill
+- Mako restyled (accent border, app-name tag) and `urgency=high` fixed to `critical`; swaylock config cleaned of swaylock-effects options and now linked by the installer
 
 ### Fixed
+- niri binds, waybar modules and `.zshrc` no longer hardcode `/home/jt` (use `$HOME`)
+- `wpctl` dependency now points at `wireplumber`
 - Removed config.jsonc conflict in waybar config
 - Fixed installer to handle all new scripts
 - Corrected script permissions for waybar utilities
