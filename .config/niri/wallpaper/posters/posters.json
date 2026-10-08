@@ -1,0 +1,16 @@
+[
+  { "file": "david.jpg",     "name": "DAVID",        "tag": "EDGERUNNER",      "accent": "#f3e600" },
+  { "file": "lucy.jpg",      "name": "LUCY",         "tag": "NETRUNNER",       "accent": "#5ef6ff" },
+  { "file": "rebecca.jpg",   "name": "REBECCA",      "tag": "GUNSLINGER",      "accent": "#39ff9e" },
+  { "file": "smasher.jpg",   "name": "ADAM SMASHER", "tag": "ARASAKA",         "accent": "#ff003c" },
+  { "file": "psychosis.jpg", "name": "CYBERPSYCHO",  "tag": "NIGHT CITY",      "accent": "#ff2a9d" },
+  { "file": "moon.jpg",      "name": "THE MOON",     "tag": "LUCY & DAVID",    "accent": "#cfe3ff" },
+  { "file": "sasha.jpg",     "name": "SASHA",        "tag": "MAINE'S CREW",    "accent": "#a066ff" },
+  { "file": "maine.jpg",     "name": "MAINE",        "tag": "CREW BOSS",       "accent": "#ff5a1f" },
+  { "file": "crew.jpg",      "name": "THE CREW",     "tag": "EDGERUNNERS",     "accent": "#3ad7ff" },
+  { "file": "duo.jpg",       "name": "LUCY & BECCA", "tag": "DOUBLE TROUBLE",  "accent": "#4d7cff" },
+  { "file": "johnny.jpg",    "name": "JOHNNY",       "tag": "SAMURAI",         "accent": "#ffb000" },
+  { "file": "judy.jpg",      "name": "JUDY",         "tag": "MOX",             "accent": "#ff8fc8" },
+  { "file": "panam.jpg",     "name": "PANAM",        "tag": "ALDECALDOS",      "accent": "#e8c39e" },
+  { "file": "phantom.jpg",   "name": "V",            "tag": "PHANTOM LIBERTY", "accent": "#e8ff3a" }
+]

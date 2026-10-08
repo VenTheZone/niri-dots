@@ -6,7 +6,7 @@ CHOICE=$(echo -e "$OPTIONS" | fuzzel --dmenu -p "Power" --lines 3 --width 20 2>/
 
 case "$CHOICE" in
     Lockscreen)
-        swaylock
+        qs ipc call lock lock 2>/dev/null || swaylock
         ;;
     Logout)
         niri msg action quit

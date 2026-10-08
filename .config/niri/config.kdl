@@ -325,7 +325,7 @@ binds {
     Mod+Return hotkey-overlay-title="[TERM] kitty" { spawn "kitty"; }
     Mod+Backspace hotkey-overlay-title="[TERM] alacritty" { spawn "alacritty"; }
     Mod+B hotkey-overlay-title="[WEB] zen-browser" { spawn "zen-browser"; }
-    Mod+D hotkey-overlay-title="[LAUNCH] fuzzel" { spawn "fuzzel"; }
+    Mod+D hotkey-overlay-title="[LAUNCH] fuzzel" { spawn-sh "qs ipc call launcher open || fuzzel"; }
     
     // Window management
     Mod+Shift+Q hotkey-overlay-title="[CLOSE] close window" { close-window; }
@@ -373,9 +373,9 @@ binds {
 
     // Volume control with visual feedback
     // F11/F12 for volume up/down with notification
-    F10 allow-when-locked=true hotkey-overlay-title="[MUTE] toggle mute" { spawn "/home/jt/.config/waybar/scripts/volumecontrol.sh" "mute"; }
-    F11 allow-when-locked=true hotkey-overlay-title="[VOL-] volume down" { spawn "/home/jt/.config/waybar/scripts/volumecontrol.sh" "down"; }
-    F12 allow-when-locked=true hotkey-overlay-title="[VOL+] volume up" { spawn "/home/jt/.config/waybar/scripts/volumecontrol.sh" "up"; }
+    F10 allow-when-locked=true hotkey-overlay-title="[MUTE] toggle mute" { spawn-sh "$HOME/.config/waybar/scripts/volumecontrol.sh mute"; }
+    F11 allow-when-locked=true hotkey-overlay-title="[VOL-] volume down" { spawn-sh "$HOME/.config/waybar/scripts/volumecontrol.sh down"; }
+    F12 allow-when-locked=true hotkey-overlay-title="[VOL+] volume up" { spawn-sh "$HOME/.config/waybar/scripts/volumecontrol.sh up"; }
     
     // Example volume keys mappings for PipeWire & WirePlumber.
     // The allow-when-locked=true property makes them work even when the session is locked.
@@ -577,7 +577,7 @@ Mod+Q repeat=false { close-window; }
     Print { screenshot; }
     Ctrl+Print { screenshot-screen; }
     Alt+Print { screenshot-window; }
-    Mod+Print hotkey-overlay-title="[REC] screen record" { spawn "/home/jt/.local/bin/record-toggle"; }
+    Mod+Print hotkey-overlay-title="[REC] screen record" { spawn-sh "$HOME/.local/bin/record-toggle"; }
     Mod+P hotkey-overlay-title="[CAP] crop screenshot" { spawn-sh "$HOME/.local/bin/screenshot-crop"; }
     Mod+Alt+P hotkey-overlay-title="[WIN] capture window" { spawn-sh "$HOME/.local/bin/screenshot-window"; }
 
@@ -596,11 +596,17 @@ Mod+Q repeat=false { close-window; }
 
     // Powers off the monitors. To turn them back on, do any input like
     // moving the mouse or pressing any other key.
-    Mod+Shift+F10 allow-when-locked=true hotkey-overlay-title="[AUDIO] toggle output" { spawn "/home/jt/.local/bin/audio-switch"; }
+    Mod+Shift+F10 allow-when-locked=true hotkey-overlay-title="[AUDIO] toggle output" { spawn-sh "$HOME/.local/bin/audio-switch"; }
     Mod+Shift+P { power-off-monitors; }
 
-    // Lock screen with Solana wallpaper
-    Mod+Shift+L hotkey-overlay-title="[LOCK] screen lock" { spawn "swaylock"; }
+    // CRT lock screen (swaylock if quickshell isn't running)
+    Mod+Shift+L hotkey-overlay-title="[LOCK] screen lock" { spawn-sh "qs ipc call lock lock || swaylock"; }
+
+    // Poster wallpaper: radial picker, flip the duotone off/on, cycle
+    Mod+Alt+W hotkey-overlay-title="[WALL] wallpaper dial" { spawn "qs" "ipc" "call" "wall" "picker"; }
+    Mod+Alt+R hotkey-overlay-title="[WALL] reveal colours" { spawn "qs" "ipc" "call" "wall" "reveal"; }
+    Mod+Alt+N hotkey-overlay-title="[WALL] next poster" { spawn "qs" "ipc" "call" "wall" "next"; }
+    Mod+Alt+M hotkey-overlay-title="[MUSIC] player" { spawn "qs" "ipc" "call" "music" "toggle"; }
 }
 
 // Window rules - Disable client-side decorations (remove X buttons)
@@ -631,7 +637,7 @@ window-rule {
 // Disable client-side decorations globally to remove title bar buttons
 prefer-no-csd
 
-// Add lines like this to spawn processes at startup
-spawn-sh-at-startup "swaybg -i \"/home/jt/.config/niri/wallpaper/moon.png\" -m fill"
+// Quickshell: poster wallpaper, picker, volume pill, CRT lock. swaybg only if quickshell is missing.
+spawn-sh-at-startup "command -v qs >/dev/null && exec qs || exec swaybg -i \"$HOME/.config/niri/wallpaper/moon.png\" -m fill"
 spawn-at-startup "awww-daemon"
-spawn-sh-at-startup "sleep 1 && awww img -t simple \"/home/jt/.config/niri/wallpaper/animated-wave.gif\""
+spawn-sh-at-startup "sleep 1 && awww img -t simple \"$HOME/.config/niri/wallpaper/animated-wave.gif\""
