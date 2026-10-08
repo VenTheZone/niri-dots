@@ -1,0 +1,12 @@
+[SddmGreeterTheme]
+Name=Edgerunners CRT
+Description=Login on the same CRT TV as the niri-dots lock screen
+Author=niri-dots
+License=MIT
+Type=sddm-theme
+Version=1.0
+MainScript=Main.qml
+ConfigFile=theme.conf
+Theme-Id=edgerunners-crt
+Theme-API=2.0
+QtVersion=6
