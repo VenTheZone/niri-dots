@@ -38,10 +38,10 @@ text-clear-color=#d6d6cd
 font=JetBrainsMono Nerd Font
 font-size=24
 
-# Effects
-fade-in=0.2
+# Plain swaylock (not swaylock-effects): no blur/fade options here or it refuses the config
 ignore-empty-password
 show-failed-attempts
+indicator-idle-visible
 indicator-radius=120
 indicator-thickness=15
 indicator-x-position=960

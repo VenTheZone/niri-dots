@@ -1,0 +1,98 @@
+# Edgerunners: same palette as the wallpaper dial / KDE scheme. Only overrides; yazi fills the rest.
+
+[mgr]
+cwd             = { fg = "#5ef6ff", bold = true }
+find_keyword    = { fg = "#f3e600", bold = true, underline = true }
+find_position   = { fg = "#ff2a9d", bold = true }
+marker_copied   = { fg = "#39ff9e", bg = "#39ff9e" }
+marker_cut      = { fg = "#ff003c", bg = "#ff003c" }
+marker_marked   = { fg = "#5ef6ff", bg = "#5ef6ff" }
+marker_selected = { fg = "#f3e600", bg = "#f3e600" }
+count_copied    = { fg = "#0d0d11", bg = "#39ff9e" }
+count_cut       = { fg = "#0d0d11", bg = "#ff003c" }
+count_selected  = { fg = "#0d0d11", bg = "#f3e600" }
+border_symbol   = "│"
+border_style    = { fg = "#2a2a33" }
+
+[tabs]
+active   = { fg = "#0d0d11", bg = "#f3e600", bold = true }
+inactive = { fg = "#8a8a82", bg = "#1c1c24" }
+
+[mode]
+normal_main = { fg = "#0d0d11", bg = "#f3e600", bold = true }
+normal_alt  = { fg = "#f3e600", bg = "#1c1c24" }
+select_main = { fg = "#0d0d11", bg = "#5ef6ff", bold = true }
+select_alt  = { fg = "#5ef6ff", bg = "#1c1c24" }
+unset_main  = { fg = "#0d0d11", bg = "#ff003c", bold = true }
+unset_alt   = { fg = "#ff003c", bg = "#1c1c24" }
+
+[indicator]
+parent  = { fg = "#0d0d11", bg = "#8a8a82" }
+current = { fg = "#0d0d11", bg = "#f3e600", bold = true }
+preview = { fg = "#5ef6ff", underline = true }
+
+[status]
+perm_sep   = { fg = "#2a2a33" }
+perm_type  = { fg = "#39ff9e" }
+perm_read  = { fg = "#f3e600" }
+perm_write = { fg = "#ff003c" }
+perm_exec  = { fg = "#5ef6ff" }
+progress_normal = { fg = "#f3e600", bg = "#1c1c24" }
+progress_error  = { fg = "#0d0d11", bg = "#ff003c" }
+
+[which]
+border = { fg = "#f3e600" }
+cand   = { fg = "#5ef6ff" }
+rest   = { fg = "#8a8a82" }
+desc   = { fg = "#ff2a9d" }
+
+[confirm]
+border  = { fg = "#ff003c" }
+title   = { fg = "#ff003c", bold = true }
+btn_yes = { fg = "#0d0d11", bg = "#f3e600" }
+
+[spot]
+border   = { fg = "#f3e600" }
+title    = { fg = "#f3e600" }
+tbl_col  = { fg = "#5ef6ff" }
+tbl_cell = { fg = "#0d0d11", bg = "#f3e600" }
+
+[pick]
+border = { fg = "#f3e600" }
+active = { fg = "#ff2a9d", bold = true }
+
+[input]
+border   = { fg = "#f3e600" }
+selected = { fg = "#0d0d11", bg = "#f3e600" }
+
+[cmp]
+border = { fg = "#f3e600" }
+active = { fg = "#0d0d11", bg = "#f3e600" }
+
+[tasks]
+border  = { fg = "#f3e600" }
+hovered = { fg = "#ff2a9d", bold = true }
+
+[help]
+border  = { fg = "#f3e600" }
+chord   = { fg = "#5ef6ff" }
+hovered = { fg = "#0d0d11", bg = "#f3e600", bold = true }
+
+[notify]
+title_info  = { fg = "#39ff9e" }
+title_warn  = { fg = "#f3e600" }
+title_error = { fg = "#ff003c" }
+
+[filetype]
+rules = [
+	{ mime = "**/image/*", fg = "#f3e600" },
+	{ mime = "**/{audio,video}/*", fg = "#ff2a9d" },
+	{ mime = "**/application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", fg = "#ff003c" },
+	{ mime = "**/application/{pdf,doc,rtf}", fg = "#5ef6ff" },
+	{ mime = "vfs/{absent,stale}", fg = "#8a8a82" },
+	{ url = "*", is = "orphan", bg = "#ff003c" },
+	{ url = "*", is = "exec", fg = "#39ff9e" },
+	{ url = "*", is = "dummy", bg = "#ff003c" },
+	{ url = "*/", is = "dummy", bg = "#ff003c" },
+	{ url = "*/", fg = "#a066ff" },
+]

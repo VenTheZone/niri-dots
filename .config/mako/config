@@ -1,28 +1,37 @@
+# Edgerunners: dark card, thick accent border, app name as a yellow tag (like the wallpaper dial)
 max-history=100
 sort=-time
 
 layer=overlay
-width=300
-height=110
-background-color=#121218
+anchor=top-right
+margin=12
+width=360
+height=160
+padding=14,18
+outer-margin=4
+
+font=JetBrainsMono Nerd Font 10.5
+background-color=#0d0d11f2
 text-color=#d6d6cd
-border-size=2
-border-color=#2a2a33
-border-radius=10
+border-size=3
+border-color=#f3e600
+border-radius=14
+progress-color=over #f3e60055
+
 icons=1
-max-icon-size=64
+max-icon-size=48
+icon-border-radius=10
+
+format=<span size="small" weight="bold" foreground="#f3e600">%a</span>\n<b>%s</b>\n%b
 default-timeout=5000
 ignore-timeout=1
-font=JetBrainsMono Nerd Font 10
 
 [urgency=low]
 border-color=#2a2a33
-default-timeout=2000
+format=<span size="small" weight="bold" foreground="#8a8a82">%a</span>\n<b>%s</b>\n%b
+default-timeout=2500
 
-[urgency=normal]
-border-color=#2a2a33
-default-timeout=5000
-
-[urgency=high]
+[urgency=critical]
 border-color=#ff003c
-default-timeout=5000
+format=<span size="small" weight="bold" foreground="#ff003c">%a</span>\n<b>%s</b>\n%b
+default-timeout=0

@@ -1,7 +1,7 @@
 {
     "layer": "top",
     "position": "top",
-    "height": 40,
+    "height": 36,
     "width": "auto",
     "spacing": 8,
     "margin-top": 8,
@@ -14,28 +14,28 @@
 
     "custom/launcher": {
         "format": " 󰣇 ",
-        "on-click": "fuzzel",
+        "on-click": "qs ipc call launcher open || fuzzel",
         "tooltip": false
     },
 
     "custom/rec": {
         "format": "{}",
-        "exec": "/home/jt/.local/bin/record-toggle status",
+        "exec": "$HOME/.local/bin/record-toggle status",
         "return-type": "json",
         "interval": 1,
-        "on-click": "/home/jt/.local/bin/record-toggle",
+        "on-click": "$HOME/.local/bin/record-toggle",
         "tooltip": false
     },
 
     "custom/power": {
         "format": " 󰐥 ",
-        "on-click": "sh -c /home/jt/.local/bin/powermenu",
+        "on-click": "sh -c $HOME/.local/bin/powermenu",
         "tooltip": false
     },
 
     "custom/niri-workspaces": {
         "format": "{}",
-        "exec": "/home/jt/.config/waybar/scripts/niri-workspaces.sh",
+        "exec": "$HOME/.config/waybar/scripts/niri-workspaces.sh",
         "interval": 1,
         "tooltip": false
     },
@@ -45,7 +45,8 @@
         "max-length": 35,
         "interval": 2,
         "exec": "playerctl -a metadata --format '{{title}}' 2>/dev/null || echo 'No Media'",
-        "on-click": "playerctl play-pause"
+        "on-click": "playerctl play-pause",
+        "on-click-right": "qs ipc call music toggle"
     },
 
     "clock": {
@@ -70,7 +71,7 @@
     },
 
     "custom/battery": {
-        "exec": "/home/jt/.config/waybar/scripts/battery-status.sh",
+        "exec": "$HOME/.config/waybar/scripts/battery-status.sh",
         "return-type": "json",
         "interval": 10
     },
@@ -81,21 +82,21 @@
     },
 
     "custom/kbd": {
-        "exec": "/home/jt/.config/waybar/scripts/keyboard-backlight.sh",
+        "exec": "$HOME/.config/waybar/scripts/keyboard-backlight.sh",
         "return-type": "json",
         "interval": 1,
-        "on-click": "/home/jt/.config/waybar/scripts/keyboard-backlight.sh toggle",
-        "on-scroll-up": "/home/jt/.config/waybar/scripts/keyboard-backlight.sh up",
-        "on-scroll-down": "/home/jt/.config/waybar/scripts/keyboard-backlight.sh down"
+        "on-click": "$HOME/.config/waybar/scripts/keyboard-backlight.sh toggle",
+        "on-scroll-up": "$HOME/.config/waybar/scripts/keyboard-backlight.sh up",
+        "on-scroll-down": "$HOME/.config/waybar/scripts/keyboard-backlight.sh down"
     },
 
     "custom/audio": {
-        "exec": "/home/jt/.config/waybar/scripts/audio-control.sh",
+        "exec": "$HOME/.config/waybar/scripts/audio-control.sh",
         "interval": 0.1,
         "return-type": "json",
-        "on-click": "/home/jt/.config/waybar/scripts/audio-selector.sh menu",
-        "on-click-right": "/home/jt/.config/waybar/scripts/audio-control.sh toggle",
-        "on-scroll-up": "/home/jt/.config/waybar/scripts/audio-control.sh up",
-        "on-scroll-down": "/home/jt/.config/waybar/scripts/audio-control.sh down"
+        "on-click": "$HOME/.config/waybar/scripts/audio-selector.sh menu",
+        "on-click-right": "$HOME/.config/waybar/scripts/audio-control.sh toggle",
+        "on-scroll-up": "$HOME/.config/waybar/scripts/audio-control.sh up",
+        "on-scroll-down": "$HOME/.config/waybar/scripts/audio-control.sh down"
     }
 }

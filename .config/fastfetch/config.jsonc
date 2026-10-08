@@ -1,0 +1,34 @@
+// Edgerunners: logo is whichever poster the wallpaper dial has live
+// (~/.cache/rice-poster.jpg, kept up to date by Quickshell). Kitty draws it as an image,
+// other terminals get chafa block art.
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+  "logo": {
+    "type": "auto",
+    "source": "~/.cache/rice-poster.jpg",
+    "width": 36,
+    "padding": { "top": 1, "right": 3 }
+  },
+  "display": {
+    "separator": "  ",
+    "color": { "keys": "#f3e600", "title": "#5ef6ff" }
+  },
+  "modules": [
+    "title",
+    { "type": "custom", "format": "\u001b[38;2;42;42;51m────────────────────────────────" },
+    { "type": "os", "key": "OS  " },
+    { "type": "kernel", "key": "KRN " },
+    { "type": "packages", "key": "PKG " },
+    { "type": "wm", "key": "WM  " },
+    { "type": "terminal", "key": "TRM " },
+    { "type": "shell", "key": "SH  " },
+    { "type": "custom", "format": "\u001b[38;2;42;42;51m────────────────────────────────" },
+    { "type": "cpu", "key": "CPU ", "keyColor": "#5ef6ff" },
+    { "type": "gpu", "key": "GPU ", "keyColor": "#5ef6ff" },
+    { "type": "memory", "key": "MEM ", "keyColor": "#ff2a9d" },
+    { "type": "disk", "key": "DSK ", "keyColor": "#ff2a9d" },
+    { "type": "battery", "key": "BAT ", "keyColor": "#39ff9e" },
+    "break",
+    { "type": "colors", "symbol": "circle" }
+  ]
+}

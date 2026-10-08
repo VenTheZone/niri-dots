@@ -1,0 +1,57 @@
+/* Edgerunners palette for Zen: same near-black + yellow chips as the wallpaper dial.
+   Loaded because user.js enables toolkit.legacyUserProfileCustomizations.stylesheets. */
+
+:root, #browser, #main-window {
+  --zen-primary-color: #f3e600 !important;
+  --zen-colors-primary: #1c1c24 !important;
+  --zen-colors-secondary: #16161c !important;
+  --zen-colors-tertiary: #0d0d11 !important;
+  --zen-colors-border: #2a2a33 !important;
+  --zen-dialog-background: #121218 !important;
+  --zen-main-browser-background: #0d0d11 !important;
+  --zen-main-browser-background-toolbar: #0d0d11 !important;
+  --zen-themed-toolbar-bg-transparent: #0d0d11 !important;
+  --zen-toolbar-element-bg: #16161c !important;
+  --zen-toolbar-element-bg-hover: #1c1c24 !important;
+
+  --toolbar-bgcolor: #0d0d11 !important;
+  --toolbar-color: #d6d6cd !important;
+  --toolbar-field-background-color: #16161c !important;
+  --toolbar-field-focus-background-color: #0d0d11 !important;
+  --toolbar-field-color: #d6d6cd !important;
+  --toolbar-field-focus-border-color: #f3e600 !important;
+  --arrowpanel-background: #121218 !important;
+  --arrowpanel-color: #d6d6cd !important;
+  --arrowpanel-border-color: #2a2a33 !important;
+  --tab-selected-bgcolor: #1c1c24 !important;
+  --tab-selected-textcolor: #ffffff !important;
+  --focus-outline-color: #f3e600 !important;
+}
+
+/* selected tab gets the dial's accent edge */
+.tabbrowser-tab[selected] .tab-background {
+  box-shadow: inset 3px 0 0 #f3e600 !important;
+}
+
+/* urlbar focus ring and the results' selected row like the launcher */
+#urlbar[focused] > #urlbar-background {
+  outline: 2px solid #f3e600 !important;
+}
+.urlbarView-row[selected] {
+  background-color: #f3e600 !important;
+  color: #0d0d11 !important;
+}
+.urlbarView-row[selected] .urlbarView-url,
+.urlbarView-row[selected] .urlbarView-action {
+  color: #0d0d11 !important;
+}
+
+/* thin frame around page content */
+.browserSidebarContainer {
+  outline: 1px solid #2a2a33 !important;
+}
+
+::selection {
+  background-color: #f3e600;
+  color: #0d0d11;
+}
