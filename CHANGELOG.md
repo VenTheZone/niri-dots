@@ -13,6 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Radial wallpaper dial (`Mod+Alt+W` or right-click the desktop) with fade/wipe/grow/outer/clock/random transitions
 - CRT TV lock screen (`Mod+Shift+L`): channels from `wallpaper/tv/` (video, gif or image; nine Edgerunners loops shipped), `Up`/`Down` to flip, live 12h clock with seconds and date on the glass, scanlines, zoom-into-the-tube unlock; falls back to swaylock
 - Quickshell file watching is paused while locked, a hot-reload mid-lock otherwise crashes the lock
+- Lock screen rotates between two looks every 30s, diving into / out of the TV to swap: Neon Room (rainy city window, flickering `NIGHT CITY` neon sign) and a full-screen Netrunner HUD (channel through the CRT shader, battery/Wi-Fi/uptime/now-playing readouts, data ticker, `ACCESS CODE` prompt)
+- Lock screen wrong-password ERROR screen (pixel skull, red strobe, shake) and right-password BREACH PROTOCOL → ACCESS GRANTED → CRT switch-off
+- Lock screen shows PAM's own message, e.g. a faillock lockout with the minutes left
 - Left-edge volume pill OSD (Pipewire)
 - Music player overlay (`Mod+Alt+M`): halftone backdrop in the poster accent, spinning album art, zigzag seek bar, kaomoji
 - Edgerunners KDE colour scheme (Dolphin/Qt), yazi, btop, fastfetch (live poster logo), Zen `userChrome.css`, Vesktop theme (midnight-discord base)
@@ -37,6 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Animated wallpaper (awww) visible in overview backdrop via `place-within-backdrop` layer-rule
 
 ### Changed
+- Lock screen no longer shows the password length: a fixed run of scrambled symbols instead of one `*` per character
 - Installer preflight: OS/kernel/niri version, required+optional deps, symlink conflicts, `--check`/`--yes`
 - Alacritty David palette (blood-black bg, yellow/red chrome); Niri `xcursor-theme "Edgerunners"`
 - Installer/uninstaller now link Kitty, cursor theme, GTK settings, and cursor env
@@ -49,6 +53,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Mako restyled (accent border, app-name tag) and `urgency=high` fixed to `critical`; swaylock config cleaned of swaylock-effects options and now linked by the installer
 
 ### Fixed
+- Lock screen clears the field on `Enter` and keeps keys typed during PAM's ~2s fail delay, so a fast retry is no longer cut short; one failure is no longer counted twice
 - niri binds, waybar modules and `.zshrc` no longer hardcode `/home/jt` (use `$HOME`)
 - `wpctl` dependency now points at `wireplumber`
 - Removed config.jsonc conflict in waybar config

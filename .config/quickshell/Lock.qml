@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Effects
-import QtMultimedia
 import Qt.labs.folderlistmodel
 import Quickshell
 import Quickshell.Io
@@ -15,10 +14,27 @@ Scope {
     property bool failed: false
     property bool busy: false
     property bool unlocking: false
+    property int attempts: 0
+    // fixed-length gibberish instead of one * per char, so the length never shows
+    property string mask: ""
+    // what PAM is checking; the field is cleared on submit so a retry can start right away
+    property string attempt: ""
+    // PAM's own explanation (e.g. faillock lockout), shown instead of the generic error
+    property string pamMsg: ""
+    onPassChanged: scramble()
+    onBusyChanged: scramble()
+
+    function scramble() {
+        const g = "#$%&@*+=?/<>01";
+        mask = pass === "" && !busy ? "" : Array.from({ length: 10 }, () => g[Math.floor(Math.random() * g.length)]).join("");
+    }
 
     function lock() {
         pass = "";
+        attempt = "";
+        pamMsg = "";
         failed = false;
+        attempts = 0;
         busy = false;
         unlocking = false;
         persist.locked = true;
@@ -40,6 +56,9 @@ Scope {
 
     function submit() {
         if (busy || unlocking || pass === "") return;
+        attempt = pass;
+        pass = "";
+        pamMsg = "";
         busy = true;
         failed = false;
         pam.start();
@@ -55,22 +74,27 @@ Scope {
     PamContext {
         id: pam
         onPamMessage: {
-            if (responseRequired) respond(root.pass);
+            if (responseRequired) respond(root.attempt);
+            else root.pamMsg = (root.pamMsg + " " + message).trim();
         }
         onCompleted: result => {
-            root.busy = false;
             if (result === PamResult.Success) {
+                root.attempt = "";
+                root.busy = false;
                 root.unlocking = true;
-            } else {
-                root.pass = "";
-                root.failed = true;
-            }
+            } else root.fail();
         }
-        onError: {
-            root.busy = false;
-            root.pass = "";
-            root.failed = true;
-        }
+        onError: root.fail()
+    }
+
+    // PAM can fire both error and completed for one failure; the busy guard counts it once.
+    // pass only holds keys typed during the check, so it's kept for the retry
+    function fail() {
+        if (!busy) return;
+        attempt = "";
+        busy = false;
+        attempts++;
+        failed = true;
     }
 
     SystemClock { id: clock; precision: SystemClock.Seconds }
@@ -103,6 +127,59 @@ Scope {
             readonly property string chKind: /\.(mp4|webm|mkv|mov)$/i.test(chUrl) ? "video"
                 : /\.(gif|webp)$/i.test(chUrl) ? "anim" : "image"
             property real power: 0
+            // everything the TV and the HUD both animate lives here, so both copies stay in sync
+            property real noise: 1
+            property real shake: 0
+            property real errShow: 0
+            property real strobe: 0
+            property int hackLines: 0
+            property real hackProgress: 0
+            property bool granted: false
+            property bool blink: true
+            readonly property string failText: root.pamMsg ? root.pamMsg.toUpperCase()
+                : "BLACK ICE // AUTH FAILURE " + String(root.attempts).padStart(2, "0")
+
+            // 0 = Neon Room (the TV), 1 = Netrunner HUD (full screen); random per lock, swaps every 30s
+            property int look: Math.random() < 0.5 ? 0 : 1
+            property real hudShow: look
+
+            NumberAnimation on noise { from: 1; to: 0; duration: 900; easing.type: Easing.OutQuad }
+            Timer { interval: 530; repeat: true; running: true; onTriggered: surf.blink = !surf.blink }
+
+            Timer {
+                interval: 30000; repeat: true
+                running: !root.unlocking
+                onTriggered: (surf.look ? toRoom : toHud).restart()
+            }
+            // dive into the TV screen and come out as the HUD
+            SequentialAnimation {
+                id: toHud
+                ParallelAnimation {
+                    NumberAnimation { target: scene; property: "zoom"; to: 3.4; duration: 650; easing.type: Easing.InCubic }
+                    NumberAnimation { target: surf; property: "noise"; to: 0.6; duration: 650; easing.type: Easing.InQuad }
+                }
+                PropertyAction { target: tear; property: "visible"; value: true }
+                PropertyAction { target: surf; property: "look"; value: 1 }
+                NumberAnimation { target: surf; property: "hudShow"; to: 1; duration: 200 }
+                PropertyAction { target: scene; property: "zoom"; value: 1 }
+                PauseAnimation { duration: 150 }
+                PropertyAction { target: tear; property: "visible"; value: false }
+                NumberAnimation { target: surf; property: "noise"; to: 0; duration: 400; easing.type: Easing.OutQuad }
+            }
+            // drop out of the HUD back through the screen and pull out to the room
+            SequentialAnimation {
+                id: toRoom
+                PropertyAction { target: tear; property: "visible"; value: true }
+                NumberAnimation { target: surf; property: "noise"; to: 0.6; duration: 120 }
+                PropertyAction { target: scene; property: "zoom"; value: 3.4 }
+                PropertyAction { target: surf; property: "look"; value: 0 }
+                NumberAnimation { target: surf; property: "hudShow"; to: 0; duration: 200 }
+                PropertyAction { target: tear; property: "visible"; value: false }
+                ParallelAnimation {
+                    NumberAnimation { target: scene; property: "zoom"; to: 1; duration: 750; easing.type: Easing.OutCubic }
+                    NumberAnimation { target: surf; property: "noise"; to: 0; duration: 750; easing.type: Easing.OutQuad }
+                }
+            }
 
             function flip(d) {
                 dir = d;
@@ -115,6 +192,7 @@ Scope {
             Item {
                 id: scene
                 anchors.fill: parent
+                visible: surf.hudShow < 1
                 property real zoom: 1
 
                 transform: Scale {
@@ -143,13 +221,16 @@ Scope {
                     saturation: -0.4
                 }
 
+                LockRoom { anchors.fill: parent }
+
                 // light spill from the screen
                 Rectangle {
                     id: spill
                     anchors.centerIn: tv
                     width: surf.tvW * 1.25; height: surf.tvH * 1.1
                     radius: height / 2
-                    color: surf.chWall ? surf.chWall.accent : Rice.accent
+                    color: surf.errShow > 0 ? "#ff003c" : root.unlocking ? "#7cff6b"
+                        : surf.chWall ? surf.chWall.accent : Rice.accent
                     visible: false
                 }
                 MultiEffect {
@@ -159,7 +240,7 @@ Scope {
                     blurEnabled: true
                     blur: 1
                     blurMax: 120
-                    opacity: 0.16
+                    opacity: 0.26
                 }
 
                 // table
@@ -203,6 +284,7 @@ Scope {
                         GradientStop { position: 1; color: "#1a1513" }
                     }
                     border.color: "#4c3e35"; border.width: 2
+                    transform: Translate { x: surf.shake }
                     layer.enabled: true
                     layer.effect: MultiEffect {
                         shadowEnabled: true
@@ -239,43 +321,9 @@ Scope {
                                 Item {
                                     id: channel
                                     anchors.fill: parent
-                                    Loader {
+                                    LockChannel {
                                         anchors.fill: parent
-                                        sourceComponent: surf.chKind === "video" ? videoChannel
-                                            : surf.chKind === "anim" ? animChannel : imageChannel
-                                    }
-                                    Component {
-                                        id: videoChannel
-                                        Item {
-                                            VideoOutput {
-                                                id: vo
-                                                anchors.fill: parent
-                                                fillMode: VideoOutput.PreserveAspectCrop
-                                            }
-                                            // no audioOutput: the lock screen stays silent
-                                            MediaPlayer {
-                                                source: surf.chUrl
-                                                videoOutput: vo
-                                                loops: MediaPlayer.Infinite
-                                                onSourceChanged: play()
-                                                Component.onCompleted: play()
-                                            }
-                                        }
-                                    }
-                                    Component {
-                                        id: animChannel
-                                        AnimatedImage {
-                                            source: surf.chUrl
-                                            fillMode: Image.PreserveAspectCrop
-                                        }
-                                    }
-                                    Component {
-                                        id: imageChannel
-                                        Image {
-                                            source: surf.chUrl
-                                            fillMode: Image.PreserveAspectCrop
-                                            sourceSize: Qt.size(width, height)
-                                        }
+                                        url: surf.chUrl
                                     }
                                     Text {
                                         id: chLabel
@@ -294,6 +342,14 @@ Scope {
                                             NumberAnimation { to: 0; duration: 300 }
                                         }
                                     }
+
+                                    // inside the channel so the CRT shader tears it up
+                                    LockAlerts {
+                                        anchors.fill: parent
+                                        view: surf
+                                        hacking: root.unlocking
+                                        failText: surf.failText
+                                    }
                                 }
                                 ShaderEffectSource { id: channelTex; sourceItem: channel; hideSource: true }
 
@@ -302,24 +358,23 @@ Scope {
                                     anchors.fill: parent
                                     property var src: channelTex
                                     property real time: 0
-                                    property real noise: 1
+                                    property real noise: surf.noise
                                     fragmentShader: Qt.resolvedUrl("shaders/crt.frag.qsb")
                                     NumberAnimation on time { from: 0; to: 10000; duration: 10000000; loops: Animation.Infinite }
-                                    NumberAnimation on noise { from: 1; to: 0; duration: 900; easing.type: Easing.OutQuad }
                                 }
 
                                 SequentialAnimation {
                                     id: flick
-                                    NumberAnimation { target: crt; property: "noise"; to: 1; duration: 110 }
+                                    NumberAnimation { target: surf; property: "noise"; to: 1; duration: 110 }
                                     ScriptAction { script: { surf.ch += surf.dir; chFlash.restart(); } }
                                     PauseAnimation { duration: 90 }
-                                    NumberAnimation { target: crt; property: "noise"; to: 0; duration: 420; easing.type: Easing.OutQuad }
+                                    NumberAnimation { target: surf; property: "noise"; to: 0; duration: 420; easing.type: Easing.OutQuad }
                                 }
                                 Timer {
                                     id: chTimer
                                     interval: 9000
                                     repeat: true
-                                    running: surf.chCount > 1 && !root.unlocking
+                                    running: surf.chCount > 1 && !root.unlocking && surf.errShow === 0
                                     onTriggered: surf.flip(1)
                                 }
 
@@ -328,6 +383,7 @@ Scope {
                                     anchors.horizontalCenter: parent.horizontalCenter
                                     y: parent.height * 0.1
                                     spacing: 2
+                                    visible: surf.errShow === 0 && !root.unlocking
 
                                     Row {
                                         anchors.horizontalCenter: parent.horizontalCenter
@@ -373,10 +429,11 @@ Scope {
                                     anchors.verticalCenter: parent.verticalCenter
                                     anchors.verticalCenterOffset: parent.height * 0.14
                                     spacing: 12
+                                    visible: surf.errShow === 0 && !root.unlocking
 
                                     Text {
                                         anchors.horizontalCenter: parent.horizontalCenter
-                                        text: root.busy ? "Verifying..." : "Enter password"
+                                        text: root.busy ? "DECRYPTING..." : "ENTER PASSWORD"
                                         font.family: Rice.pixel
                                         font.pixelSize: 20
                                         color: "white"
@@ -390,7 +447,6 @@ Scope {
                                         color: "#e6000000"
                                         border.width: 2
                                         border.color: root.failed ? "#ff003c" : (input.activeFocus ? "white" : "#666")
-                                        transform: Translate { id: shake }
 
                                         Text {
                                             anchors.left: parent.left
@@ -398,10 +454,16 @@ Scope {
                                             anchors.right: dot.left
                                             anchors.verticalCenter: parent.verticalCenter
                                             clip: true
-                                            text: "*".repeat(root.pass.length) + (caret.on ? "_" : " ")
+                                            text: root.mask + (surf.blink && !root.busy ? "_" : " ")
                                             font.family: Rice.pixel
                                             font.pixelSize: 18
-                                            color: "white"
+                                            color: root.busy ? Rice.accent : "white"
+                                        }
+                                        // keep the gibberish churning while PAM thinks
+                                        Timer {
+                                            interval: 60; repeat: true
+                                            running: root.busy
+                                            onTriggered: root.scramble()
                                         }
                                         Rectangle {
                                             id: dot
@@ -411,17 +473,15 @@ Scope {
                                             width: 8; height: 8; radius: 4
                                             color: root.failed ? "#ff003c" : "white"
                                         }
-                                        Timer {
-                                            id: caret
-                                            property bool on: true
-                                            interval: 530; repeat: true; running: true
-                                            onTriggered: on = !on
-                                        }
                                     }
 
                                     Text {
                                         anchors.horizontalCenter: parent.horizontalCenter
-                                        text: "ACCESS DENIED"
+                                        width: glass.width * 0.8
+                                        horizontalAlignment: Text.AlignHCenter
+                                        wrapMode: Text.WordWrap
+                                        text: root.pamMsg ? root.pamMsg.toUpperCase()
+                                            : "ACCESS DENIED  //  ATTEMPT " + String(root.attempts).padStart(2, "0")
                                         visible: root.failed
                                         font.family: Rice.pixel
                                         font.pixelSize: 14
@@ -431,11 +491,35 @@ Scope {
                                 }
 
                                 SequentialAnimation {
-                                    id: shakeAnim
-                                    NumberAnimation { target: shake; property: "x"; to: -14; duration: 50 }
-                                    NumberAnimation { target: shake; property: "x"; to: 12; duration: 70 }
-                                    NumberAnimation { target: shake; property: "x"; to: -8; duration: 60 }
-                                    NumberAnimation { target: shake; property: "x"; to: 0; duration: 60 }
+                                    id: errAnim
+                                    PropertyAction { target: surf; property: "errShow"; value: 1 }
+                                    ParallelAnimation {
+                                        SequentialAnimation {
+                                            loops: 3
+                                            PropertyAction { target: surf; property: "strobe"; value: 0.9 }
+                                            PauseAnimation { duration: 60 }
+                                            PropertyAction { target: surf; property: "strobe"; value: 0 }
+                                            PauseAnimation { duration: 90 }
+                                        }
+                                        // signal tearing via the CRT shader
+                                        SequentialAnimation {
+                                            loops: 4
+                                            NumberAnimation { target: surf; property: "noise"; to: 0.55; duration: 40 }
+                                            NumberAnimation { target: surf; property: "noise"; to: 0.05; duration: 230 }
+                                        }
+                                        SequentialAnimation {
+                                            NumberAnimation { target: surf; property: "shake"; to: -16; duration: 40 }
+                                            NumberAnimation { target: surf; property: "shake"; to: 14; duration: 60 }
+                                            NumberAnimation { target: surf; property: "shake"; to: -9; duration: 60 }
+                                            NumberAnimation { target: surf; property: "shake"; to: 5; duration: 60 }
+                                            NumberAnimation { target: surf; property: "shake"; to: 0; duration: 60 }
+                                        }
+                                    }
+                                    PauseAnimation { duration: 700 }
+                                    ParallelAnimation {
+                                        NumberAnimation { target: surf; property: "errShow"; to: 0; duration: 200 }
+                                        NumberAnimation { target: surf; property: "noise"; to: 0; duration: 200 }
+                                    }
                                 }
 
                                 Rectangle {
@@ -548,6 +632,44 @@ Scope {
                 }
             }
 
+            LockHud {
+                anchors.fill: parent
+                view: surf
+                lock: root
+                date: clock.date
+                opacity: surf.hudShow
+                visible: opacity > 0
+            }
+
+            // look-swap glitch: torn colour bars that jump around
+            Item {
+                id: tear
+                anchors.fill: parent
+                visible: false
+                Repeater {
+                    id: bars
+                    model: 8
+                    Rectangle {
+                        required property int index
+                        color: ["#00f0ff", "#ff2a9d", "white", Rice.accent][index % 4]
+                        opacity: 0.35
+                    }
+                }
+                Timer {
+                    interval: 40; repeat: true; triggeredOnStart: true
+                    running: tear.visible
+                    onTriggered: {
+                        for (let i = 0; i < bars.count; i++) {
+                            const b = bars.itemAt(i);
+                            b.height = surf.height * (0.005 + Math.random() * 0.05);
+                            b.y = Math.random() * surf.height;
+                            b.width = surf.width * (0.3 + Math.random() * 0.7);
+                            b.x = Math.random() * (surf.width - b.width);
+                        }
+                    }
+                }
+            }
+
             Rectangle {
                 id: blackout
                 anchors.fill: parent
@@ -557,16 +679,27 @@ Scope {
 
             SequentialAnimation {
                 running: root.unlocking
+                // run the breach, flash ACCESS GRANTED, then switch the set off like an old CRT
                 ParallelAnimation {
-                    NumberAnimation { target: scene; property: "zoom"; to: 3.4; duration: 750; easing.type: Easing.InCubic }
-                    NumberAnimation { target: blackout; property: "opacity"; to: 1; duration: 750; easing.type: Easing.InQuart }
+                    NumberAnimation { target: surf; property: "hackLines"; from: 0; to: 5; duration: 900 }
+                    NumberAnimation { target: surf; property: "hackProgress"; from: 0; to: 1; duration: 1000; easing.type: Easing.InOutQuad }
+                    NumberAnimation { target: surf; property: "noise"; from: 0.5; to: 0; duration: 350; easing.type: Easing.OutQuad }
+                }
+                PropertyAction { target: surf; property: "granted"; value: true }
+                NumberAnimation { target: surf; property: "noise"; from: 0.6; to: 0; duration: 350; easing.type: Easing.OutQuad }
+                PauseAnimation { duration: 500 }
+                NumberAnimation { target: surf; property: "power"; to: 0; duration: 480; easing.type: Easing.InCubic }
+                PauseAnimation { duration: 120 }
+                ParallelAnimation {
+                    NumberAnimation { target: scene; property: "zoom"; to: 3.4; duration: 650; easing.type: Easing.InCubic }
+                    NumberAnimation { target: blackout; property: "opacity"; to: 1; duration: 650; easing.type: Easing.InQuart }
                 }
                 ScriptAction { script: persist.locked = false }
             }
 
             Connections {
                 target: root
-                function onFailedChanged() { if (root.failed) shakeAnim.restart(); }
+                function onFailedChanged() { if (root.failed) errAnim.restart(); }
                 function onPassChanged() { if (input.text !== root.pass) input.text = root.pass; }
             }
 

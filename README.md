@@ -9,7 +9,8 @@ a radial dial swaps posters, and the lock screen is an old CRT TV flipping throu
 - **Poster wallpaper**: 14 Edgerunners / Cyberpunk 2077 posters, each with its own accent colour and huge serif name.
   Hover to reveal colours under the cursor, click to flip the whole poster with a glitch.
 - **Wallpaper dial**: radial picker with fade, wipe, grow, outer, clock or random transitions.
-- **CRT lock screen**: a TV in a dark room playing video/GIF channels, live clock, zoom-into-the-tube unlock.
+- **CRT lock screen**: rotates between a TV in a rainy neon room and a full-screen netrunner HUD, diving through
+  the screen to swap. Skull ERROR screen on a wrong password, breach-protocol hack on the right one.
 - **Music player**: halftone overlay with spinning album art and a zigzag seek bar.
 - **Matching apps**: waybar pills, fuzzel, mako, Dolphin/Qt, GTK, yazi, btop, fastfetch, kitty, alacritty, Zen, Vesktop.
 - **Login screen** (optional): the same CRT TV as an SDDM theme.
@@ -77,6 +78,7 @@ In the dial: arrows, `H`/`J`/`K`/`L` or scroll rotate it, `Tab` changes the tran
 ### Lock screen
 
 `Mod+Shift+L` (or the power menu). Type your password and press `Enter`; `Up`/`Down` flip TV channels.
+The password length is never shown, and a lockout (3 wrong tries by default) is spelled out on screen.
 If Quickshell isn't running, swaylock takes over.
 
 ### Music player
